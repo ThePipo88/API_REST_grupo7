@@ -35,4 +35,11 @@ public class Accion implements Serializable {
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)
     private Date fechaCreacion;
+
+    @Column(name = "descripcion", length = 250)
+    private String descripcion;
+
+    @Column
+    private boolean estado;
+
 }
