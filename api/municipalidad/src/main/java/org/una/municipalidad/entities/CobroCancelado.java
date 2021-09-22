@@ -1,40 +1,34 @@
 package org.una.municipalidad.entities;
 
-
-import java.io.Serializable;
-import java.util.Date;
-
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-@Table(name = "acciones")
+@Table(name = "cobrosCancelados")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
-public class Accion implements Serializable {
+public class CobroCancelado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="usuarios_id")
-    private Usuario usuario;
-
-    @Column(name = "objeto", length = 45)
-    private String objeto;
-
-    @Column(name = "accion", length = 45)
-    private String accion;
+    @JoinColumn(name="cobrosGenerados_id")
+    private CobroGenerado cobroGenerado;
 
     @Column(name = "fecha_creacion", updatable = false)
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)
     private Date fechaCreacion;
+
+    @Column(name = "descripcion", length = 50)
+    private String descripcion;
 
     private static final long serialVersionUID = 1L;
 
@@ -46,4 +40,5 @@ public class Accion implements Serializable {
     @PreUpdate
     public void preUpdate() {
     }
+
 }
