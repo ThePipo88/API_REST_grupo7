@@ -19,10 +19,6 @@ public class ParqueOrnato {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="usuarios_id")
-    private Usuario usuario;
-
-    @ManyToOne
     @JoinColumn(name="servicios_id")
     private Servicio servicio;
 
@@ -43,12 +39,4 @@ public class ParqueOrnato {
 
     private static final long serialVersionUID = 1L;
 
-    @PrePersist
-    public void prePersist() {
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-
-    }
 }
