@@ -19,11 +19,10 @@ public class CobroGenerado implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /*
     @ManyToOne
     @JoinColumn(name="contribuyente_id")
     private Contribuyente contribuyente;
-    */
+
     @ManyToOne
     @JoinColumn(name="usuario_id")
     private Usuario usuario;

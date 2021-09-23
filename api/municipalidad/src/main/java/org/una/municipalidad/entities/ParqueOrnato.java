@@ -19,6 +19,10 @@ public class ParqueOrnato {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name="usuarios_id")
+    private Usuario usuario;
+
+    @ManyToOne
     @JoinColumn(name="servicios_id")
     private Servicio servicio;
 

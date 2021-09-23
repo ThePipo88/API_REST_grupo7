@@ -36,4 +36,14 @@ public class Accion implements Serializable {
     @Setter(AccessLevel.NONE)
     private Date fechaCreacion;
 
+    private static final long serialVersionUID = 1L;
+
+    @PrePersist
+    public void prePersist() {
+        fechaCreacion = new Date();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+    }
 }

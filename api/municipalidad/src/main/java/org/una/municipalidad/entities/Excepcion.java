@@ -18,6 +18,10 @@ public class Excepcion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name="usuarios_id")
+    private Usuario usuario;
+
     @Column(name = "descripcion", length = 250)
     private String descripcion;
 

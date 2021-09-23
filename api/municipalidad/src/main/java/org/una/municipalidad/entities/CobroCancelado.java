@@ -4,7 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cobrosCancelados")
@@ -19,9 +21,12 @@ public class CobroCancelado implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="cobrosGenerados_id")
+    @OneToOne
+    @JoinColumn(name="cobros_generados_id")
     private CobroGenerado cobroGenerado;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cobroCancelado")
+    private List<Recibo> recibos = new ArrayList<>();
 
     @Column(name = "fecha_creacion", updatable = false)
     @Temporal(TemporalType.DATE)
@@ -41,5 +46,4 @@ public class CobroCancelado implements Serializable {
     @PreUpdate
     public void preUpdate() {
     }
-
 }

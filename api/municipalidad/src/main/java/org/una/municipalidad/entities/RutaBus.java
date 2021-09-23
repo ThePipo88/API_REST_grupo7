@@ -3,6 +3,7 @@ package org.una.municipalidad.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "ruta_buses")
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 @Builder
-public class RutaBus {
+public class RutaBus implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +33,6 @@ public class RutaBus {
 
     @Column(name = "estado", length = 10)
     private String estado;
+
+    private static final long serialVersionUID = 1L;
 }

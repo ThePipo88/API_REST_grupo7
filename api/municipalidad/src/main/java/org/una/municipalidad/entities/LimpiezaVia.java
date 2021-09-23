@@ -18,6 +18,10 @@ public class LimpiezaVia implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name="usuarios_id")
+    private Usuario usuario;
+
     @Column(name = "provincia", length = 100)
     private String provincia;
 

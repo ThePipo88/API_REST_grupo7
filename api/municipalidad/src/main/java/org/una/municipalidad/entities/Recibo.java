@@ -20,6 +20,10 @@ public class Recibo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name="cobro_cancelado_id")
+    private CobroCancelado cobroCancelado;
+
     @Column(name = "fecha_emicion", updatable = false)
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)
