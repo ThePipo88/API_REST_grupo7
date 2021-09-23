@@ -7,32 +7,28 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "excepciones")
+@Table(name = "recibo")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
-public class Excepcion implements Serializable {
+
+public class Recibo implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "descripcion", length = 250)
-    private String descripcion;
-
-    @Column(name = "estado", length = 10)
-    private String estado;
-
-    @Column(name = "fecha_creacion", updatable = false)
+    @Column(name = "fecha_emicion", updatable = false)
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)
-    private Date fechaCreacion;
+    private Date fechaEmision;
 
     private static final long serialVersionUID = 1L;
 
     @PrePersist
     public void prePersist() {
-        fechaCreacion = new Date();
+        fechaEmision = new Date();
     }
 }
