@@ -4,7 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "cobros_generados")
@@ -20,6 +22,7 @@ public class CobroGenerado implements Serializable {
     private Long id;
 
     @ManyToOne
+    //@MapsId
     @JoinColumn(name="contribuyente_id")
     private Contribuyente contribuyente;
 
@@ -31,6 +34,9 @@ public class CobroGenerado implements Serializable {
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)
     private Date fechaCobro;
+
+    @OneToOne (mappedBy = "cobroGenerado")
+    private CobroCancelado cobroCancelado;
 
     @Column(length = 100, name = "monto")
     private Double monto;

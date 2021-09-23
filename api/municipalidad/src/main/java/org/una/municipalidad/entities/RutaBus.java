@@ -22,8 +22,6 @@ public class RutaBus implements Serializable {
     @JoinColumn(name="servicio_id")
     private Servicio servicio;
 
-
-
     @Column(name = "inicio", length = 100)
     private String start;
 
