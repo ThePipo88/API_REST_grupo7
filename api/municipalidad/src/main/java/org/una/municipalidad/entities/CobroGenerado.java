@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "cobrosgenerados")
+@Table(name = "cobros_generados")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

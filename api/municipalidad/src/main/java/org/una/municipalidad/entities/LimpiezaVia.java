@@ -13,7 +13,7 @@ import java.io.Serializable;
 @ToString
 @Builder
 
-public class Limpieza_Via implements Serializable {
+public class LimpiezaVia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
