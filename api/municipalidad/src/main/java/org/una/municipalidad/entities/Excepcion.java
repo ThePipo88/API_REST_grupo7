@@ -34,6 +34,5 @@ public class Excepcion {
     @PrePersist
     public void prePersist() {
         fechaCreacion = new Date();
-
     }
 }
