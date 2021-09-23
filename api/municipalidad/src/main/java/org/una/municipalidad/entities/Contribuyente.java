@@ -42,6 +42,4 @@ public class Contribuyente implements Serializable {
     public void prePersist() {
         fechaNacimiento = new Date();
     }
-
-
 }
