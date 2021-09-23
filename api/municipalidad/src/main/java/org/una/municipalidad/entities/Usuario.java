@@ -4,7 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -48,6 +50,18 @@ public class Usuario implements Serializable {
     @ManyToOne
     @JoinColumn(name="usuarios_id")
     private Usuario usuarioJefe;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<Excepcion> excepciones = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<CobroGenerado> cobroGenerados = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<Accion> acciones = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioJefe")
+    private List<Usuario> usuarios = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
 

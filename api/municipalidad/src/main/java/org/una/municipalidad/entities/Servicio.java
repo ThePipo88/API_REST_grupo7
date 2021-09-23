@@ -44,7 +44,7 @@ public class Servicio implements Serializable {
     private List<ParqueOrnato> parquesOrnatos = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio")
-    private List<ContribuyenteServicio> contribuyenteServicios = new ArrayList<>();\
+    private List<ContribuyenteServicio> contribuyenteServicios = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
 

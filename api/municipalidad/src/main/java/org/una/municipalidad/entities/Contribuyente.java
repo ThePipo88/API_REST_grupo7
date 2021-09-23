@@ -4,7 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "contribuyente")
@@ -25,6 +27,9 @@ public class Contribuyente implements Serializable {
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)
     private Date fechaNacimiento;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "contribuyente")
+    private List<ContribuyenteServicio> servicios = new ArrayList<>();
 
     @Column(name = "direccion", length = 300)
     private String direccion;
