@@ -19,8 +19,8 @@ public class LimpiezaVia implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="usuarios_id")
-    private Usuario usuario;
+    @JoinColumn(name="servicio_id")
+    private Servicio servicio;
 
     @Column(name = "provincia", length = 100)
     private String provincia;
