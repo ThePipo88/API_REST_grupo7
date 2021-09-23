@@ -3,6 +3,7 @@ package org.una.municipalidad.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -12,8 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @Builder
-
-public class Excepcion {
+public class Excepcion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

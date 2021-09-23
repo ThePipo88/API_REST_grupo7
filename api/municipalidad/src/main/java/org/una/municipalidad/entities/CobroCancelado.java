@@ -3,6 +3,7 @@ package org.una.municipalidad.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -12,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @Builder
-public class CobroCancelado {
+public class CobroCancelado implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

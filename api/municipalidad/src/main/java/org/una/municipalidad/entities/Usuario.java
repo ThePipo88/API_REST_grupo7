@@ -45,6 +45,10 @@ public class Usuario implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaModificacion;
 
+    @ManyToOne
+    @JoinColumn(name="usuarios_id")
+    private Usuario usuarioJefe;
+
     private static final long serialVersionUID = 1L;
 
 

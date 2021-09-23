@@ -19,12 +19,13 @@ public class CobroGenerado implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-   /* @ManyToOne
-    @JoinColumn(name="contribuyente_id")
-    private Contribuyente contribuyente;*/
-
+    /*
     @ManyToOne
     @JoinColumn(name="contribuyente_id")
+    private Contribuyente contribuyente;
+    */
+    @ManyToOne
+    @JoinColumn(name="usuario_id")
     private Usuario usuario;
 
     @Column(name = "fecha_cobro", updatable = false)
@@ -35,5 +36,15 @@ public class CobroGenerado implements Serializable {
     @Column(length = 100, name = "monto")
     private Double monto;
 
+    private static final long serialVersionUID = 1L;
+
+    @PrePersist
+    public void prePersist() {
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        fechaCobro= new Date();
+    }
 
 }
