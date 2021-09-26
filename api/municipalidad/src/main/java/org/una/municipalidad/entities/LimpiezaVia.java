@@ -34,14 +34,11 @@ public class LimpiezaVia implements Serializable {
     @Column(name = "direccion", length = 100)
     private String direccion;
 
-    @Column(name = "geolocalizacion", length = 100)
-    private String geolocalizacion;
-
     @Column(name = "zona", length = 100)
     private String zona;
 
     @Column(name = "metros_frente", length = 100)
-    private String metrosFrente;
+    private Double metrosFrente;
 
     private static final long serialVersionUID = 1L;
 }

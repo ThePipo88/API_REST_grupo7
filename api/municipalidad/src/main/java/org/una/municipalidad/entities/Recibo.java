@@ -35,4 +35,5 @@ public class Recibo implements Serializable {
     public void prePersist() {
         fechaEmision = new Date();
     }
+
 }

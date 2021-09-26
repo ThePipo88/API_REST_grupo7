@@ -34,6 +34,9 @@ public class Servicio implements Serializable {
     @Column(name = "descripcion", length = 50)
     private String descripcion;
 
+    @Column(name = "estado", length = 2)
+    private String estado;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio")
     private List<RutaBus> buses = new ArrayList<>();
 

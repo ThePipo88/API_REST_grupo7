@@ -34,8 +34,8 @@ public class ParqueOrnato {
     @Column(name = "direccion", length = 10)
     private String direccion;
 
-    @Column(name = "responsable")
-    private Double responsable;
+    @Column(name = "valor_terreno")
+    private Double valorTerreno;
 
     private static final long serialVersionUID = 1L;
 
