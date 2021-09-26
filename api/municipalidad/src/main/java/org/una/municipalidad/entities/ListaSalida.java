@@ -22,13 +22,11 @@ public class ListaSalida implements Serializable {
     @JoinColumn(name="ruta_buses_id")
     private RutaBus rutaBus;
 
-    @Column(name = "cantidad", length = 100)
-    private String cantidad;
+    @Column(name = "dia", length = 100)
+    private String dia;
 
-    @Column(name = "inicio", length = 100)
-    private String start;
+    @Column(name = "cantidad")
+    private int cantidad;
 
-    @Column(name = "final", length = 100)
-    private String end;
-
+    private static final long serialVersionUID = 1L;
 }

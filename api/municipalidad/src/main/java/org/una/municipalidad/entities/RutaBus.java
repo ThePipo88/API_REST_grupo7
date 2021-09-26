@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ruta_buses")
@@ -22,22 +24,18 @@ public class RutaBus implements Serializable {
     @JoinColumn(name="servicio_id")
     private Servicio servicio;
 
-
     @Column(name = "nombre", length = 100)
     private String nombre;
 
     @Column(name = "inicio", length = 100)
-    private String start;
+    private String inicio;
 
     @Column(name = "final", length = 100)
-    private String end;
+    private String fin;
 
-    @Column(name = "lista_salida", length = 100)
-    private String listaSalida;
-
-
-    @Column(name = "estado", length = 10)
-    private String estado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rutaBus")
+    private List<ListaSalida> salidas = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
+
 }
