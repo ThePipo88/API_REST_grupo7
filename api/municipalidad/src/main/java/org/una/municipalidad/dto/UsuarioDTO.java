@@ -21,7 +21,6 @@ public class UsuarioDTO {
     private Date fechaCreacion;
     private Date fechaModificacion;
     private RolDTO rol;
-    private UsuarioDTO usuarioJefe;
 
 }
 

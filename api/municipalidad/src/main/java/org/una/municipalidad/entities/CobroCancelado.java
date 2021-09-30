@@ -25,8 +25,9 @@ public class CobroCancelado implements Serializable {
     @JoinColumn(name="cobros_generados_id")
     private CobroGenerado cobroGenerado;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cobroCancelado")
-    private List<Recibo> recibos = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name="recibo_id")
+    private Recibo recibo;
 
     @Column(name = "fecha_creacion", updatable = false)
     @Temporal(TemporalType.DATE)

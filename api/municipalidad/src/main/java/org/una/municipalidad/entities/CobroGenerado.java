@@ -23,12 +23,8 @@ public class CobroGenerado implements Serializable {
 
     @ManyToOne
     //@MapsId
-    @JoinColumn(name="contribuyente_id")
-    private Contribuyente contribuyente;
-
-    @ManyToOne
-    @JoinColumn(name="usuario_id")
-    private Usuario usuario;
+    @JoinColumn(name="contribuyenteServicio_id")
+    private ContribuyenteServicio contribuyenteServicio;
 
     @Column(name = "fecha_cobro", updatable = false)
     @Temporal(TemporalType.DATE)

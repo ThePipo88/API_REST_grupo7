@@ -67,13 +67,6 @@ public class UsuarioController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Obtiene una usuario jefe a partir de su id", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuario")
-    @GetMapping("/nombre/{id}")
-    public ResponseEntity<?> findByUsuarioJefeId(@PathVariable(value = "id") Long id) {
-        Optional<List<UsuarioDTO>> result = usuarioService.findByUsuarioJefeId(id);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea un usuario", response = UsuarioDTO.class, tags = "Usuario")
     @PostMapping("/")
@@ -82,6 +75,7 @@ public class UsuarioController {
         Optional<UsuarioDTO> usuarioCreated = Optional.ofNullable(usuarioService.create(usuarioDTO));
         return new ResponseEntity<>(usuarioCreated, HttpStatus.CREATED);
     }
+    
 
     @ApiOperation(value = "Se modifica un usuario a partir de su id", response = UsuarioDTO.class, tags = "Usuario")
     @PutMapping("/{id}")

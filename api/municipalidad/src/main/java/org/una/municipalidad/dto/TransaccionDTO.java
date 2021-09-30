@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @Builder
-public class AccionDTO {
+public class TransaccionDTO {
 
     private Long id;
     Usuario usuario;

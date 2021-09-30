@@ -21,6 +21,19 @@ public class Servicio implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "tipo_servicio", length = 50)
+    private String tipoServicio;
+
+    @Column(name = "descripcion", length = 50)
+    private String descripcion;
+
+    @Column(name = "estado", length = 2)
+    private String estado;
+
+    @ManyToOne
+    @JoinColumn(name="propiedad_id")
+    private Propiedad propiedad;
+
     @Column(name = "fecha_registro", updatable = false)
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)
@@ -31,24 +44,11 @@ public class Servicio implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date ultimaActualizacion;
 
-    @Column(name = "descripcion", length = 50)
-    private String descripcion;
-
-    @Column(name = "estado", length = 2)
-    private String estado;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio")
     private List<RutaBus> buses = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio")
-    private List<LimpiezaVia> limpiezaVias = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio")
-    private List<ParqueOrnato> parquesOrnatos = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio")
     private List<ContribuyenteServicio> contribuyenteServicios = new ArrayList<>();
-
     private static final long serialVersionUID = 1L;
 
     @PrePersist
