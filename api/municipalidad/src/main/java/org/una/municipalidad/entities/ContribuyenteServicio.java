@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "contribuyentes_servicios")
@@ -18,6 +20,9 @@ public class ContribuyenteServicio implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "porcentaje", length = 10)
+    private String porcentaje;
+    
     @ManyToOne
     @JoinColumn(name="contribuyente_id")
     private Contribuyente contribuyente;
@@ -25,4 +30,8 @@ public class ContribuyenteServicio implements Serializable {
     @ManyToOne
     @JoinColumn(name="servicio_id")
     private Servicio servicio;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "contribuyenteServicio")
+    private List<CobroGenerado> cobros = new ArrayList<>();
+
 }

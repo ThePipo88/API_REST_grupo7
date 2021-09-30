@@ -4,10 +4,12 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "recibo")
+@Table(name = "recibos")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,9 +22,17 @@ public class Recibo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="cobro_cancelado_id")
-    private CobroCancelado cobroCancelado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recibo")
+    private List<CobroCancelado> cobros = new ArrayList<>();
+
+    @Column(name = "descripcion", length = 250)
+    private String descripcion;
+
+    @Column(name = "contribuyente", length = 250)
+    private String contribuyente;
+
+    @Column(name = "monto_cancelado", length = 250)
+    private String montoCancelado;
 
     @Column(name = "fecha_emicion", updatable = false)
     @Temporal(TemporalType.DATE)

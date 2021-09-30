@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "contribuyente")
+@Table(name = "contribuyentes")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,9 +27,6 @@ public class Contribuyente implements Serializable {
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)
     private Date fechaNacimiento;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "contribuyente")
-    private List<ContribuyenteServicio> servicios = new ArrayList<>();
 
     @Column(name = "direccion", length = 300)
     private String direccion;

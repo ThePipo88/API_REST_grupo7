@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "lista_salida")
+@Table(name = "lista_salidas")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -19,7 +19,7 @@ public class Parametro implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "formula", length = 50)
+    @Column(name = "objeto", length = 50)
     private String formula;
 
     @Column(name = "nombre", length = 50)

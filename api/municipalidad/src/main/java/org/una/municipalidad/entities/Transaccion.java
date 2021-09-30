@@ -9,13 +9,13 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "acciones")
+@Table(name = "transacciones")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
-public class Accion implements Serializable {
+public class Transaccion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

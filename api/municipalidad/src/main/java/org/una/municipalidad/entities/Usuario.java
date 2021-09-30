@@ -47,24 +47,13 @@ public class Usuario implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaModificacion;
 
-    @ManyToOne
-    @JoinColumn(name="usuarios_id")
-    private Usuario usuarioJefe;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Excepcion> excepciones = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<CobroGenerado> cobroGenerados = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<Accion> acciones = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioJefe")
-    private List<Usuario> usuarios = new ArrayList<>();
+    private List<Transaccion> transacciones = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
-
 
     @PrePersist
     public void prePersist() {

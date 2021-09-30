@@ -66,12 +66,6 @@ public class UsuarioServiceImplementation implements IUsuarioService{
         return Optional.ofNullable(MapperUtils.DtoFromEntity(usuario, UsuarioDTO.class));
     }
 
-    @Override
-    public Optional<List<UsuarioDTO>> findByUsuarioJefeId(Long id) {
-        List<Usuario> usuario = usuarioRepository.findByUsuarioJefeId(id);
-        return Optional.ofNullable(MapperUtils.DtoListFromEntityList(usuario, UsuarioDTO.class));
-    }
-
     private UsuarioDTO getSavedUsuarioDTO(UsuarioDTO usuarioDTO) {
         Usuario usuario = MapperUtils.EntityFromDto(usuarioDTO, Usuario.class);
         Usuario usuarioCreated = usuarioRepository.save(usuario);
