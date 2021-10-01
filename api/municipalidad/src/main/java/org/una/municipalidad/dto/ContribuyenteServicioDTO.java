@@ -1,12 +1,10 @@
 package org.una.municipalidad.dto;
 
 import lombok.*;
-import org.una.municipalidad.entities.CobroGenerado;
 import org.una.municipalidad.entities.Contribuyente;
 import org.una.municipalidad.entities.Servicio;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -14,9 +12,9 @@ import java.util.List;
 @ToString
 @Builder
 public class ContribuyenteServicioDTO {
+
     private Long id;
     private String porcentaje;
     private Contribuyente contribuyente;
     private Servicio servicio;
-    private List<CobroGenerado> cobros = new ArrayList<>();
 }

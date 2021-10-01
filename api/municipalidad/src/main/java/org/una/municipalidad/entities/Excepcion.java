@@ -14,6 +14,7 @@ import java.util.Date;
 @ToString
 @Builder
 public class Excepcion implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

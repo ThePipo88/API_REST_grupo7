@@ -1,6 +1,7 @@
 package org.una.municipalidad.dto;
 
 import lombok.*;
+import org.una.municipalidad.entities.Usuario;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,12 +11,12 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @Builder
-public class ParametroDTO {
+public class ExcepcionDTO {
 
     private Long id;
-    private String formula;
-    private String nombre;
-    private boolean estado;
+    private Usuario usuario;
+    private String descripcion;
+    private String estado;
     private Date fechaCreacion;
-    private Date fechaModificacion;
+
 }

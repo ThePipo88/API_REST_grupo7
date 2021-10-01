@@ -4,6 +4,7 @@ import lombok.*;
 import org.una.municipalidad.entities.CobroGenerado;
 import org.una.municipalidad.entities.Recibo;
 
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
@@ -18,4 +19,5 @@ public class CobroCanceladoDTO {
     private Recibo recibo;
     private Date fechaCreacion;
     private String descripcion;
+
 }

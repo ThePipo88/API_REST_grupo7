@@ -9,7 +9,6 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @Builder
-
 public class ContribuyenteDTO {
     private Long id;
     private String nombreCompleto;

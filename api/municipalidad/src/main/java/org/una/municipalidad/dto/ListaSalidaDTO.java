@@ -14,4 +14,5 @@ public class ListaSalidaDTO {
     private RutaBus rutaBus;
     private String dia;
     private int cantidad;
+
 }
