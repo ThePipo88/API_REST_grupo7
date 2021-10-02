@@ -1,13 +1,9 @@
 package org.una.municipalidad.repositories;
 
-import lombok.AccessLevel;
-import lombok.Setter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.una.municipalidad.entities.Propiedad;
 import org.una.municipalidad.entities.Servicio;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
