@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface IServicioRepository extends JpaRepository<Servicio, Long> {
 
-    public List<Servicio> findByServicio(String tipoServicio);
+    public List<Servicio> findByServicio(Long servicio);
 
     public List<Servicio> findByEstado(String estado);
 
