@@ -18,7 +18,7 @@ public interface IReciboService {
 
     public Optional<List<ReciboDTO>> findByFechaEmision(Date fechaEmision);
 
-    public PropiedadDTO create(ReciboDTO reciboDTO);
+    public ReciboDTO create(ReciboDTO reciboDTO);
 
     public Optional<ReciboDTO> update(ReciboDTO reciboDTO, Long id);
 
