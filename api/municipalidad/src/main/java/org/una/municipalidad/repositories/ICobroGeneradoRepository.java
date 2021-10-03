@@ -14,7 +14,7 @@ public interface ICobroGeneradoRepository extends JpaRepository<CobroGenerado, L
 
     public List<CobroGenerado> findByIdCobroGeneradoContainingIgnoreCase(Long id);
 
-    public List<CobroGenerado> findByFechaCobroContainingIgnoreCase(Date fechaCobro);
+    public List<CobroGenerado> findByFechaCobroContainingIgnoreCase(Date startDate, Date endDate);
 
     public List<CobroGenerado> findByMontoDeCobroContainingIgnoreCase(Double monto);
 
