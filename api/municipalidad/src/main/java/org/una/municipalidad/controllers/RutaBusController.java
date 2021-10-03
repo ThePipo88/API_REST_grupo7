@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/rutaBus")
+@RequestMapping("/rutasBus")
 public class RutaBusController {
 
     @Autowired
@@ -32,7 +32,6 @@ public class RutaBusController {
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
         Optional<RutaBusDTO> rutaBusFound = rutaBusService.findById(id);
         return new ResponseEntity<>(rutaBusFound, HttpStatus.OK);
-
     }
 
     @ApiOperation(value = "Obtiene una ruta de bus a partir de su nombre", response = RutaBusDTO.class, tags = "RutaBus")

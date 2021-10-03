@@ -15,7 +15,7 @@ public interface IServicioService {
 
     public Optional<ServicioDTO> findById(Long id);
 
-    public Optional<List<ServicioDTO>> findByServicio(Long servicio);
+    public Optional<List<ServicioDTO>> findByServicio(String servicio);
 
     public Optional<List<ServicioDTO>> findByEstado(String estado);
 

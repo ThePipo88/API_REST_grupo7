@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/listaSalida")
+@RequestMapping("/listaSalidas")
 public class ListaSalidaController {
 
     @Autowired
