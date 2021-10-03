@@ -13,7 +13,7 @@ public interface IContribuyenteService {
 
     public Optional<ContribuyenteDTO> findById(Long id);
 
-    public Optional<List<ContribuyenteDTO>> findNombre(String nombreCompleto);
+    public Optional<List<ContribuyenteDTO>> findByNombreCompletoAproximateIgnoreCase(String nombreCompleto);
 
     public Optional<List<ContribuyenteDTO>> findByFechaNacimientoBetween(Date startDate, Date endDate);
 
@@ -23,7 +23,7 @@ public interface IContribuyenteService {
 
     public Optional<List<ContribuyenteDTO>> findTelefono(String telefono);
 
-    public Optional<ContribuyenteDTO> create(ContribuyenteDTO contribuyenteDTO);
+    public ContribuyenteDTO create(ContribuyenteDTO contribuyenteDTO);
 
     public Optional<ContribuyenteDTO> update(ContribuyenteDTO contribuyenteDTO, Long id);
 

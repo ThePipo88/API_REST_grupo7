@@ -13,6 +13,8 @@ public interface IContribuyenteRepository extends JpaRepository<Contribuyente, L
 
     public List<Contribuyente> findByIdContaining(String id);
 
+    public List<Contribuyente> findByNombreContainingIgnoreCase(String nombreCompleto);
+
     public List<Contribuyente> findByFechaNacimientoContainingIgnoreCase(Date fechaNacimiento);
 
     public List<Contribuyente> findByDireccionContainingIgnoreCase(String direccion);
