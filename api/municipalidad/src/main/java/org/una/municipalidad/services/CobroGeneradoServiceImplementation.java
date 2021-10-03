@@ -2,7 +2,12 @@ package org.una.municipalidad.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.una.municipalidad.dto.CobroGeneradoDTO;
+import org.una.municipalidad.entities.CobroGenerado;
+import org.una.municipalidad.exceptions.NotFoundInformationException;
+import org.una.municipalidad.repositories.ICobroGeneradoRepository;
+import org.una.municipalidad.utils.MapperUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -12,50 +17,81 @@ import java.util.Optional;
 public class CobroGeneradoServiceImplementation implements ICobroGeneradoService{
 
     @Autowired
-    private ICobroGeneradoService cobroGeneradoService;
+    private ICobroGeneradoRepository cobroGeneradoRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<List<CobroGeneradoDTO>> findAll() {
-        return Optional.empty();
+        List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoRepository.findAll(), CobroGeneradoDTO.class);
+        return Optional.ofNullable(cobroGeneradoDTOList);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<CobroGeneradoDTO> findById(Long id) {
-        return Optional.empty();
+        Optional<CobroGenerado> cobroGenerado = cobroGeneradoRepository.findById(id);
+        if (cobroGenerado.isEmpty()) throw new NotFoundInformationException();
+
+        CobroGeneradoDTO cobroGeneradoDTO = MapperUtils.DtoFromEntity(cobroGenerado.get(), CobroGeneradoDTO.class);
+        return Optional.ofNullable(cobroGeneradoDTO);
     }
 
     @Override
-    public Optional<CobroGeneradoDTO> findByMonto(Double monto) {
-        return Optional.empty();
+    @Transactional(readOnly = true)
+    public Optional<List<CobroGeneradoDTO>> findByMonto(Double monto) {
+        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByMontoDeCobroContainingIgnoreCase(monto);
+        List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
+        return Optional.ofNullable(cobroGeneradoDTOList);
     }
 
+
     @Override
+    @Transactional(readOnly = true)
     public Optional<List<CobroGeneradoDTO>> findByObjetoAndFechaCobroBetween(String objetoId, Date startDate, Date endDate) {
-        return Optional.empty();
+        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByFechaCobroContainingIgnoreCase(startDate,endDate);
+        List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
+        return Optional.ofNullable(cobroGeneradoDTOList);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<List<CobroGeneradoDTO>> findByFechaCobroBetween(Date startDate, Date endDate) {
-        return Optional.empty();
+        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByFechaCobroContainingIgnoreCase(startDate,endDate);
+        List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
+        return Optional.ofNullable(cobroGeneradoDTOList);
+    }
+
+
+    private CobroGeneradoDTO getSavedCobroGeneradoDTO(CobroGeneradoDTO cobroGeneradoDTO) {
+        CobroGenerado cobroGenerado = MapperUtils.EntityFromDto(cobroGeneradoDTO, CobroGenerado.class);
+        CobroGenerado cobroGeneradoCreate = cobroGeneradoRepository.save(cobroGenerado);
+        return MapperUtils.DtoFromEntity(cobroGeneradoCreate, CobroGeneradoDTO.class);
     }
 
     @Override
-    public Optional<CobroGeneradoDTO> create(CobroGeneradoDTO cobroGeneradoDTO) {
-        return Optional.empty();
+    @Transactional
+    public CobroGeneradoDTO create(CobroGeneradoDTO cobroGeneradoDTO) {
+        CobroGenerado cobroGenerado = MapperUtils.EntityFromDto(cobroGeneradoDTO, CobroGenerado.class);
+        cobroGenerado = cobroGeneradoRepository.save(cobroGenerado);
+        return MapperUtils.DtoFromEntity(cobroGenerado, CobroGeneradoDTO.class);
     }
 
     @Override
+    @Transactional
     public Optional<CobroGeneradoDTO> update(CobroGeneradoDTO cobroGeneradoDTO, Long id) {
-        return Optional.empty();
+        if (cobroGeneradoRepository.findById(id).isEmpty()) throw new NotFoundInformationException();
+        return Optional.ofNullable(getSavedCobroGeneradoDTO(cobroGeneradoDTO));
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-
+        cobroGeneradoRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public void deleteAll() {
-
+        cobroGeneradoRepository.deleteAll();
     }
 }

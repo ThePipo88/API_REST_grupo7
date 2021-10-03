@@ -15,7 +15,7 @@ public interface IContribuyenteService {
 
     public Optional<List<ContribuyenteDTO>> findByNombreCompletoAproximateIgnoreCase(String nombreCompleto);
 
-    public Optional<List<ContribuyenteDTO>> findByFechaNacimientoBetween(Date startDate, Date endDate);
+    public Optional<List<ContribuyenteDTO>> findByFechaNacimientoBetween(Date fechaNacimiento);
 
     public Optional<List<ContribuyenteDTO>> findCorreo(String correoElectronico);
 

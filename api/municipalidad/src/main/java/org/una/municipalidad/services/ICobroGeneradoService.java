@@ -12,13 +12,13 @@ public interface ICobroGeneradoService {
 
     public Optional<CobroGeneradoDTO> findById(Long id);
 
-    public Optional<CobroGeneradoDTO> findByMonto(Double monto);
+    public Optional<List<CobroGeneradoDTO>> findByMonto(Double monto);
 
     public Optional<List<CobroGeneradoDTO>> findByObjetoAndFechaCobroBetween(String objetoId, Date startDate, Date endDate);
 
     public Optional<List<CobroGeneradoDTO>> findByFechaCobroBetween(Date startDate, Date endDate);
 
-    public Optional<CobroGeneradoDTO> create(CobroGeneradoDTO cobroGeneradoDTO);
+    public CobroGeneradoDTO create(CobroGeneradoDTO cobroGeneradoDTO);
 
     public Optional<CobroGeneradoDTO> update(CobroGeneradoDTO cobroGeneradoDTO, Long id);
 
