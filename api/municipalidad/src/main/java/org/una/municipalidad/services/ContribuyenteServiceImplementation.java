@@ -55,7 +55,7 @@ public class ContribuyenteServiceImplementation implements IContribuyenteService
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ContribuyenteDTO>> findCorreo(String correoElectronico) {
+    public Optional<List<ContribuyenteDTO>> findByCorreo(String correoElectronico) {
         List<Contribuyente> contribuyenteList = contribuyenteRepository.findByCorreoElectronicoContainingIgnoreCase(correoElectronico);
         List<ContribuyenteDTO> contribuyenteDTOList = MapperUtils.DtoListFromEntityList(contribuyenteList, ContribuyenteDTO.class);
         return Optional.ofNullable(contribuyenteDTOList);
@@ -63,7 +63,7 @@ public class ContribuyenteServiceImplementation implements IContribuyenteService
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ContribuyenteDTO>> findDireccion(String direccion) {
+    public Optional<List<ContribuyenteDTO>> findByDireccion(String direccion) {
         List<Contribuyente> contribuyenteList = contribuyenteRepository.findByDireccionContainingIgnoreCase(direccion);
         List<ContribuyenteDTO> contribuyenteDTOList = MapperUtils.DtoListFromEntityList(contribuyenteList, ContribuyenteDTO.class);
         return Optional.ofNullable(contribuyenteDTOList);
@@ -71,7 +71,7 @@ public class ContribuyenteServiceImplementation implements IContribuyenteService
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ContribuyenteDTO>> findTelefono(String telefono) {
+    public Optional<List<ContribuyenteDTO>> findByTelefono(String telefono) {
         List<Contribuyente> contribuyenteList = contribuyenteRepository.findByTelefonoContainingIgnoreCase(telefono);
         List<ContribuyenteDTO> contribuyenteDTOList = MapperUtils.DtoListFromEntityList(contribuyenteList, ContribuyenteDTO.class);
         return Optional.ofNullable(contribuyenteDTOList);

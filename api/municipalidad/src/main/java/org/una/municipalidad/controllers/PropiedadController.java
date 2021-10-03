@@ -56,7 +56,7 @@ public class PropiedadController {
     @ApiOperation(value = "Obtiene una lista de propiedades a partir de su distrito", response = PropiedadDTO.class, responseContainer = "List", tags = "Propiedades")
     @GetMapping("/distrito/{term}")
     public ResponseEntity<?> findByDistrito(@PathVariable(value = "term") String term) {
-        Optional<List<PropiedadDTO>> result = propiedadService.findByCanton(term);
+        Optional<List<PropiedadDTO>> result = propiedadService.findByDistrito(term);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

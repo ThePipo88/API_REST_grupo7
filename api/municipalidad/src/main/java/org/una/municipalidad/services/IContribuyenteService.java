@@ -17,11 +17,11 @@ public interface IContribuyenteService {
 
     public Optional<List<ContribuyenteDTO>> findByFechaNacimientoBetween(Date fechaNacimiento);
 
-    public Optional<List<ContribuyenteDTO>> findCorreo(String correoElectronico);
+    public Optional<List<ContribuyenteDTO>> findByCorreo(String correoElectronico);
 
-    public Optional<List<ContribuyenteDTO>> findDireccion(String direccion);
+    public Optional<List<ContribuyenteDTO>> findByDireccion(String direccion);
 
-    public Optional<List<ContribuyenteDTO>> findTelefono(String telefono);
+    public Optional<List<ContribuyenteDTO>> findByTelefono(String telefono);
 
     public ContribuyenteDTO create(ContribuyenteDTO contribuyenteDTO);
 

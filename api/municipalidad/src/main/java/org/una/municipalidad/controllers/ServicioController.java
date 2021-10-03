@@ -72,7 +72,7 @@ public class ServicioController {
     }
 
     @ApiOperation(value = "Obtiene una lista de servicios a partir de una ultima actualizacion", response = ServicioDTO.class, tags = "Servicios")
-    @GetMapping("/fechaRegistro/{fecha}")
+    @GetMapping("/fechaActualizacion/{fecha}")
     public ResponseEntity<?> findByUltimaActualizacion(@PathVariable(value = "fecha") Date fecha) {
         Optional<List<ServicioDTO>> result = servicioService.findByUltimaActualizacion(fecha);
         return new ResponseEntity<>(result, HttpStatus.OK);
