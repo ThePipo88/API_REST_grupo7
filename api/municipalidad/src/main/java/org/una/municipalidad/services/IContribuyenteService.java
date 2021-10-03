@@ -1,7 +1,6 @@
 package org.una.municipalidad.services;
 
 
-import org.una.municipalidad.dto.CobroGeneradoDTO;
 import org.una.municipalidad.dto.ContribuyenteDTO;
 
 import java.util.Date;
