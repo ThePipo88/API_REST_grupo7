@@ -38,16 +38,16 @@ public class ContribuyenteServiceImplementation implements IContribuyenteService
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ContribuyenteDTO>> findByNombreCompletoAproximateIgnoreCase(String nombreCompleto) {
-        List<Contribuyente> contribuyenteList = contribuyenteRepository.findByNombreContainingIgnoreCase(nombreCompleto);
+    public Optional<List<ContribuyenteDTO>> findByNombreCompletoAproximateIgnoreCase(String nombre) {
+        List<Contribuyente> contribuyenteList = contribuyenteRepository.findByNombreContainingIgnoreCase(nombre);
         List<ContribuyenteDTO> contribuyenteDTOList = MapperUtils.DtoListFromEntityList(contribuyenteList, ContribuyenteDTO.class);
         return Optional.ofNullable(contribuyenteDTOList);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ContribuyenteDTO>> findByFechaNacimientoBetween(Date fechaNacimiento) {
-        List<Contribuyente> contribuyenteList = contribuyenteRepository.findByFechaNacimientoContainingIgnoreCase(fechaNacimiento);
+    public Optional<List<ContribuyenteDTO>> findByFechaNacimiento(Date fechaNacimiento) {
+        List<Contribuyente> contribuyenteList = contribuyenteRepository.findByFechaNacimiento(fechaNacimiento);
         List<ContribuyenteDTO> contribuyenteDTOList = MapperUtils.DtoListFromEntityList(contribuyenteList, ContribuyenteDTO.class);
         return Optional.ofNullable(contribuyenteDTOList);
     }

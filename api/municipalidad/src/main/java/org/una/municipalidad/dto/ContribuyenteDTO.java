@@ -11,7 +11,7 @@ import java.util.Date;
 @Builder
 public class ContribuyenteDTO {
     private Long id;
-    private String nombreCompleto;
+    private String nombre;
     private Date fechaNacimiento;
     private String direccion;
     private String correoElectronico;

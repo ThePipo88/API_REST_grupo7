@@ -1,5 +1,6 @@
 package org.una.municipalidad.controllers;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/servicios")
+@Api(tags = {"Servicios"})
 public class ServicioController {
 
     @Autowired
@@ -45,8 +47,8 @@ public class ServicioController {
 
     @ApiOperation(value = "Obtiene una lista de servicios a de bus a partir de su tipo", response = ServicioDTO.class, tags = "Servicios")
     @GetMapping("/servicio/{term}")
-    public ResponseEntity<?> findByServicio(@PathVariable(value = "term") String term) {
-        Optional<List<ServicioDTO>> result = servicioService.findByServicio(term);
+    public ResponseEntity<?> findBytTipoServicio(@PathVariable(value = "term") String term) {
+        Optional<List<ServicioDTO>> result = servicioService.findByTipoServicio(term);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -65,9 +67,9 @@ public class ServicioController {
     }
 
     @ApiOperation(value = "Obtiene una lista de servicios a partir de una fecha", response = ServicioDTO.class, tags = "Servicios")
-    @GetMapping("/fechaRegistro/{fecha}")
-    public ResponseEntity<?> findByFechaRegitro(@PathVariable(value = "fecha") Date fecha) {
-        Optional<List<ServicioDTO>> result = servicioService.findByFechaRegitro(fecha);
+    @GetMapping("/fechaRegistro/{fechaRegistro}")
+    public ResponseEntity<?> findByFechaRegitro(@PathVariable(value = "fechaRegistro") Date fechaRegistro) {
+        Optional<List<ServicioDTO>> result = servicioService.findByFechaRegistro(fechaRegistro);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

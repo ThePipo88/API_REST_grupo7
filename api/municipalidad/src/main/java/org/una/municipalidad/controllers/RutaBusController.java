@@ -1,5 +1,6 @@
 package org.una.municipalidad.controllers;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/rutasBus")
+@Api(tags = {"RutaBuses"})
 public class RutaBusController {
 
     @Autowired
@@ -50,8 +52,8 @@ public class RutaBusController {
 
     @ApiOperation(value = "Obtiene una ruta de bus a partir de su final", response = RutaBusDTO.class, tags = "RutaBus")
     @GetMapping("/fin/{term}")
-    public ResponseEntity<?> findByFinal(@PathVariable(value = "term") String term) {
-        Optional<List<RutaBusDTO>> result = rutaBusService.findByFinal(term);
+    public ResponseEntity<?> findByFin(@PathVariable(value = "term") String term) {
+        Optional<List<RutaBusDTO>> result = rutaBusService.findByFin(term);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

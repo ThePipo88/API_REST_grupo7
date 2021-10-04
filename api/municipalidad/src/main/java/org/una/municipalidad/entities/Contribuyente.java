@@ -20,8 +20,8 @@ public class Contribuyente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre_completo", length = 100)
-    private String nombreCompleto;
+    @Column(name = "nombre", length = 100)
+    private String nombre;
 
     @Column(name = "fecha_nacimiento", updatable = false)
     @Temporal(TemporalType.DATE)

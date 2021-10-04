@@ -12,7 +12,7 @@ public interface ICobroCanceladoService {
 
     public Optional<CobroCanceladoDTO> findById(Long id);
 
-    public Optional<List<CobroCanceladoDTO>> findByObjetoAndFechaCreacionBetween(String objetoId, Date startDate, Date endDate);
+    //public Optional<List<CobroCanceladoDTO>> findByObjetoAndFechaCreacionBetween(String objetoId, Date startDate);
 
     public Optional<List<CobroCanceladoDTO>> findByFechaCreacionBetween(Date startDate, Date endDate);
 

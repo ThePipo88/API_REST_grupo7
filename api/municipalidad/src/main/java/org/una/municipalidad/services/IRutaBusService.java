@@ -15,7 +15,7 @@ public interface IRutaBusService {
 
     public Optional<List<RutaBusDTO>> findByInicio(String inicio);
 
-    public Optional<List<RutaBusDTO>> findByFinal(String fin);
+    public Optional<List<RutaBusDTO>> findByFin(String fin);
 
     public Optional<RutaBusDTO> create(RutaBusDTO rutaBusDTO);
 

@@ -1,5 +1,6 @@
 package org.una.municipalidad.controllers;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/contribuyentes")
+@Api(tags = {"Contribuyentes"})
 public class ContribuyenteController {
 
     @Autowired
@@ -41,16 +43,16 @@ public class ContribuyenteController {
     }
 
     @GetMapping("/findByNombre/{nombre}")
-    @ApiOperation(value = "Obtiene un contribuyente de acuerdo a su nombre", response = ContribuyenteDTO.class, responseContainer = "ContribuyenteDTO", tags = "Contribuyentes")
+    @ApiOperation(value = "Obtiene un contribuyente de acuerdo a su nombre", response = ContribuyenteDTO.class, responseContainer = "List", tags = "Contribuyentes")
     public ResponseEntity<?> findByNombreCompletoAproximateIgnoreCase(@PathVariable(value = "nombre") String nombre) {
         Optional<List<ContribuyenteDTO>> result = contribuyenteService.findByNombreCompletoAproximateIgnoreCase(nombre);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/findByFecha/{fecha}")
-    @ApiOperation(value = "Obtiene una lista de cotribuyetes de acuerdo a una fecha", response = ContribuyenteDTO.class, responseContainer = "ContribuyenteDTO", tags = "Contribuyentes")
-    public ResponseEntity<?> findByFechaNacimientoBetween(@PathVariable(value = "fecha") Date fecha) {
-        Optional<List<ContribuyenteDTO>> result = contribuyenteService.findByFechaNacimientoBetween(fecha);
+    @GetMapping("/findByFecha/{fechaNacimiento}")
+    @ApiOperation(value = "Obtiene una lista de cotribuyetes de acuerdo a una fecha", response = ContribuyenteDTO.class, responseContainer = "List", tags = "Contribuyentes")
+    public ResponseEntity<?> findByFechaNacimiento(@PathVariable(value = "fechaNacimiento") Date fechaNacimiento) {
+        Optional<List<ContribuyenteDTO>> result = contribuyenteService.findByFechaNacimiento(fechaNacimiento);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

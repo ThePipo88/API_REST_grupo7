@@ -10,8 +10,6 @@ import java.util.List;
 @Repository
 public interface IContribuyenteServicioRepository extends JpaRepository<ContribuyenteServicio, Long> {
 
-    public List<ContribuyenteServicio> findByIdContribuyenteServicio(Long id);
-
-    public List<ContribuyenteServicio> findByPorcentajeServicio(String porcentaje);
+    public List<ContribuyenteServicio> findByPorcentaje(String porcentaje);
 
 }

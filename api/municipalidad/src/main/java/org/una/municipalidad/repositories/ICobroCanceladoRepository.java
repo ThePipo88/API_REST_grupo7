@@ -10,8 +10,6 @@ import java.util.List;
 @Repository
 public interface ICobroCanceladoRepository extends JpaRepository<CobroCancelado, Long> {
 
-    public List<CobroCancelado> findByObjetoAndFechaCreacionBetween(String objetoId, Date startDate, Date endDate);
-
     public List<CobroCancelado> findByFechaCreacionBetween(Date startDate, Date endDate);
 
     public List<CobroCancelado> findByDescripcion(String descripcion);

@@ -39,24 +39,25 @@ public class CobroGeneradoServiceImplementation implements ICobroGeneradoService
     @Override
     @Transactional(readOnly = true)
     public Optional<List<CobroGeneradoDTO>> findByMonto(Double monto) {
-        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByMontoDeCobroContainingIgnoreCase(monto);
+        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByMonto(monto);
         List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
         return Optional.ofNullable(cobroGeneradoDTOList);
     }
 
-
+/*
     @Override
     @Transactional(readOnly = true)
     public Optional<List<CobroGeneradoDTO>> findByObjetoAndFechaCobroBetween(String objetoId, Date startDate, Date endDate) {
-        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByFechaCobroContainingIgnoreCase(startDate,endDate);
+        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByObjetoAndFechaCobroBetween(objetoId,startDate,endDate);
         List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
         return Optional.ofNullable(cobroGeneradoDTOList);
     }
+*/
 
     @Override
     @Transactional(readOnly = true)
     public Optional<List<CobroGeneradoDTO>> findByFechaCobroBetween(Date startDate, Date endDate) {
-        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByFechaCobroContainingIgnoreCase(startDate,endDate);
+        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByFechaCobroBetween(startDate,endDate);
         List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
         return Optional.ofNullable(cobroGeneradoDTOList);
     }

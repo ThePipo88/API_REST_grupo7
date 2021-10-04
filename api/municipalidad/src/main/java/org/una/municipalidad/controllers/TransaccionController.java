@@ -36,13 +36,6 @@ public class TransaccionController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/byRollAndFecha/{id}/{startDate}/{endDate}")
-    @ApiOperation(value = "Obtiene una lista de transacciones de acuerdo al roll y fecha de creacion", response = TransaccionDTO.class, responseContainer = "TransaccionDto", tags = "Transacciones")
-    public ResponseEntity<?> findByRolIdAndFechaCreacionBetween(@PathVariable(value = "id") Long id, @PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
-        Optional<List<TransaccionDTO>> result = transaccionService.findByRolIdAndFechaCreacionBetween(id,startDate,endDate);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
     @GetMapping("/byObjetoAndFecha/{id}/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de transacciones de acuerdo al objeto y fecha de creacion", response = TransaccionDTO.class, responseContainer = "TransaccionDto", tags = "Transacciones")
     public ResponseEntity<?> findByObjetoAndFechaCreacionBetween(@PathVariable(value = "id") String id, @PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {

@@ -10,13 +10,13 @@ import java.util.List;
 @Repository
 public interface IServicioRepository extends JpaRepository<Servicio, Long> {
 
-    public List<Servicio> findByServicio(String servicio);
+    public List<Servicio> findByTipoServicio(String tipoServicio);
 
     public List<Servicio> findByEstado(String estado);
 
     public List<Servicio> findByPropiedad(Long id);
 
-    public List<Servicio> findByFechaRegitro(Date fechaRegistro);
+    public List<Servicio> findByFechaRegistro(Date fechaRegistro);
 
     public List<Servicio> findByUltimaActualizacion(Date ultimaActualizacion);
 

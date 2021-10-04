@@ -39,14 +39,6 @@ public class TransaccionServiceImplemetation implements ITransaccionService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<TransaccionDTO>> findByRolIdAndFechaCreacionBetween(Long rolId, Date startDate, Date endDate) {
-        List<Transaccion> transaccionList = transaccionRepository.findByRolIdAndFechaCreacionBetween(rolId,startDate,endDate);
-        List<TransaccionDTO> transaccionDTOList = MapperUtils.DtoListFromEntityList(transaccionList, TransaccionDTO.class);
-        return Optional.ofNullable(transaccionDTOList);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public Optional<List<TransaccionDTO>> findByObjetoAndFechaCreacionBetween(String objetoId, Date startDate, Date endDate) {
         List<Transaccion> transaccionList = transaccionRepository.findByObjetoAndFechaCreacionBetween(objetoId,startDate,endDate);
         List<TransaccionDTO> transaccionDTOList = MapperUtils.DtoListFromEntityList(transaccionList, TransaccionDTO.class);

@@ -13,5 +13,5 @@ public interface IRutaBusRepository extends JpaRepository<RutaBus, Long> {
 
     public List<RutaBus> findByInicio(String inicio);
 
-    public List<RutaBus> findByFinal(String fin);
+    public List<RutaBus> findByFin(String fin);
 }
