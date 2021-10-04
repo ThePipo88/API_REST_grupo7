@@ -23,7 +23,7 @@ public class SwaggerConfiguration {
                 .select()
                 .apis(
                         RequestHandlerSelectors
-                                .basePackage("org.una.inventario.controllers"))
+                                .basePackage("org.una.municipalidad.controllers"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo())
@@ -35,8 +35,8 @@ public class SwaggerConfiguration {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "Inventario de Activos",
-                "Rest API sobre Inventario de Activos.",
+                "Sistema de cobros municipales",
+                "Rest API sobre sistema de cobros municipales.",
                 "Versión:1.2.0",
                 "https://una.ac.cr/api/inventario",
                 new Contact("UNA Sede Región Brunca", "https://srb.una.ac.cr/index.php/es/", "decanatosrb@una.cr"),

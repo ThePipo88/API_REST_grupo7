@@ -11,6 +11,7 @@ import java.util.List;
 public interface IRolRepository extends JpaRepository<Rol, Long> {
 
     public List<Rol> findByEstado(boolean estado);
+
     public List<Rol> findByFechaCreacionBetween(Date startDate, Date endDate);
 
 }

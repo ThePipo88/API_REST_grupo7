@@ -1,5 +1,6 @@
 package org.una.municipalidad.controllers;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/contribuyentesServicios")
+@Api(tags = {"ContribuyentesServicios"})
 public class ContribuyenteServicioController {
 
     @Autowired
@@ -36,7 +38,7 @@ public class ContribuyenteServicioController {
     @GetMapping("/ByPorcentaje/{porcentaje}")
     @ApiOperation(value = "Obtiene un contribuyente de acuerdo a su porcentaje de servicio", response = ContribuyenteServicioDTO.class, responseContainer = "ContribuyenteServicioDTO", tags = "ContribuyenteServicio")
     public ResponseEntity<?> findByPorcentaje(@PathVariable(value = "porcentaje") String porcentaje) {
-        Optional<ContribuyenteServicioDTO> contribuyenteServicioFound = contribuyenteServicioService.findByPorcentaje(porcentaje);
+        Optional<List<ContribuyenteServicioDTO>> contribuyenteServicioFound = contribuyenteServicioService.findByPorcentaje(porcentaje);
         return new ResponseEntity<>(contribuyenteServicioFound, HttpStatus.OK);
     }
 

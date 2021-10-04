@@ -34,7 +34,7 @@ public class Servicio implements Serializable {
     @JoinColumn(name="propiedad_id")
     private Propiedad propiedad;
 
-    @Column(name = "fecha_registro", updatable = false)
+    @Column(name = "fechaRegistro", updatable = false)
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)
     private Date fechaRegistro;
@@ -49,6 +49,7 @@ public class Servicio implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio")
     private List<ContribuyenteServicio> contribuyenteServicios = new ArrayList<>();
+
     private static final long serialVersionUID = 1L;
 
     @PrePersist

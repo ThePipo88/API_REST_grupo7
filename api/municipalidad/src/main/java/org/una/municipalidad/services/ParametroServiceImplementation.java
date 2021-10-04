@@ -63,7 +63,7 @@ public class ParametroServiceImplementation implements IParametroService{
     @Override
     @Transactional(readOnly = true)
     public Optional<List<ParametroDTO>> findByFechaCreacionBetween(Date startDate, Date endDate) {
-        List<Parametro> parametroList = parametroRepository.findByFechaCracion(startDate,endDate);
+        List<Parametro> parametroList = parametroRepository.findByFechaCreacionBetween(startDate,endDate);
         List<ParametroDTO> parametroDTOList = MapperUtils.DtoListFromEntityList(parametroList, ParametroDTO.class);
         return Optional.ofNullable(parametroDTOList);
     }
@@ -71,7 +71,7 @@ public class ParametroServiceImplementation implements IParametroService{
     @Override
     @Transactional(readOnly = true)
     public Optional<List<ParametroDTO>> findByFechaModificacionBetween(Date startDate, Date endDate) {
-        List<Parametro> parametroList = parametroRepository.findByFechaModificacion(startDate,endDate);
+        List<Parametro> parametroList = parametroRepository.findByFechaModificacionBetween(startDate,endDate);
         List<ParametroDTO> parametroDTOList = MapperUtils.DtoListFromEntityList(parametroList, ParametroDTO.class);
         return Optional.ofNullable(parametroDTOList);
     }

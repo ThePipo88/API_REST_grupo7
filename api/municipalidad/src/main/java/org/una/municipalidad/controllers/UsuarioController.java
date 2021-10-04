@@ -1,5 +1,6 @@
 package org.una.municipalidad.controllers;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +15,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
+@Api(tags = {"Usuarios"})
 public class UsuarioController {
 
     @Autowired
     private IUsuarioService usuarioService;
-
 
     @ApiOperation(value = "Obtiene una lista de todos los Usuarios", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuarios")
     @GetMapping()

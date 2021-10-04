@@ -1,5 +1,6 @@
 package org.una.municipalidad.controllers;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/recibos")
+@Api(tags = {"Recibos"})
 public class ReciboController {
 
     @Autowired

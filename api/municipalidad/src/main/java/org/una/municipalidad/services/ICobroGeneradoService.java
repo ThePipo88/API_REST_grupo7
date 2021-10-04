@@ -14,7 +14,7 @@ public interface ICobroGeneradoService {
 
     public Optional<List<CobroGeneradoDTO>> findByMonto(Double monto);
 
-    public Optional<List<CobroGeneradoDTO>> findByObjetoAndFechaCobroBetween(String objetoId, Date startDate, Date endDate);
+    //public Optional<List<CobroGeneradoDTO>> findByObjetoAndFechaCobroBetween(String objetoId, Date startDate, Date endDate);
 
     public Optional<List<CobroGeneradoDTO>> findByFechaCobroBetween(Date startDate, Date endDate);
 

@@ -15,13 +15,13 @@ public interface IServicioService {
 
     public Optional<ServicioDTO> findById(Long id);
 
-    public Optional<List<ServicioDTO>> findByServicio(String servicio);
+    public Optional<List<ServicioDTO>> findByTipoServicio(String servicio);
 
     public Optional<List<ServicioDTO>> findByEstado(String estado);
 
     public Optional<List<ServicioDTO>> findByPropiedad(Long id);
 
-    public Optional<List<ServicioDTO>> findByFechaRegitro(Date fechaRegistro);
+    public Optional<List<ServicioDTO>> findByFechaRegistro(Date fechaRegistro);
 
     public Optional<List<ServicioDTO>> findByUltimaActualizacion(Date ultimaActualizacion);
 

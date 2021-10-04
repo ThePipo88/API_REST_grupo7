@@ -1,6 +1,8 @@
 package org.una.municipalidad.controllers;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +17,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/parametros")
+@Api(tags = {"Parametros"})
 public class ParametroController {
 
+    @Autowired
     private IParametroService parametroService;
 
     @ApiOperation(value = "Obtiene una lista de todos los parametros", response = ParametroDTO.class, responseContainer = "List", tags = "Parametro")
@@ -63,7 +67,7 @@ public class ParametroController {
     }
 
     @GetMapping("/findByFechaModificacionBetween/{startDate}/{endDate}")
-    @ApiOperation(value = "Obtiene una lista de cobros cancelados de acuerdo a su fecha de modificacion", response = ParametroDTO.class, responseContainer = "ParametroDTO", tags = "Parametro")
+    @ApiOperation(value = "Obtiene una lista de cobros cancelados de acuerdo a su fecha de modificacion", response = ParametroDTO.class, responseContainer = "List", tags = "Parametros")
     public ResponseEntity<?> findByFechaModificacionBetween(@PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
         Optional<List<ParametroDTO>> result = parametroService.findByFechaModificacionBetween(startDate,endDate);
         return new ResponseEntity<>(result, HttpStatus.OK);

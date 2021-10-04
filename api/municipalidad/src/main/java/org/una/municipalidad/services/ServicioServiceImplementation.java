@@ -43,8 +43,8 @@ public class ServicioServiceImplementation implements IServicioService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ServicioDTO>> findByServicio(String servicio) {
-        List<Servicio> servicioList = servicioRepository.findByServicio(servicio);
+    public Optional<List<ServicioDTO>> findByTipoServicio(String servicio) {
+        List<Servicio> servicioList = servicioRepository.findByTipoServicio(servicio);
         List<ServicioDTO> servicioDTOList = MapperUtils.DtoListFromEntityList(servicioList, ServicioDTO.class);
         return Optional.ofNullable(servicioDTOList);
     }
@@ -67,8 +67,8 @@ public class ServicioServiceImplementation implements IServicioService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ServicioDTO>> findByFechaRegitro(Date fechaRegistro) {
-        List<Servicio> servicioList = servicioRepository.findByFechaRegitro(fechaRegistro);
+    public Optional<List<ServicioDTO>> findByFechaRegistro(Date fechaRegistro) {
+        List<Servicio> servicioList = servicioRepository.findByFechaRegistro(fechaRegistro);
         List<ServicioDTO> servicioDTOList = MapperUtils.DtoListFromEntityList(servicioList, ServicioDTO.class);
         return Optional.ofNullable(servicioDTOList);
     }

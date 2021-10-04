@@ -17,7 +17,7 @@ public interface IParametroRepository extends JpaRepository<Parametro, Long> {
 
     public List<Parametro> findByEstado(boolean estado);
 
-    public List<Parametro> findByFechaCracion(Date startDate, Date endDate);
+    public List<Parametro> findByFechaCreacionBetween(Date startDate, Date endDate);
 
-    public List<Parametro> findByFechaModificacion(Date startDate, Date endDate);
+    public List<Parametro> findByFechaModificacionBetween(Date startDate, Date endDate);
 }

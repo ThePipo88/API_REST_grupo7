@@ -14,7 +14,7 @@ public interface IContribuyenteServicioService {
 
     public Optional<ContribuyenteServicioDTO> findById(Long id);
 
-    public Optional<ContribuyenteServicioDTO> findByPorcentaje(String porcentaje);
+    public Optional<List<ContribuyenteServicioDTO>> findByPorcentaje(String porcentaje);
 
     public Optional<ContribuyenteServicioDTO> findByContribuyente(Contribuyente contribuyente);
 

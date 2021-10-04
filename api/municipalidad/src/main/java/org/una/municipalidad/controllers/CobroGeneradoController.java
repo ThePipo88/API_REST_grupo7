@@ -1,5 +1,6 @@
 package org.una.municipalidad.controllers;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/cobrosGenerados")
-
+@Api(tags = {"CobrosGenerados"})
 public class CobroGeneradoController {
     @Autowired
     private ICobroGeneradoService cobroGeneradoService;
@@ -41,14 +42,14 @@ public class CobroGeneradoController {
         Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByMonto(term);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
+     /*
     @GetMapping("/ByObjetoAndFechaCobroBetween/{id}/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo al objeto y fecha de Cobro", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
     public ResponseEntity<?> findByObjetoAndFechaCobroBetween(@PathVariable(value = "id") String id, @PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
         Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByObjetoAndFechaCobroBetween(id,startDate,endDate);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
+     */
     @GetMapping("/ByFechaCobroBetween/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a su fecha de cobro", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
     public ResponseEntity<?> findByFechaCobroBetween(@PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {

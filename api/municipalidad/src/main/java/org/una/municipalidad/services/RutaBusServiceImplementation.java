@@ -53,8 +53,8 @@ public class RutaBusServiceImplementation implements IRutaBusService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<RutaBusDTO>> findByFinal(String fin) {
-        List<RutaBus> rutaBusList = rutaBusRepository.findByFinal(fin);
+    public Optional<List<RutaBusDTO>> findByFin(String fin) {
+        List<RutaBus> rutaBusList = rutaBusRepository.findByFin(fin);
         List<RutaBusDTO> rutaBusDTOList = MapperUtils.DtoListFromEntityList(rutaBusList, RutaBusDTO.class);
         return Optional.ofNullable(rutaBusDTOList);
     }
