@@ -6,6 +6,7 @@ import org.una.municipalidad.entities.Cementerio;
 import org.una.municipalidad.entities.Servicio;
 import java.util.List;
 
+@Repository
 public interface ICementerioRepository extends JpaRepository<Cementerio, Long>{
     public List<Cementerio> findBySector(String sector);
 
@@ -13,4 +14,4 @@ public interface ICementerioRepository extends JpaRepository<Cementerio, Long>{
 
     public List<Cementerio> findByFin(String fin);
 }
-}
+

@@ -27,10 +27,10 @@ public class Cementerio implements Serializable{
     @Column(name = "sector", length = 100)
     private String sector;
 
-    @Column(name = "esta_ocupuado", length = 100)
+    @Column(name = "esta_ocupado", length = 100)
     private String esta_ocupado;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cementerio")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "  ")
     private List<TipoDerecho> tipoDerecho = new ArrayList<>();
     private static final long serialVersionUID = 1L;
 

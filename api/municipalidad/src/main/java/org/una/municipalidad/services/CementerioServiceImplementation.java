@@ -1,11 +1,10 @@
 package org.una.municipalidad.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.municipalidad.dto.CementerioDTO;
-import org.una.municipalidad.dto.RutaBusDTO;
 import org.una.municipalidad.entities.Cementerio;
-import org.una.municipalidad.entities.RutaBus;
 import org.una.municipalidad.exceptions.NotFoundInformationException;
 import org.una.municipalidad.repositories.ICementerioRepository;
 import org.una.municipalidad.utils.MapperUtils;
@@ -13,6 +12,7 @@ import org.una.municipalidad.utils.MapperUtils;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CementerioServiceImplementation implements  ICementerioService{
 
     @Autowired
@@ -30,61 +30,51 @@ public class CementerioServiceImplementation implements  ICementerioService{
         Optional<Cementerio> cementerio = cementerioRepository.findById(id);
         if (cementerio.isEmpty()) throw new NotFoundInformationException();
 
-        CementerioDTO cementerioDTO = MapperUtils.DtoFromEntity(cementerioDTO.get(), CementerioDTO.class);
+        CementerioDTO cementerioDTO = MapperUtils.DtoFromEntity(cementerio.get(), CementerioDTO.class);
         return Optional.ofNullable(cementerioDTO);
     }
     @Override
     @Transactional(readOnly = true)
     public Optional<List<CementerioDTO>> findBySector(String sector) {
-        List<CementerioDTO> cementerioDTOList = cementerioRepository.findBySector(sector);
-        List<CementerioDTO> cementerioDTOList = MapperUtils.DtoListFromEntityList(rutaBusList, RutaBusDTO.class);
-        return Optional.ofNullable(rutaBusDTOList);
+        List<Cementerio> cementerioList = cementerioRepository.findBySector(sector);
+        List<CementerioDTO> cementerioDTOList = MapperUtils.DtoListFromEntityList(cementerioList, CementerioDTO.class);
+        return Optional.ofNullable(cementerioDTOList);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<RutaBusDTO>> findByInicio(String inicio) {
-        List<RutaBus> rutaBusList = rutaBusRepository.findByInicio(inicio);
-        List<RutaBusDTO> rutaBusDTOList = MapperUtils.DtoListFromEntityList(rutaBusList, RutaBusDTO.class);
-        return Optional.ofNullable(rutaBusDTOList);
-    }
-    @Override
-    public Optional<List<CementerioDTO>> findAll() {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<CementerioDTO> findById(Long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<List<CementerioDTO>> findBySector(String sector) {
-        return Optional.empty();
-    }
-
-    @Override
     public Optional<List<CementerioDTO>> findByOcupado(String esta_ocupado) {
-        return Optional.empty();
+        List<Cementerio> cementerioList = cementerioRepository.findByOcupado(esta_ocupado);
+        List<CementerioDTO> cementerioDTOList = MapperUtils.DtoListFromEntityList(cementerioList, CementerioDTO.class);
+        return Optional.ofNullable(cementerioDTOList);
     }
 
+
     @Override
+    @Transactional
     public Optional<CementerioDTO> create(CementerioDTO cementerioDTO) {
-        return Optional.empty();
+        return Optional.ofNullable(getSavedCementerioDTO(cementerioDTO));
     }
 
     @Override
+    @Transactional
     public Optional<CementerioDTO> update(CementerioDTO cementerioDTO, Long id) {
-        return Optional.empty();
+        if (cementerioRepository.findById(id).isEmpty()) throw new NotFoundInformationException();
+
+        return Optional.ofNullable(getSavedCementerioDTO(cementerioDTO));
     }
 
     @Override
-    public void delete(Long id) {
-
-    }
+    @Transactional
+    public void delete(Long id) {cementerioRepository.deleteById(id);}
 
     @Override
-    public void deleteAll() {
+    @Transactional
+    public void deleteAll() {cementerioRepository.deleteAll();}
 
+    private CementerioDTO getSavedCementerioDTO(CementerioDTO cementerioDTO) {
+        Cementerio cementerio = MapperUtils.EntityFromDto(cementerioDTO, Cementerio.class);
+        Cementerio cementerioCreated = cementerioRepository.save(cementerio);
+        return MapperUtils.DtoFromEntity(cementerioCreated, CementerioDTO.class);
     }
 }

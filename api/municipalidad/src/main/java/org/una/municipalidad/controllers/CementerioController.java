@@ -7,17 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.una.municipalidad.dto.RutaBusDTO;
-import org.una.municipalidad.services.IRutaBusService;
-
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.una.municipalidad.dto.CobroCanceladoDTO;
 import org.una.municipalidad.dto.CementerioDTO;
 import org.una.municipalidad.services.ICementerioService;
 
