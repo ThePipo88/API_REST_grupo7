@@ -27,11 +27,13 @@ public class Cementerio implements Serializable{
     @Column(name = "sector", length = 100)
     private String sector;
 
-    @Column(name = "esta_ocupado", length = 100)
-    private String esta_ocupado;
+    @Column(name = "ocupado", length = 100)
+    private String ocupado;
 
+    /*
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "  ")
     private List<TipoDerecho> tipoDerecho = new ArrayList<>();
     private static final long serialVersionUID = 1L;
-
+    */
+    private static final long serialVersionUID = 1L;
 }

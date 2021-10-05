@@ -8,10 +8,10 @@ import java.util.List;
 
 @Repository
 public interface ICementerioRepository extends JpaRepository<Cementerio, Long>{
+
     public List<Cementerio> findBySector(String sector);
 
-    public List<Cementerio> findByOcupado(String esta_ocuapado);
+    public List<Cementerio> findByOcupado(String ocupado);
 
-    public List<Cementerio> findByFin(String fin);
 }
 

@@ -43,8 +43,8 @@ public class CementerioServiceImplementation implements  ICementerioService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<CementerioDTO>> findByOcupado(String esta_ocupado) {
-        List<Cementerio> cementerioList = cementerioRepository.findByOcupado(esta_ocupado);
+    public Optional<List<CementerioDTO>> findByOcupado(String ocupado) {
+        List<Cementerio> cementerioList = cementerioRepository.findByOcupado(ocupado);
         List<CementerioDTO> cementerioDTOList = MapperUtils.DtoListFromEntityList(cementerioList, CementerioDTO.class);
         return Optional.ofNullable(cementerioDTOList);
     }
