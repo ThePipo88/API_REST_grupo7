@@ -15,8 +15,7 @@ public interface ICementerioService {
 
     public Optional<List<CementerioDTO>> findBySector(String sector);
 
-    public Optional<List<CementerioDTO>> findByOcupado(String esta_ocupado);
-
+    public Optional<List<CementerioDTO>> findByOcupado(String ocupado);
 
     public Optional<CementerioDTO> create(CementerioDTO cementerioDTO);
 
