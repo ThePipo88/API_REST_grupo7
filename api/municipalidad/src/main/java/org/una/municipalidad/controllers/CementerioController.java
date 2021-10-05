@@ -40,10 +40,10 @@ import org.una.municipalidad.services.ICementerioService;
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
-        @ApiOperation(value = "Obtiene una ruta de bus a partir de si esta ocupado ", response = CementerioDTO.class, tags = "Cementerio")
-        @GetMapping("/esta_ocupado/{term}")
-        public ResponseEntity<?> findByInicio(@PathVariable(value = "term") String term) {
-            Optional<List<CementerioDTO>> result = cementerioService.findByOcupado(term);
+        @ApiOperation(value = "Obtiene una ruta de bus a partir de si esta ocupado ", response = CementerioDTO.class, responseContainer = "List", tags = "Cementerio")
+        @GetMapping("/ByOcupado/{ocupado}")
+        public ResponseEntity<?> findByOcupado(@PathVariable(value = "ocupado") String ocupado) {
+            Optional<List<CementerioDTO>> result = cementerioService.findByOcupado(ocupado);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
