@@ -7,9 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.UsuarioDTO;
-import org.una.municipalidad.services.DataInitializerServiceImplementation;
 import org.una.municipalidad.services.IUsuarioService;
-import org.una.municipalidad.dto.UsuarioDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,9 +19,6 @@ public class UsuarioController {
 
     @Autowired
     private IUsuarioService usuarioService;
-
-    @Autowired
-    private DataInitializerServiceImplementation dataInitializerServiceImplementation;
 
     @ApiOperation(value = "Obtiene una lista de todos los Usuarios", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuarios")
     @GetMapping()
@@ -47,7 +42,6 @@ public class UsuarioController {
         try {
 
             UsuarioDTO usuario = new UsuarioDTO();
-            dataInitializerServiceImplementation.initDevelopData();
             Optional<UsuarioDTO> usuarioFound = usuarioService.login(cedula, password);
             if (usuarioFound.isPresent()) {
                 return new ResponseEntity<>(usuarioFound, HttpStatus.OK);
