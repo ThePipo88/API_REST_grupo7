@@ -1,6 +1,5 @@
 package org.una.municipalidad.controllers;
 
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.ListaSalidaDTO;
 import org.una.municipalidad.services.IListaSalidaService;
-
 import java.util.List;
 import java.util.Optional;
 
