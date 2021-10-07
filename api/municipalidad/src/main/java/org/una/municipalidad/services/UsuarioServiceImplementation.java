@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioServiceImplementation implements IUsuarioService{
+public class UsuarioServiceImplementation implements IUsuarioService , IUserDetailsService{
 
     @Autowired
     private IUsuarioRepository usuarioRepository;
@@ -105,4 +105,33 @@ public class UsuarioServiceImplementation implements IUsuarioService{
         Usuario usuario = usuarioRepository.findByCedulaAndPasswordEncriptado(cedula, password);
         return Optional.ofNullable(MapperUtils.DtoFromEntity(usuario, UsuarioDTO.class));
     }
+<<<<<<< Updated upstream
+=======
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private String encriptarPassword(String password) throws PasswordIsBlankException {
+        if (!password.isBlank()) {
+            return bCryptPasswordEncoder.encode(password);
+        }else{
+            throw new PasswordIsBlankException();
+        }
+    } // TODO: Piense donde se debe llamar esta función
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Usuario> usuarioBuscado = Optional.ofNullable(usuarioRepository.findByCedula(username));
+        if (usuarioBuscado.isPresent()) {
+            Usuario usuario = usuarioBuscado.get();
+            List<GrantedAuthority> roles = new ArrayList<>();
+            roles.add(new SimpleGrantedAuthority("ADMIN"));
+            UserDetails userDetails = new User(usuario.getCedula(), usuario.getPasswordEncriptado(), roles);
+            return userDetails;
+        } else {
+            throw new UsernameNotFoundException("Username not found, check your request");
+        }
+    }
+
+>>>>>>> Stashed changes
 }
