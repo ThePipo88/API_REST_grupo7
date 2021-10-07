@@ -124,8 +124,7 @@ public class UsuarioServiceImplementation implements IUsuarioService, UserDetail
         }else{
             return null;
         }
-    } // TODO: Piense donde se debe llamar esta función
-
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
