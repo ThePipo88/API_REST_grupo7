@@ -73,7 +73,7 @@ public class UsuarioController {
     @PostMapping("/")
     @ResponseBody
     public ResponseEntity<?> create(@RequestBody UsuarioDTO usuarioDTO) {
-        Optional<UsuarioDTO> usuarioCreated = Optional.ofNullable(usuarioService.create(usuarioDTO));
+        Optional<UsuarioDTO> usuarioCreated = usuarioService.create(usuarioDTO);
         return new ResponseEntity<>(usuarioCreated, HttpStatus.CREATED);
     }
     
