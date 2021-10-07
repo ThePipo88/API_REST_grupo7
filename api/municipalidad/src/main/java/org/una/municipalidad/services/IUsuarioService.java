@@ -1,8 +1,6 @@
 package org.una.municipalidad.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.una.municipalidad.dto.UsuarioDTO;
 
 import java.util.List;
@@ -22,7 +20,7 @@ public interface IUsuarioService {
 
     public Optional<UsuarioDTO> findNombreCompletoWithLikeSQL(@Param("nombreCompleto")String nombreCompleto);
 
-    public UsuarioDTO create(UsuarioDTO usuarioDTO);
+    public Optional<UsuarioDTO> create(UsuarioDTO usuarioDTO);
 
     public Optional<UsuarioDTO> update(UsuarioDTO usuarioDTO, Long id);
 

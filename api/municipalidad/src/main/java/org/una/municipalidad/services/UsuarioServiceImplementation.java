@@ -1,12 +1,12 @@
 package org.una.municipalidad.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,10 +23,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioServiceImplementation implements IUsuarioService{
+public class UsuarioServiceImplementation implements IUsuarioService, UserDetailsService {
 
     @Autowired
     private IUsuarioRepository usuarioRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     @Transactional(readOnly = true)
@@ -83,10 +86,10 @@ public class UsuarioServiceImplementation implements IUsuarioService{
 
     @Override
     @Transactional
-    public UsuarioDTO create(UsuarioDTO usuarioDTO) {
-        Usuario usuario = MapperUtils.EntityFromDto(usuarioDTO, Usuario.class);
-        usuario = usuarioRepository.save(usuario);
-        return MapperUtils.DtoFromEntity(usuario, UsuarioDTO.class);
+    public Optional<UsuarioDTO> create(UsuarioDTO usuarioDTO) {
+        String pEncriptado = encriptarPassword(usuarioDTO.getPasswordEncriptado());
+        usuarioDTO.setPasswordEncriptado(pEncriptado);
+        return Optional.ofNullable(getSavedUsuarioDTO(usuarioDTO));
     }
 
     @Override
@@ -113,19 +116,29 @@ public class UsuarioServiceImplementation implements IUsuarioService{
     public Optional<UsuarioDTO> login(String cedula, String password) {
         Usuario usuario = usuarioRepository.findByCedulaAndPasswordEncriptado(cedula, password);
         return Optional.ofNullable(MapperUtils.DtoFromEntity(usuario, UsuarioDTO.class));
-
-
     }
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private String encriptarPassword(String password) throws PasswordIsBlankException {
+    private String encriptarPassword(String password) {
         if (!password.isBlank()) {
             return bCryptPasswordEncoder.encode(password);
         }else{
-            throw new PasswordIsBlankException();
+            return null;
         }
     } // TODO: Piense donde se debe llamar esta función
 
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Usuario> usuarioBuscado = Optional.ofNullable(usuarioRepository.findByCedula(username));
+        if (usuarioBuscado.isPresent()) {
+            Usuario usuario = usuarioBuscado.get();
+            List<GrantedAuthority> roles = new ArrayList<>();
+            roles.add(new SimpleGrantedAuthority("ADMIN"));
+            UserDetails userDetails = new User(usuario.getCedula(), usuario.getPasswordEncriptado(), roles);
+            return userDetails;
+        } else {
+            throw new UsernameNotFoundException("Username not found, check your request");
+        }
+    }
 
 }
