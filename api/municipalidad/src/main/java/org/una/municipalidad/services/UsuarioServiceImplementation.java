@@ -1,20 +1,29 @@
 package org.una.municipalidad.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.municipalidad.dto.UsuarioDTO;
 import org.una.municipalidad.entities.Usuario;
 import org.una.municipalidad.exceptions.NotFoundInformationException;
+import org.una.municipalidad.exceptions.PasswordIsBlankException;
 import org.una.municipalidad.repositories.IUsuarioRepository;
 import org.una.municipalidad.utils.MapperUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioServiceImplementation implements IUsuarioService , IUserDetailsService{
+public class UsuarioServiceImplementation implements IUsuarioService{
 
     @Autowired
     private IUsuarioRepository usuarioRepository;
@@ -104,9 +113,9 @@ public class UsuarioServiceImplementation implements IUsuarioService , IUserDeta
     public Optional<UsuarioDTO> login(String cedula, String password) {
         Usuario usuario = usuarioRepository.findByCedulaAndPasswordEncriptado(cedula, password);
         return Optional.ofNullable(MapperUtils.DtoFromEntity(usuario, UsuarioDTO.class));
+
+
     }
-<<<<<<< Updated upstream
-=======
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -119,19 +128,4 @@ public class UsuarioServiceImplementation implements IUsuarioService , IUserDeta
     } // TODO: Piense donde se debe llamar esta función
 
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Usuario> usuarioBuscado = Optional.ofNullable(usuarioRepository.findByCedula(username));
-        if (usuarioBuscado.isPresent()) {
-            Usuario usuario = usuarioBuscado.get();
-            List<GrantedAuthority> roles = new ArrayList<>();
-            roles.add(new SimpleGrantedAuthority("ADMIN"));
-            UserDetails userDetails = new User(usuario.getCedula(), usuario.getPasswordEncriptado(), roles);
-            return userDetails;
-        } else {
-            throw new UsernameNotFoundException("Username not found, check your request");
-        }
-    }
-
->>>>>>> Stashed changes
 }

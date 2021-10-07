@@ -14,6 +14,18 @@ import java.util.Optional;
 
 public interface IUserDetailsService   {
 
-    UserDetails loadUserByUsername(String var1) throws UsernameNotFoundException;
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Usuario> usuarioBuscado = IUsuarioRepository.findByCedula(username);
+        if (usuarioBuscado.isPresent()) {
+            Usuario usuario = usuarioBuscado.get();
+            List<GrantedAuthority> roles = new ArrayList<>();
+            roles.add(new SimpleGrantedAuthority("ADMIN"));
+            UserDetails userDetails = new User(usuario.getCedula(), usuario.getPasswordEncriptado(), roles);
+            return userDetails;
+        } else {
+            throw new UsernameNotFoundException("Username not found, check your request");
+        }
+    }
 
 }

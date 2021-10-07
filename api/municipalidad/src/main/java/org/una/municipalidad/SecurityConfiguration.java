@@ -16,7 +16,7 @@ import org.una.municipalidad.services.UsuarioServiceImplementation;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UsuarioServiceImplementation usuarioService;
+    private UsuarioServiceImplementation userService;
 
     @Autowired
     private BCryptPasswordEncoder bCrypt;
@@ -29,7 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(usuarioService).passwordEncoder(bCrypt);
+        authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(bCrypt);
     }
 
     @Override
