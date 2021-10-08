@@ -1,14 +1,16 @@
 package org.una.municipalidad.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.una.municipalidad.dto.ReciboDTO;
-import org.una.municipalidad.dto.RutaBusDTO;
-import org.una.municipalidad.dto.ServicioDTO;
+import org.una.municipalidad.dto.*;
 import org.una.municipalidad.entities.Recibo;
 import org.una.municipalidad.entities.RutaBus;
 import org.una.municipalidad.entities.Servicio;
+import org.una.municipalidad.entities.Usuario;
 import org.una.municipalidad.exceptions.NotFoundInformationException;
 import org.una.municipalidad.repositories.IRutaBusRepository;
 import org.una.municipalidad.repositories.IServicioRepository;
