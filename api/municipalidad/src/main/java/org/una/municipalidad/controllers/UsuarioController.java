@@ -5,10 +5,16 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.una.municipalidad.dto.AuthenticationRequest;
+import org.una.municipalidad.dto.AuthenticationResponse;
 import org.una.municipalidad.dto.UsuarioDTO;
+import org.una.municipalidad.exceptions.InvalidCredentialsException;
+import org.una.municipalidad.exceptions.MissingInputsException;
 import org.una.municipalidad.services.IUsuarioService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,20 +44,18 @@ public class UsuarioController {
     @ApiOperation(value = "Inicio de sesión para conseguir un token de acceso", response = UsuarioDTO.class, tags = "Seguridad")
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<?> login(@PathVariable(value = "cedula") String cedula, @PathVariable(value = "password") String password) {
-        try {
-
-            UsuarioDTO usuario = new UsuarioDTO();
-            Optional<UsuarioDTO> usuarioFound = usuarioService.login(cedula, password);
-            if (usuarioFound.isPresent()) {
-                return new ResponseEntity<>(usuarioFound, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<?> login(@Valid @RequestBody AuthenticationRequest authenticationRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) { throw new MissingInputsException();  }
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+        AuthenticationResponse token = usuarioService.login(authenticationRequest);
+        if (token.getJwt() != null) {
+            authenticationResponse.setJwt(token.getJwt());
+            //TODO: Complete this   authenticationResponse.setUsuario(usuario);
+            //TODO: Complete this    authenticationResponse.setPermisos(permisosOtorgados);
+            return new ResponseEntity(authenticationResponse, HttpStatus.OK);
+        } else {
+            return null;
         }
-
     }
 
     @ApiOperation(value = "Obtiene una usuario a partir de su cedula", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuarios")
