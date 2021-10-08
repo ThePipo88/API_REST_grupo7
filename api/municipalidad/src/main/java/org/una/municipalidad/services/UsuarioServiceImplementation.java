@@ -16,11 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.municipalidad.dto.AuthenticationRequest;
-import org.una.municipalidad.dto.AuthenticationResponse;
-import org.una.municipalidad.dto.RolDTO;
 import org.una.municipalidad.dto.UsuarioDTO;
 import org.una.municipalidad.entities.Usuario;
-import org.una.municipalidad.exceptions.InvalidCredentialsException;
 import org.una.municipalidad.exceptions.NotFoundInformationException;
 import org.una.municipalidad.jwt.JwtProvider;
 import org.una.municipalidad.repositories.IUsuarioRepository;
@@ -124,24 +121,13 @@ public class UsuarioServiceImplementation implements UserDetailsService, IUsuari
 
     @Override
     @Transactional(readOnly = true)
-    public AuthenticationResponse login(AuthenticationRequest authenticationRequest) {
+    public String login(AuthenticationRequest authenticationRequest) {
         Optional<Usuario> usuario = Optional.ofNullable(usuarioRepository.findByCedula(authenticationRequest.getCedula()));
 
-        if (usuario.isPresent() && bCryptPasswordEncoder.matches(authenticationRequest.getPassword(), usuario.get().getPasswordEncriptado())) {
-            AuthenticationResponse authenticationResponse = new AuthenticationResponse();
-            Authentication authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getCedula(), authenticationRequest.getPassword()));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            authenticationResponse.setJwt(jwtProvider.generateToken(authenticationRequest));
-            UsuarioDTO usuarioDto = MapperUtils.DtoFromEntity(usuario.get(), UsuarioDTO.class);
-            authenticationResponse.setUsuarioDTO(usuarioDto);
-            authenticationResponse.setRolDTO(RolDTO.builder().nombre(usuarioDto.getRol().getNombre()).build());
-
-            return authenticationResponse;
-        } else {
-            throw new InvalidCredentialsException();
-        }
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getCedula(), authenticationRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return jwtProvider.generateToken(authenticationRequest);
     }
 
     private String encriptarPassword(String password) {
