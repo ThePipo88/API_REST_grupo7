@@ -2,7 +2,6 @@ package org.una.municipalidad.services;
 
 import org.springframework.data.repository.query.Param;
 import org.una.municipalidad.dto.AuthenticationRequest;
-import org.una.municipalidad.dto.AuthenticationResponse;
 import org.una.municipalidad.dto.UsuarioDTO;
 
 import java.util.List;
@@ -30,6 +29,6 @@ public interface IUsuarioService {
 
     public void deleteAll();
 
-    public AuthenticationResponse login(AuthenticationRequest authenticationRequest);
+    public String login(AuthenticationRequest authenticationRequest);
    
 }

@@ -47,15 +47,16 @@ public class UsuarioController {
     public ResponseEntity<?> login(@Valid @RequestBody AuthenticationRequest authenticationRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) { throw new MissingInputsException();  }
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
-        AuthenticationResponse token = usuarioService.login(authenticationRequest);
-        if (token.getJwt() != null) {
-            authenticationResponse.setJwt(token.getJwt());
+        String token = usuarioService.login(authenticationRequest);
+        if (!token.isBlank()) {
+            authenticationResponse.setJwt(token);
             //TODO: Complete this   authenticationResponse.setUsuario(usuario);
             //TODO: Complete this    authenticationResponse.setPermisos(permisosOtorgados);
             return new ResponseEntity(authenticationResponse, HttpStatus.OK);
         } else {
-            return null;
+            throw new InvalidCredentialsException();
         }
+
     }
 
     @ApiOperation(value = "Obtiene una usuario a partir de su cedula", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuarios")
