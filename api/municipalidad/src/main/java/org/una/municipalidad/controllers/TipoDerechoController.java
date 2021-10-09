@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.ListaSalidaDTO;
 import org.una.municipalidad.dto.TipoDerechoDTO;
@@ -22,6 +23,7 @@ import java.util.Optional;
       @Autowired
       private ITipoDerechoService tipoDerechoService;
 
+      @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
       @ApiOperation(value = "Obtiene una lista de todos los tipos de derechos  cementerio ", response = TipoDerechoDTO.class, responseContainer = "List", tags = "TipoDerecho")
       @GetMapping()
       public @ResponseBody
@@ -30,6 +32,7 @@ import java.util.Optional;
           return new ResponseEntity<>(result, HttpStatus.OK);
       }
 
+      @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
       @ApiOperation(value = "Obtiene un tipo de derecho  a partir de su id", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @GetMapping("/{id}")
       public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -37,6 +40,7 @@ import java.util.Optional;
           return new ResponseEntity<>(tipoDerechoFound, HttpStatus.OK);
       }
 
+      @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
       @ApiOperation(value = "Obtiene una lista de derechos de cementerio a partir de su tipo de derecho", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @GetMapping("/tipo/{term}")
       public ResponseEntity<?> findByTipo(@PathVariable(value = "term") String term) {
@@ -44,6 +48,7 @@ import java.util.Optional;
           return new ResponseEntity<>(result, HttpStatus.OK);
       }
 
+      @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
       @ApiOperation(value = "Obtiene una lista de derechos de cementerio a partir de su monto fijo", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @GetMapping("/monto/{term}")
       public ResponseEntity<?> findByMonto(@PathVariable(value = "term") int term) {
@@ -51,6 +56,7 @@ import java.util.Optional;
           return new ResponseEntity<>(result, HttpStatus.OK);
       }
 
+      @PreAuthorize("hasRole('GESTOR')")
       @ResponseStatus(HttpStatus.OK)
       @ApiOperation(value = "Se crea una lista de tipos de derechos", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @PostMapping("/")
@@ -60,6 +66,7 @@ import java.util.Optional;
           return new ResponseEntity<>(TipoDerechoCreated, HttpStatus.CREATED);
       }
 
+      @PreAuthorize("hasRole('GESTOR')")
       @ApiOperation(value = "Se modifica una lista de tipos de derechos a partir de su id", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @PutMapping("/{id}")
       @ResponseBody
@@ -68,6 +75,7 @@ import java.util.Optional;
           return new ResponseEntity<>(tipoDerechoModified, HttpStatus.OK);
       }
 
+      @PreAuthorize("hasRole('GESTOR')")
       @ApiOperation(value = "Se elimina una lista tipos de derechos a partir de su id", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @DeleteMapping("/{id}")
       public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
@@ -75,6 +83,7 @@ import java.util.Optional;
           return new ResponseEntity<>("Ok", HttpStatus.OK);
       }
 
+      @PreAuthorize("hasRole('GESTOR')")
       @ApiOperation(value = "Se eliminan todos las listas de tipos de derechos a partir de su id", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @DeleteMapping("/")
       public ResponseEntity<?> deleteAll() throws Exception {

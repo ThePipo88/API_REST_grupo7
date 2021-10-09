@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.PropiedadDTO;
@@ -27,6 +28,7 @@ public class ReciboController {
     @Autowired
     private IReciboService reciboService;
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todos los recibos", response = ReciboDTO.class, responseContainer = "List", tags = "Recibos")
     @GetMapping()
     public @ResponseBody
@@ -35,6 +37,7 @@ public class ReciboController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un recibo a partir de su id", response = ReciboDTO.class, tags = "Recibos")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -42,6 +45,7 @@ public class ReciboController {
         return new ResponseEntity<>(reciboFound, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de recibos a partir de un contribuyente", response = ReciboDTO.class, responseContainer = "List", tags = "Recibos")
     @GetMapping("/contribuyente/{term}")
     public ResponseEntity<?> findByContribuyente(@PathVariable(value = "term") String term) {
@@ -49,6 +53,7 @@ public class ReciboController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de recibos a partir de una fecha de emision", response = ReciboDTO.class, responseContainer = "List", tags = "Recibos")
     @GetMapping("/fechaEmision/{fecha}")
     public ResponseEntity<?> findByFechaEmision(@PathVariable(value = "fecha") Date fecha) {
@@ -56,6 +61,7 @@ public class ReciboController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') ")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea un recibo", response = ReciboDTO.class, tags = "Recibos")
     @PostMapping("/")
@@ -65,6 +71,7 @@ public class ReciboController {
         return new ResponseEntity<>(reciboCreated, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se modifica un recibo a partir de su id", response = ReciboDTO.class, tags = "Recibos")
     @PutMapping("/{id}")
     @ResponseBody
@@ -73,6 +80,7 @@ public class ReciboController {
         return new ResponseEntity<>(propiedadUpdated, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina un recibo a partir de su id", response = ReciboDTO.class, tags = "Recibos")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
@@ -80,6 +88,7 @@ public class ReciboController {
         return new ResponseEntity<>("Ok", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todos los recibos", response = ReciboDTO.class, tags = "Recibos")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {

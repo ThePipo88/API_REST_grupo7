@@ -49,7 +49,7 @@ public class ExcepcionServiceImplementation implements IExcepcionService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ExcepcionDTO>> findByEstado(String estado) {
+    public Optional<List<ExcepcionDTO>> findByEstado(Boolean estado) {
         List<Excepcion> excepcionList = excepcionRepository.findByEstado(estado);
         List<ExcepcionDTO> excepcionDTOList = MapperUtils.DtoListFromEntityList(excepcionList, ExcepcionDTO.class);
         return Optional.ofNullable(excepcionDTOList);

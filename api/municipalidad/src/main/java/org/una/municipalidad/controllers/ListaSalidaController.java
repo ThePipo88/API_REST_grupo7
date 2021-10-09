@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.ListaSalidaDTO;
 import org.una.municipalidad.services.IListaSalidaService;
@@ -19,6 +20,7 @@ public class ListaSalidaController {
     @Autowired
     private IListaSalidaService listaSalidaService;
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todos las salidas de bus", response = ListaSalidaDTO.class, responseContainer = "List", tags = "ListaSalida")
     @GetMapping()
     public @ResponseBody
@@ -27,6 +29,7 @@ public class ListaSalidaController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una salida de bus a partir de su id", response = ListaSalidaDTO.class, tags = "ListaSalida")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -34,6 +37,7 @@ public class ListaSalidaController {
         return new ResponseEntity<>(listaSalidaFound, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de salida de bus a partir de su dia", response = ListaSalidaDTO.class, tags = "ListaSalida")
     @GetMapping("/dia/{term}")
     public ResponseEntity<?> findByDia(@PathVariable(value = "term") String term) {
@@ -41,6 +45,7 @@ public class ListaSalidaController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de salida de bus a partir de la cantidad de salidas", response = ListaSalidaDTO.class, tags = "ListaSalida")
     @GetMapping("/cantidad/{term}")
     public ResponseEntity<?> findByCantidad(@PathVariable(value = "term") int term) {
@@ -48,6 +53,7 @@ public class ListaSalidaController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea una lista de salidas de bus", response = ListaSalidaDTO.class, tags = "ListaSalida")
     @PostMapping("/")
@@ -57,6 +63,7 @@ public class ListaSalidaController {
         return new ResponseEntity<>(ListaSalidaCreated, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se modifica una lista de salidas de bus a partir de su id", response = ListaSalidaDTO.class, tags = "ListaSalida")
     @PutMapping("/{id}")
     @ResponseBody
@@ -65,6 +72,7 @@ public class ListaSalidaController {
         return new ResponseEntity<>(listaSalidaModified, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina unalista de salidas de bus a partir de su id", response = ListaSalidaDTO.class, tags = "ListaSalida")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
@@ -72,6 +80,7 @@ public class ListaSalidaController {
         return new ResponseEntity<>("Ok", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todos las listas de salidas de bus", response = ListaSalidaDTO.class, tags = "RutaBus")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {

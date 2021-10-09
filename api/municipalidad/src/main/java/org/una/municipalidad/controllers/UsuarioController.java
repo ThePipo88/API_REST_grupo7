@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.AuthenticationRequest;
@@ -26,6 +27,7 @@ public class UsuarioController {
     @Autowired
     private IUsuarioService usuarioService;
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todos los Usuarios", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuarios")
     @GetMapping()
     public @ResponseBody
@@ -34,6 +36,7 @@ public class UsuarioController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una usuario a partir de su id", response = UsuarioDTO.class, tags = "Usuarios")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -41,24 +44,7 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioFound, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Inicio de sesión para conseguir un token de acceso", response = UsuarioDTO.class, tags = "Seguridad")
-    @PostMapping("/login")
-    @ResponseBody
-    public ResponseEntity<?> login(@Valid @RequestBody AuthenticationRequest authenticationRequest, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) { throw new MissingInputsException();  }
-        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
-        String token = usuarioService.login(authenticationRequest);
-        if (!token.isBlank()) {
-            authenticationResponse.setJwt(token);
-            //TODO: Complete this   authenticationResponse.setUsuario(usuario);
-            //TODO: Complete this    authenticationResponse.setPermisos(permisosOtorgados);
-            return new ResponseEntity(authenticationResponse, HttpStatus.OK);
-        } else {
-            throw new InvalidCredentialsException();
-        }
-
-    }
-
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una usuario a partir de su cedula", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuarios")
     @GetMapping("/cedula/{term}")
     public ResponseEntity<?> findByCedulaAproximate(@PathVariable(value = "term") String term) {
@@ -66,6 +52,7 @@ public class UsuarioController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una usuario a partir de su nombre", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuario")
     @GetMapping("/nombre/{term}")
     public ResponseEntity<?> findByNombreCompletoAproximateIgnoreCase(@PathVariable(value = "term") String term) {
@@ -73,6 +60,7 @@ public class UsuarioController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea un usuario", response = UsuarioDTO.class, tags = "Usuario")
     @PostMapping("/")
@@ -81,8 +69,8 @@ public class UsuarioController {
         Optional<UsuarioDTO> usuarioCreated = usuarioService.create(usuarioDTO);
         return new ResponseEntity<>(usuarioCreated, HttpStatus.CREATED);
     }
-    
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se modifica un usuario a partir de su id", response = UsuarioDTO.class, tags = "Usuario")
     @PutMapping("/{id}")
     @ResponseBody
@@ -91,6 +79,7 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioUpdated, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se elimina un usuario a partir de su id", response = UsuarioDTO.class, tags = "Usuario")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
@@ -98,7 +87,8 @@ public class UsuarioController {
         return new ResponseEntity<>("Ok", HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Se eliminan todos los departamentos", response = UsuarioDTO.class, tags = "Usuarios")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    @ApiOperation(value = "Se eliminan todos los usuarios", response = UsuarioDTO.class, tags = "Usuarios")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
         usuarioService.deleteAll();

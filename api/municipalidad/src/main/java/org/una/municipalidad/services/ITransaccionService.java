@@ -1,6 +1,7 @@
 package org.una.municipalidad.services;
 
 import org.una.municipalidad.dto.TransaccionDTO;
+import org.una.municipalidad.dto.UsuarioDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.Optional;
 public interface ITransaccionService {
 
     public Optional<TransaccionDTO> findById(Long id);
+
+    public Optional<List<TransaccionDTO>> findAll();
 
     public Optional<List<TransaccionDTO>> findByUsuarioIdAndFechaCreacionBetween(Long usuarioId, Date startDate, Date endDate);
 

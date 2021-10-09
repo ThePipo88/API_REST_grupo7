@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.ExcepcionDTO;
@@ -28,6 +29,7 @@ public class ExcepcionController {
     @Autowired
     private IExcepcionService excepcionService;
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todas las excepcioness", response = ExcepcionDTO.class, responseContainer = "List", tags = "Excepciones")
     @GetMapping()
     public @ResponseBody
@@ -36,6 +38,7 @@ public class ExcepcionController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una excepcion a partir de su id", response = ExcepcionDTO.class, tags = "Excepciones")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -43,6 +46,7 @@ public class ExcepcionController {
         return new ResponseEntity<>(excepcionFound, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de excepciones a partir del id de un usuario", response = ExcepcionDTO.class, tags = "Excepciones")
     @GetMapping("/usuario/{id}")
     public ResponseEntity<?> findByUsuario(@PathVariable(value = "id") Long id) {
@@ -50,13 +54,15 @@ public class ExcepcionController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de excepciones a partir del id de un usuario", response = ExcepcionDTO.class, tags = "Excepciones")
-    @GetMapping("/estado/{term}")
-    public ResponseEntity<?> findByUsuario(@PathVariable(value = "term") String term) {
-        Optional<List<ExcepcionDTO>> result = excepcionService.findByEstado(term);
+    @GetMapping("/estado/{estado}")
+    public ResponseEntity<?> findByEstado(@PathVariable(value = "term") Boolean estado) {
+        Optional<List<ExcepcionDTO>> result = excepcionService.findByEstado(estado);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de excepciones a partir de la fecha de creacion", response = ExcepcionDTO.class, tags = "Excepciones")
     @GetMapping("/fechaCreacion/{fecha}")
     public ResponseEntity<?> findByFechaCreacion(@PathVariable(value = "fecha") Date fecha) {
@@ -64,6 +70,7 @@ public class ExcepcionController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea una excepcion", response = ExcepcionDTO.class, tags = "Excepciones")
     @PostMapping("/")
@@ -73,6 +80,8 @@ public class ExcepcionController {
         return new ResponseEntity<>(excepcionCreated, HttpStatus.CREATED);
     }
 
+
+    @PreAuthorize("hasRole('GERENTE')")
     @ApiOperation(value = "Se modifica una excepcion a partir de su id", response = ExcepcionDTO.class, tags = "Excepciones")
     @PutMapping("/{id}")
     @ResponseBody
@@ -81,6 +90,7 @@ public class ExcepcionController {
         return new ResponseEntity<>(excepcionesUpdated, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GERENTE')")
     @ApiOperation(value = "Se elimina una excepcion a partir de su id", response = ExcepcionDTO.class, tags = "Excepciones")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
@@ -88,6 +98,7 @@ public class ExcepcionController {
         return new ResponseEntity<>("Ok", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GERENTE')")
     @ApiOperation(value = "Se eliminan todos las excepciones", response = ExcepcionDTO.class, tags = "Excepciones")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
