@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.PropiedadDTO;
@@ -26,6 +27,7 @@ public class PropiedadController {
     @Autowired
     private IPropiedadService propiedadService;
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todos las propiedades", response = PropiedadDTO.class, responseContainer = "List", tags = "Propiedades")
     @GetMapping()
     public @ResponseBody
@@ -34,6 +36,7 @@ public class PropiedadController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una propiedad a partir de su id", response = PropiedadDTO.class, tags = "Propiedades")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -41,6 +44,7 @@ public class PropiedadController {
         return new ResponseEntity<>(propiedadFound, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de propiedades a partir de su provincia", response = PropiedadDTO.class, responseContainer = "List", tags = "Propiedades")
     @GetMapping("/provincia/{term}")
     public ResponseEntity<?> findByProvincia(@PathVariable(value = "term") String term) {
@@ -48,6 +52,7 @@ public class PropiedadController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de propiedades a partir de su canton", response = PropiedadDTO.class, responseContainer = "List", tags = "Propiedades")
     @GetMapping("/canton/{term}")
     public ResponseEntity<?> findByCanton(@PathVariable(value = "term") String term) {
@@ -55,6 +60,7 @@ public class PropiedadController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de propiedades a partir de su distrito", response = PropiedadDTO.class, responseContainer = "List", tags = "Propiedades")
     @GetMapping("/distrito/{term}")
     public ResponseEntity<?> findByDistrito(@PathVariable(value = "term") String term) {
@@ -62,7 +68,7 @@ public class PropiedadController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de zonas a partir de su distrito", response = PropiedadDTO.class, responseContainer = "List", tags = "Propiedades")
     @GetMapping("/zona/{term}")
     public ResponseEntity<?> findByZona(@PathVariable(value = "term") String term) {
@@ -70,6 +76,7 @@ public class PropiedadController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea una propiedad", response = PropiedadDTO.class, tags = "Propiedad")
     @PostMapping("/")
@@ -79,6 +86,7 @@ public class PropiedadController {
         return new ResponseEntity<>(propiedadCreated, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se modifica una propiedad a partir de su id", response = PropiedadDTO.class, tags = "Propiedad")
     @PutMapping("/{id}")
     @ResponseBody
@@ -87,6 +95,7 @@ public class PropiedadController {
         return new ResponseEntity<>(propiedadUpdated, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina una propiedad a partir de su id", response = PropiedadDTO.class, tags = "Propiedad")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
@@ -94,6 +103,7 @@ public class PropiedadController {
         return new ResponseEntity<>("Ok", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todas las propiedades", response = PropiedadDTO.class, tags = "Propiedades")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {

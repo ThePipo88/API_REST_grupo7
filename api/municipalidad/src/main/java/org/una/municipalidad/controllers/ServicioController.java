@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.CobroCanceladoDTO;
@@ -29,6 +30,7 @@ public class ServicioController {
     @Autowired
     private IServicioService servicioService;
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todos los servicios", response = ServicioDTO.class, responseContainer = "List", tags = "Servicios")
     @GetMapping()
     public @ResponseBody
@@ -37,6 +39,7 @@ public class ServicioController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un servicio partir de su id", response = ServicioDTO.class, tags = "Servicios")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -44,7 +47,7 @@ public class ServicioController {
         return new ResponseEntity<>(servicioFound, HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de servicios a de bus a partir de su tipo", response = ServicioDTO.class, tags = "Servicios")
     @GetMapping("/servicio/{term}")
     public ResponseEntity<?> findBytTipoServicio(@PathVariable(value = "term") String term) {
@@ -52,6 +55,7 @@ public class ServicioController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de servicios a partir de un estado", response = ServicioDTO.class, tags = "Servicios")
     @GetMapping("/estado/{term}")
     public ResponseEntity<?> findByEstado(@PathVariable(value = "term") String term) {
@@ -59,6 +63,7 @@ public class ServicioController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de servicios a partir de una propiedad", response = ServicioDTO.class, tags = "Servicios")
     @GetMapping("/propiedad/{id}")
     public ResponseEntity<?> findByPropiedad(@PathVariable(value = "id") Long id) {
@@ -66,6 +71,7 @@ public class ServicioController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de servicios a partir de una fecha", response = ServicioDTO.class, tags = "Servicios")
     @GetMapping("/fechaRegistro/{fechaRegistro}")
     public ResponseEntity<?> findByFechaRegitro(@PathVariable(value = "fechaRegistro") Date fechaRegistro) {
@@ -73,6 +79,7 @@ public class ServicioController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de servicios a partir de una ultima actualizacion", response = ServicioDTO.class, tags = "Servicios")
     @GetMapping("/fechaActualizacion/{fecha}")
     public ResponseEntity<?> findByUltimaActualizacion(@PathVariable(value = "fecha") Date fecha) {
@@ -80,6 +87,7 @@ public class ServicioController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea un servicio", response = ServicioDTO.class, tags = "Servicios")
     @PostMapping("/")
@@ -89,6 +97,7 @@ public class ServicioController {
         return new ResponseEntity<>(servicioCreated, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se modifica un servicio a partir de su id", response = ServicioDTO.class, tags = "Servicios")
     @PutMapping("/{id}")
     @ResponseBody
@@ -97,6 +106,7 @@ public class ServicioController {
         return new ResponseEntity<>(servicioUpdated, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina un ervicio a partir de su id", response = ServicioDTO.class, tags = "Servicios")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
@@ -104,6 +114,7 @@ public class ServicioController {
         return new ResponseEntity<>("Ok", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todos los servicios", response = ReciboDTO.class, tags = "Servicios")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {

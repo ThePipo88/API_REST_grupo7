@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.CobroCanceladoDTO;
 import org.una.municipalidad.dto.CobroGeneradoDTO;
@@ -21,6 +22,7 @@ public class CobroGeneradoController {
     @Autowired
     private ICobroGeneradoService cobroGeneradoService;
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todos los cobros generados", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
     @GetMapping()
     public @ResponseBody
@@ -29,6 +31,7 @@ public class CobroGeneradoController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un cobro generado a partir de su id", response = CobroGeneradoDTO.class, tags = "CobroGenerado")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -36,6 +39,7 @@ public class CobroGeneradoController {
         return new ResponseEntity<>(cobroGeneradoFound, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un cobro generado a partir de su monto", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
     @GetMapping("/monto/{term}")
     public ResponseEntity<?> findByMonto(@PathVariable(value = "term") Double term) {
@@ -50,6 +54,7 @@ public class CobroGeneradoController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
      */
+     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/ByFechaCobroBetween/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a su fecha de cobro", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
     public ResponseEntity<?> findByFechaCobroBetween(@PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
@@ -57,6 +62,7 @@ public class CobroGeneradoController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea un cobro generado", response = CobroGeneradoDTO.class, tags = "CobroGenerado")
     @PostMapping("/")
@@ -66,6 +72,7 @@ public class CobroGeneradoController {
         return new ResponseEntity<>(cobroGeneradoCreated, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se modifica un cobro generado a partir de su id", response = CobroGeneradoDTO.class, tags = "CobroGenerado")
     @PutMapping("/{id}")
     @ResponseBody
@@ -74,6 +81,7 @@ public class CobroGeneradoController {
         return new ResponseEntity<>(cobroGeneradoModified, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina un cobro generado a partir de su id", response = CobroGeneradoDTO.class, tags = "CobroGenerado")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
@@ -81,6 +89,7 @@ public class CobroGeneradoController {
         return new ResponseEntity<>("Ok", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todos los cobros generados", response = CobroGeneradoDTO.class, tags = "CobroGenerado")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {

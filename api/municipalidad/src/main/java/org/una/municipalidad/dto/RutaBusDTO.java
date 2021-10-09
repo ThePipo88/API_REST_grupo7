@@ -1,9 +1,13 @@
 package org.una.municipalidad.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.una.municipalidad.entities.ListaSalida;
 import org.una.municipalidad.entities.Servicio;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor

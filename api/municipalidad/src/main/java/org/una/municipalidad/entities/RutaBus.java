@@ -1,5 +1,6 @@
 package org.una.municipalidad.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,6 +34,7 @@ public class RutaBus implements Serializable {
     @Column(name = "final", length = 100)
     private String fin;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rutaBus")
     private List<ListaSalida> salidas = new ArrayList<>();
 

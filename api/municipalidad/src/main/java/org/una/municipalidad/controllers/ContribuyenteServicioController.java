@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.ContribuyenteServicioDTO;
 import org.una.municipalidad.services.IContribuyenteServicioService;
@@ -20,6 +21,7 @@ public class ContribuyenteServicioController {
     @Autowired
     private IContribuyenteServicioService contribuyenteServicioService;
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todos los servicios de los contribuyentes", response = ContribuyenteServicioDTO.class, responseContainer = "List", tags = "ContribuyenteServicio")
     @GetMapping()
     public @ResponseBody
@@ -28,6 +30,7 @@ public class ContribuyenteServicioController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un servicio contribuyente a partir de su id", response = ContribuyenteServicioDTO.class, tags = "ContribuyenteServicio")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -35,6 +38,7 @@ public class ContribuyenteServicioController {
         return new ResponseEntity<>(contribuyenteServicioFound, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/ByPorcentaje/{porcentaje}")
     @ApiOperation(value = "Obtiene un contribuyente de acuerdo a su porcentaje de servicio", response = ContribuyenteServicioDTO.class, responseContainer = "ContribuyenteServicioDTO", tags = "ContribuyenteServicio")
     public ResponseEntity<?> findByPorcentaje(@PathVariable(value = "porcentaje") String porcentaje) {
@@ -42,6 +46,7 @@ public class ContribuyenteServicioController {
         return new ResponseEntity<>(contribuyenteServicioFound, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea un servicio de contribuyente", response = ContribuyenteServicioDTO.class, tags = "ContribuyenteServicio")
     @PostMapping("/")
@@ -51,6 +56,7 @@ public class ContribuyenteServicioController {
         return new ResponseEntity<>(contribuyenteServicioCreated, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se modifica un servicio de contribuyente a partir de su id", response = ContribuyenteServicioDTO.class, tags = "ContribuyenteServicio")
     @PutMapping("/{id}")
     @ResponseBody
@@ -59,6 +65,7 @@ public class ContribuyenteServicioController {
         return new ResponseEntity<>(contribuyenteServicioUpdated, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina un servicio de contribuyente a partir de su id", response = ContribuyenteServicioDTO.class, tags = "ContribuyenteServicio")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
@@ -66,6 +73,7 @@ public class ContribuyenteServicioController {
         return new ResponseEntity<>("Ok", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todos los servicios de contribuyentes", response = ContribuyenteServicioDTO.class, tags = "ContribuyenteServicio")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {

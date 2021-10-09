@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.CobroCanceladoDTO;
 import org.una.municipalidad.services.ICobroCanceladoService;
@@ -21,6 +22,7 @@ public class CobroCanceladoController {
     @Autowired
     private ICobroCanceladoService cobroCanceladoService;
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todos los cobros cancelados", response = CobroCanceladoDTO.class, responseContainer = "List", tags = "CobroCancelado")
     @GetMapping()
     public @ResponseBody
@@ -29,6 +31,7 @@ public class CobroCanceladoController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un cobro cancelado a partir de su id", response = CobroCanceladoDTO.class, tags = "CobroCancelado")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -43,6 +46,7 @@ public class CobroCanceladoController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 */
+    @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/byFechaCreacion/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de cobros cancelados de acuerdo a su fecha de creacion", response = CobroCanceladoDTO.class, responseContainer = "CobroCanceladoDto", tags = "CobroCancelado")
     public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
@@ -50,6 +54,7 @@ public class CobroCanceladoController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un cobro cancelado a partir de su descripcion", response = CobroCanceladoDTO.class, responseContainer = "List", tags = "CobroCancelado")
     @GetMapping("/descripcion/{term}")
     public ResponseEntity<?> findByDescripcion(@PathVariable(value = "term") String term) {
@@ -57,6 +62,7 @@ public class CobroCanceladoController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea un cobro cancelado", response = CobroCanceladoDTO.class, tags = "CobroCancelado")
     @PostMapping("/")
@@ -66,6 +72,7 @@ public class CobroCanceladoController {
         return new ResponseEntity<>(cobroCanceladoCreated, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se modifica un cobro cancelado a partir de su id", response = CobroCanceladoDTO.class, tags = "CobroCancelado")
     @PutMapping("/{id}")
     @ResponseBody
@@ -74,6 +81,7 @@ public class CobroCanceladoController {
         return new ResponseEntity<>(cobroCanceladoModified, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina un cobro cancelado a partir de su id", response = CobroCanceladoDTO.class, tags = "CobroCancelado")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
@@ -81,6 +89,7 @@ public class CobroCanceladoController {
         return new ResponseEntity<>("Ok", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todos los cobros cancelados", response = CobroCanceladoDTO.class, tags = "CobroCancelado")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {

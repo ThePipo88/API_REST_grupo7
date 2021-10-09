@@ -16,7 +16,7 @@ public class ExcepcionDTO {
     private Long id;
     private Usuario usuario;
     private String descripcion;
-    private String estado;
+    private Boolean estado;
     private Date fechaCreacion;
 
 }

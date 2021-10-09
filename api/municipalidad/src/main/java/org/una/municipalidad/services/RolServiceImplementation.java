@@ -49,17 +49,17 @@ public class RolServiceImplementation implements IRolService {
         return getSavedRolDTO(rolDTO);
     }
 
+    private RolDTO getSavedRolDTO(RolDTO rolDTO) {
+        Rol rol = MapperUtils.EntityFromDto(rolDTO, Rol.class);
+        Rol rolCreated = rolRepository.save(rol);
+        return MapperUtils.DtoFromEntity(rolCreated, RolDTO.class);
+    }
+
     @Override
     @Transactional
     public Optional<RolDTO> update(RolDTO rolDTO, Long id) {
         if (rolRepository.findById(id).isEmpty()) throw new NotFoundInformationException();
         return Optional.ofNullable(getSavedRolDTO(rolDTO));
-    }
-
-    private RolDTO getSavedRolDTO(RolDTO rolDTO) {
-        Rol rol = MapperUtils.EntityFromDto(rolDTO, Rol.class);
-        Rol rolCreated = rolRepository.save(rol);
-        return MapperUtils.DtoFromEntity(rolCreated, RolDTO.class);
     }
 
     @Override

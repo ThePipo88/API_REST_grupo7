@@ -17,7 +17,7 @@ public interface IExcepcionRepository extends JpaRepository<Excepcion, Long> {
 
     public List<Excepcion> findByUsuario(Long id);
 
-    public List<Excepcion> findByEstado(String estado);
+    public List<Excepcion> findByEstado(Boolean estado);
 
     public List<Excepcion> findByFechaCreacion(Date startDate);
 

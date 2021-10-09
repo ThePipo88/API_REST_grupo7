@@ -16,8 +16,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.municipalidad.dto.AuthenticationRequest;
+import org.una.municipalidad.dto.AuthenticationResponse;
+import org.una.municipalidad.dto.RolDTO;
 import org.una.municipalidad.dto.UsuarioDTO;
 import org.una.municipalidad.entities.Usuario;
+import org.una.municipalidad.exceptions.InvalidCredentialsException;
 import org.una.municipalidad.exceptions.NotFoundInformationException;
 import org.una.municipalidad.jwt.JwtProvider;
 import org.una.municipalidad.repositories.IUsuarioRepository;
@@ -119,17 +122,6 @@ public class UsuarioServiceImplementation implements UserDetailsService, IUsuari
         usuarioRepository.deleteAll();
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public String login(AuthenticationRequest authenticationRequest) {
-        Optional<Usuario> usuario = Optional.ofNullable(usuarioRepository.findByCedula(authenticationRequest.getCedula()));
-
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getCedula(), authenticationRequest.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        return jwtProvider.generateToken(authenticationRequest);
-    }
-
     private String encriptarPassword(String password) {
         if (!password.isBlank()) {
             return bCryptPasswordEncoder.encode(password);
@@ -144,11 +136,11 @@ public class UsuarioServiceImplementation implements UserDetailsService, IUsuari
         if (usuarioBuscado.isPresent()) {
             Usuario usuario = usuarioBuscado.get();
             List<GrantedAuthority> roles = new ArrayList<>();
-            roles.add(new SimpleGrantedAuthority("ADMIN"));
-            UserDetails userDetails = new User(usuario.getCedula(), usuario.getPasswordEncriptado(), roles);
-            return userDetails;
+            roles.add(new SimpleGrantedAuthority(usuario.getRol().getNombre()));
+            return new User(usuario.getCedula(), usuario.getPasswordEncriptado(), roles);
         } else {
             throw new UsernameNotFoundException("Username not found, check your request");
         }
     }
+
 }

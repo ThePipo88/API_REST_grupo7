@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @Service
 public class TipoDerechoServiceImplementation implements ITipoDerechoService{
+
     @Autowired
     ITipoDerechoRepository tipoDerechoRepository;
 

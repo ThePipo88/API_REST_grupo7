@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.CobroCanceladoDTO;
 import org.una.municipalidad.dto.ContribuyenteDTO;
@@ -23,6 +24,7 @@ public class ParametroController {
     @Autowired
     private IParametroService parametroService;
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todos los parametros", response = ParametroDTO.class, responseContainer = "List", tags = "Parametro")
     @GetMapping()
     public @ResponseBody
@@ -31,6 +33,7 @@ public class ParametroController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un parametro a partir de su id", response = ParametroDTO.class, tags = "Parametro")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -38,6 +41,7 @@ public class ParametroController {
         return new ResponseEntity<>(parametroFound, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/findByFormulaAproximate/{formula}")
     @ApiOperation(value = "Obtiene un parametro de acuerdo a su formula", response = ParametroDTO.class, responseContainer = "ParametroDTO", tags = "Parametro")
     public ResponseEntity<?> findByFormulaAproximate(@PathVariable(value = "formula") String formula) {
@@ -45,6 +49,7 @@ public class ParametroController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/findByNombreAproximate/{nombre}")
     @ApiOperation(value = "Obtiene un parametro de acuerdo a su nombre", response = ParametroDTO.class, responseContainer = "ParametroDTO", tags = "Parametro")
     public ResponseEntity<?> findByNombreAproximate(@PathVariable(value = "nombre") String nombre) {
@@ -52,6 +57,7 @@ public class ParametroController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/findByestadoAproximate/{estado}")
     @ApiOperation(value = "Obtiene un parametro de acuerdo a su estado", response = ParametroDTO.class, responseContainer = "ParametroDTO", tags = "Parametro")
     public ResponseEntity<?> findByestadoAproximate(@PathVariable(value = "estado") boolean estado) {
@@ -59,6 +65,7 @@ public class ParametroController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/findByFechaCreacionBetween/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de parametros de acuerdo a su fecha de creacion", response = ParametroDTO.class, responseContainer = "ParametroDTO", tags = "Parametro")
     public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
@@ -66,6 +73,7 @@ public class ParametroController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/findByFechaModificacionBetween/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de cobros cancelados de acuerdo a su fecha de modificacion", response = ParametroDTO.class, responseContainer = "List", tags = "Parametros")
     public ResponseEntity<?> findByFechaModificacionBetween(@PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
@@ -73,6 +81,7 @@ public class ParametroController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea un parametro", response = ParametroDTO.class, tags = "Parametro")
     @PostMapping("/")
@@ -82,6 +91,7 @@ public class ParametroController {
         return new ResponseEntity<>(parametroCreated, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se modifica un parametro a partir de su id", response = ParametroDTO.class, tags = "Parametro")
     @PutMapping("/{id}")
     @ResponseBody
@@ -90,6 +100,7 @@ public class ParametroController {
         return new ResponseEntity<>(parametroUpdated, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se elimina un parametro a partir de su id", response = ParametroDTO.class, tags = "Parametro")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
@@ -97,6 +108,7 @@ public class ParametroController {
         return new ResponseEntity<>("Ok", HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se eliminan todos los parametros", response = ParametroDTO.class, tags = "Parametro")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
