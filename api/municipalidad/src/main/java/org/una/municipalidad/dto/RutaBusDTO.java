@@ -17,7 +17,7 @@ import java.util.List;
 public class RutaBusDTO {
 
     private Long id;
-    private Servicio servicio;
+    private ServicioDTO servicio;
     private String nombre;
     private String inicio;
     private String fin;

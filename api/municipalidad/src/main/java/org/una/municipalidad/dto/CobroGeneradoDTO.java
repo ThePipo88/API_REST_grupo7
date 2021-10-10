@@ -15,7 +15,7 @@ import java.util.Date;
 public class CobroGeneradoDTO {
 
     private Long id;
-    private ContribuyenteServicio contribuyenteServicio;
+    private ContribuyenteServicioDTO contribuyenteServicio;
     private Date fechaCobro;
     private CobroCancelado cobroCancelado;
     private Double monto;

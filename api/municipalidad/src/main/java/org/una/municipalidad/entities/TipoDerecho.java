@@ -18,7 +18,7 @@ public class TipoDerecho implements Serializable{
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="tipos_derechos_id")
+    @JoinColumn(name="cementerio_id")
     private Cementerio cementerio;
 
     @Column(name = "tipo_derechos", length = 100)

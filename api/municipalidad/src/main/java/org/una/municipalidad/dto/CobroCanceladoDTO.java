@@ -14,7 +14,7 @@ import java.util.Date;
 public class CobroCanceladoDTO {
 
     private Long id;
-    private CobroGenerado cobroGenerado;
+    private CobroGeneradoDTO cobroGenerado;
     private Recibo recibo;
     private Date fechaCreacion;
     private String descripcion;

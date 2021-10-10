@@ -14,7 +14,7 @@ import java.util.Date;
 public class ExcepcionDTO {
 
     private Long id;
-    private Usuario usuario;
+    private UsuarioDTO usuario;
     private String descripcion;
     private Boolean estado;
     private Date fechaCreacion;
