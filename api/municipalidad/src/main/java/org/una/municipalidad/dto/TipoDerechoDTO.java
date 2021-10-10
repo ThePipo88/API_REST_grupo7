@@ -1,5 +1,7 @@
 package org.una.municipalidad.dto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.una.municipalidad.entities.Cementerio;
 import org.una.municipalidad.entities.TipoDerecho;
 
 
@@ -11,7 +13,7 @@ import org.una.municipalidad.entities.TipoDerecho;
 public class TipoDerechoDTO {
 
     private Long id;
-    private TipoDerecho tipoDerecho;
+    private CementerioDTO cementerio;
     private String tipo;
     private int monto;
 
