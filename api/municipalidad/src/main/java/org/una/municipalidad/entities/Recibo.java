@@ -34,7 +34,7 @@ public class Recibo implements Serializable {
     @Column(name = "monto_cancelado", length = 250)
     private String montoCancelado;
 
-    @Column(name = "fecha_emicion", updatable = false)
+    @Column(name = "fecha_emision", updatable = false)
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)
     private Date fechaEmision;
