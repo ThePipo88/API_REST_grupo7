@@ -38,6 +38,9 @@ public class Parametro implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaModificacion;
 
+    @Column
+    private boolean solicitud_borrar_cobro;
+
     private static final long serialVersionUID = 1L;
 
     @PrePersist
