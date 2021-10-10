@@ -28,6 +28,8 @@ public class ContribuyenteController {
     @Autowired
     private IContribuyenteService contribuyenteService;
 
+
+
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todos los contribuyentes", response = ContribuyenteDTO.class, responseContainer = "List", tags = "Contribuyentes")
     @GetMapping()
