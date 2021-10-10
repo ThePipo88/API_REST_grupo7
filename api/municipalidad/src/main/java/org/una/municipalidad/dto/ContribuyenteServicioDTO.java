@@ -16,5 +16,6 @@ public class ContribuyenteServicioDTO {
     private Long id;
     private String porcentaje;
     private ContribuyenteDTO contribuyente;
-    private Servicio servicio;
+    private ServicioDTO servicio;
+
 }

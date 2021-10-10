@@ -22,7 +22,6 @@ public class CobroGenerado implements Serializable {
     private Long id;
 
     @ManyToOne
-    //@MapsId
     @JoinColumn(name="contribuyenteServicio_id")
     private ContribuyenteServicio contribuyenteServicio;
 

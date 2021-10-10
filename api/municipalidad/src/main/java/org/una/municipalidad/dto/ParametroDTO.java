@@ -18,6 +18,6 @@ public class ParametroDTO {
     private boolean estado;
     private Date fechaCreacion;
     private Date fechaModificacion;
-    private  boolean solicitud_borrar_cobro;
+    private  boolean autorizacion_gerente;
 
 }

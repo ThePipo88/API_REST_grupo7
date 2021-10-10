@@ -39,7 +39,7 @@ public class Parametro implements Serializable {
     private Date fechaModificacion;
 
     @Column
-    private boolean solicitud_borrar_cobro;
+    private boolean autorizacion_gerente;
 
     private static final long serialVersionUID = 1L;
 

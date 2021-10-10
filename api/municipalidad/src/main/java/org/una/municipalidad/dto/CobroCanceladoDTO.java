@@ -15,7 +15,7 @@ public class CobroCanceladoDTO {
 
     private Long id;
     private CobroGeneradoDTO cobroGenerado;
-    private Recibo recibo;
+    private ReciboDTO recibo;
     private Date fechaCreacion;
     private String descripcion;
 
