@@ -1,5 +1,6 @@
 package org.una.municipalidad.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.una.municipalidad.entities.Propiedad;
 
@@ -17,7 +18,7 @@ public class ServicioDTO {
     private String tipoServicio;
     private String descripcion;
     private String estado;
-    private Propiedad propiedad;
+    private PropiedadDTO propiedad;
     private Date fechaRegistro;
     private Date ultimaActualizacion;
 }

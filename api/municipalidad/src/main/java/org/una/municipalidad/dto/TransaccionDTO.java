@@ -13,7 +13,7 @@ import java.util.Date;
 public class TransaccionDTO {
 
     private Long id;
-    Usuario usuario;
+    private UsuarioDTO usuario;
     private String objeto;
     private String accion;
     private Date fechaCreacion;

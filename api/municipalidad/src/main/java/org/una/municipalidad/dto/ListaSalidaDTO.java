@@ -16,7 +16,7 @@ import java.util.List;
 public class ListaSalidaDTO {
 
     private Long id;
-    private RutaBus rutaBus;
+    private RutaBusDTO rutaBus;
     private String dia;
     private int cantidad;
 
