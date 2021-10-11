@@ -1,6 +1,7 @@
 package org.una.municipalidad.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.municipalidad.dto.CobroGeneradoDTO;
@@ -40,6 +41,14 @@ public class CobroGeneradoServiceImplementation implements ICobroGeneradoService
     @Transactional(readOnly = true)
     public Optional<List<CobroGeneradoDTO>> findByMonto(Double monto) {
         List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByMonto(monto);
+        List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
+        return Optional.ofNullable(cobroGeneradoDTOList);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<List<CobroGeneradoDTO>> findByCobroCedula(@Param("cedula")String cedula, @Param("tipo")String tipo) {
+        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByCobroCedula(cedula,tipo);
         List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
         return Optional.ofNullable(cobroGeneradoDTOList);
     }

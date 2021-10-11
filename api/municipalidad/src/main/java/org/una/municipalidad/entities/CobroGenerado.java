@@ -36,6 +36,9 @@ public class CobroGenerado implements Serializable {
     @Column(length = 100, name = "monto")
     private Double monto;
 
+    @Column
+    private boolean estado;
+
     private static final long serialVersionUID = 1L;
 
     @PrePersist

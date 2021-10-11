@@ -28,24 +28,37 @@ public class CobroGeneradoController {
     @GetMapping()
     public @ResponseBody
     ResponseEntity<?> findAll() {
-        Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findAll();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try {
+            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findAll();
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un cobro generado a partir de su id", response = CobroGeneradoDTO.class, tags = "CobroGenerado")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
+        try{
         Optional<CobroGeneradoDTO> cobroGeneradoFound = cobroGeneradoService.findById(id);
-        return new ResponseEntity<>(cobroGeneradoFound, HttpStatus.OK);
+        return new ResponseEntity<>(cobroGeneradoFound, HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de cobros generadoss a partir de un monto", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
     @GetMapping("/monto/{term}")
     public ResponseEntity<?> findByMonto(@PathVariable(value = "term") Double term) {
-        Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByMonto(term);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try {
+            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByMonto(term);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
      /*
@@ -56,13 +69,30 @@ public class CobroGeneradoController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
      */
-     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/ByFechaCobroBetween/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a un rango de fechas", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
     public ResponseEntity<?> findByFechaCobroBetween(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date startDate, @PathVariable(value = "endDate")
      @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
-        Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByFechaCobroBetween(startDate,endDate);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try {
+            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByFechaCobroBetween(startDate, endDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping("/ByCobroCedula/{cedula}/{tipo}")
+    @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a la cedula del contribuyente", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
+    public ResponseEntity<?> findByCobroCedula(@PathVariable(value = "cedula") String cedula, @PathVariable(value = "tipo") String tipo) {
+        try {
+            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByCobroCedula(cedula, tipo);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }  catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
@@ -71,8 +101,12 @@ public class CobroGeneradoController {
     @PostMapping("/")
     @ResponseBody
     public ResponseEntity<?> create(@RequestBody CobroGeneradoDTO cobroGeneradoDTO) {
+        try{
         Optional<CobroGeneradoDTO> cobroGeneradoCreated = Optional.ofNullable(cobroGeneradoService.create(cobroGeneradoDTO));
-        return new ResponseEntity<>(cobroGeneradoCreated, HttpStatus.CREATED);
+        return new ResponseEntity<>(cobroGeneradoCreated, HttpStatus.CREATED);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
@@ -80,23 +114,36 @@ public class CobroGeneradoController {
     @PutMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @RequestBody CobroGeneradoDTO cobroGeneradoModified) {
+        try{
         Optional<CobroGeneradoDTO> cobroGeneradoUpdated = cobroGeneradoService.update(cobroGeneradoModified, id);
-        return new ResponseEntity<>(cobroGeneradoModified, HttpStatus.OK);
+        return new ResponseEntity<>(cobroGeneradoModified, HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina un cobro generado a partir de su id", response = CobroGeneradoDTO.class, tags = "CobroGenerado")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
-        cobroGeneradoService.delete(id);
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try {
+            cobroGeneradoService.delete(id);
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todos los cobros generados", response = CobroGeneradoDTO.class, tags = "CobroGenerado")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
-        cobroGeneradoService.deleteAll();
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try {
+            cobroGeneradoService.deleteAll();
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        } catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

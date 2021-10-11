@@ -20,6 +20,9 @@ public class Contribuyente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 25, unique = true)
+    private String cedula;
+
     @Column(name = "nombre", length = 100)
     private String nombre;
 
