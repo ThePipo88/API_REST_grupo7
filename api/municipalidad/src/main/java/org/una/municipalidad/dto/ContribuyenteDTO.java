@@ -12,6 +12,7 @@ import java.util.Date;
 public class ContribuyenteDTO {
     private Long id;
     private String nombre;
+    private String cedula;
     private Date fechaNacimiento;
     private String direccion;
     private String correoElectronico;

@@ -28,16 +28,24 @@ public class CobroCanceladoController {
     @GetMapping()
     public @ResponseBody
     ResponseEntity<?> findAll() {
-        Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findAll();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findAll();
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un cobro cancelado a partir de su id", response = CobroCanceladoDTO.class, tags = "CobroCancelado")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
-        Optional<CobroCanceladoDTO> cobroCanceladoFound = cobroCanceladoService.findById(id);
-        return new ResponseEntity<>(cobroCanceladoFound, HttpStatus.OK);
+        try{
+            Optional<CobroCanceladoDTO> cobroCanceladoFound = cobroCanceladoService.findById(id);
+            return new ResponseEntity<>(cobroCanceladoFound, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")

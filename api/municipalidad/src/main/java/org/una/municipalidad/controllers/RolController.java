@@ -28,24 +28,36 @@ public class RolController {
     @ApiOperation(value = "Obtiene un rol a partir de su id", response = RolDTO.class, tags = "Roles")
     @GetMapping("/byId/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
-        Optional<RolDTO> rolFound = rolService.findById(id);
-        return new ResponseEntity<>(rolFound, HttpStatus.OK);
+        try {
+            Optional<RolDTO> rolFound = rolService.findById(id);
+            return new ResponseEntity<>(rolFound, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un rol a partir de su estado", response = RolDTO.class, tags = "Roles")
     @GetMapping("/byEstado/{estado}")
     public ResponseEntity<?> findByEstado(@PathVariable(value = "estado") boolean estado) {
-        Optional<List<RolDTO>> result = rolService.findByEstado(estado);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try {
+            Optional<List<RolDTO>> result = rolService.findByEstado(estado);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/byFechaCreacion/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de roles entre dos fechas dadas", response = RolDTO.class, responseContainer = "RolesDTO", tags = "Roles")
     public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
-        Optional<List<RolDTO>> result = rolService.findByFechaCreacionBetween(startDate,endDate);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try {
+            Optional<List<RolDTO>> result = rolService.findByFechaCreacionBetween(startDate, endDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
@@ -67,24 +79,36 @@ public class RolController {
     @PutMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @RequestBody RolDTO rolModified) {
-        Optional<RolDTO> rolUpdated = rolService.update(rolModified, id);
-        return new ResponseEntity<>(rolUpdated, HttpStatus.OK);
+        try {
+            Optional<RolDTO> rolUpdated = rolService.update(rolModified, id);
+            return new ResponseEntity<>(rolUpdated, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se elimina un rol a partir de su id", response = RolDTO.class, tags = "Rol")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
-        rolService.delete(id);
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try {
+            rolService.delete(id);
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se eliminan todos los roles", response = RolDTO.class, tags = "Rol")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
-        rolService.deleteAll();
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try {
+            rolService.deleteAll();
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

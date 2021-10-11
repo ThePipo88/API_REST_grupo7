@@ -32,48 +32,68 @@ public class PropiedadController {
     @GetMapping()
     public @ResponseBody
     ResponseEntity<?> findAll() {
-        Optional<List<PropiedadDTO>> result = propiedadService.findAll();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+            Optional<List<PropiedadDTO>> result = propiedadService.findAll();
+            return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una propiedad a partir de su id", response = PropiedadDTO.class, tags = "Propiedades")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
-        Optional<PropiedadDTO> propiedadFound = propiedadService.findById(id);
-        return new ResponseEntity<>(propiedadFound, HttpStatus.OK);
+        try{
+            Optional<PropiedadDTO> propiedadFound = propiedadService.findById(id);
+            return new ResponseEntity<>(propiedadFound, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de propiedades a partir de su provincia", response = PropiedadDTO.class, responseContainer = "List", tags = "Propiedades")
     @GetMapping("/provincia/{term}")
     public ResponseEntity<?> findByProvincia(@PathVariable(value = "term") String term) {
-        Optional<List<PropiedadDTO>> result = propiedadService.findByProvincia(term);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try {
+            Optional<List<PropiedadDTO>> result = propiedadService.findByProvincia(term);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de propiedades a partir de su canton", response = PropiedadDTO.class, responseContainer = "List", tags = "Propiedades")
     @GetMapping("/canton/{term}")
     public ResponseEntity<?> findByCanton(@PathVariable(value = "term") String term) {
-        Optional<List<PropiedadDTO>> result = propiedadService.findByCanton(term);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<PropiedadDTO>> result = propiedadService.findByCanton(term);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de propiedades a partir de su distrito", response = PropiedadDTO.class, responseContainer = "List", tags = "Propiedades")
     @GetMapping("/distrito/{term}")
     public ResponseEntity<?> findByDistrito(@PathVariable(value = "term") String term) {
-        Optional<List<PropiedadDTO>> result = propiedadService.findByDistrito(term);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<PropiedadDTO>> result = propiedadService.findByDistrito(term);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de propiedades a partir de su zona", response = PropiedadDTO.class, responseContainer = "List", tags = "Propiedades")
     @GetMapping("/zona/{term}")
     public ResponseEntity<?> findByZona(@PathVariable(value = "term") String term) {
-        Optional<List<PropiedadDTO>> result = propiedadService.findByZona(term);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<PropiedadDTO>> result = propiedadService.findByZona(term);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
@@ -82,8 +102,12 @@ public class PropiedadController {
     @PostMapping("/")
     @ResponseBody
     public ResponseEntity<?> create(@RequestBody PropiedadDTO propiedadDTO) {
-        Optional<PropiedadDTO> propiedadCreated = Optional.ofNullable(propiedadService.create(propiedadDTO));
-        return new ResponseEntity<>(propiedadCreated, HttpStatus.CREATED);
+        try{
+            Optional<PropiedadDTO> propiedadCreated = Optional.ofNullable(propiedadService.create(propiedadDTO));
+            return new ResponseEntity<>(propiedadCreated, HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
@@ -91,23 +115,36 @@ public class PropiedadController {
     @PutMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @RequestBody PropiedadDTO propiedadModified) {
-        Optional<PropiedadDTO> propiedadUpdated = propiedadService.update(propiedadModified, id);
-        return new ResponseEntity<>(propiedadUpdated, HttpStatus.OK);
+        try{
+            Optional<PropiedadDTO> propiedadUpdated = propiedadService.update(propiedadModified, id);
+            return new ResponseEntity<>(propiedadUpdated, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina una propiedad a partir de su id", response = PropiedadDTO.class, tags = "Propiedad")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
-        propiedadService.delete(id);
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try{
+            propiedadService.delete(id);
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todas las propiedades", response = PropiedadDTO.class, tags = "Propiedades")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
-        propiedadService.deleteAll();
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try{
+            propiedadService.deleteAll();
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
