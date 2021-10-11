@@ -51,7 +51,7 @@ public class CobroCanceladoController {
     }
 
     @GetMapping("/ByCobroCedula/{cedula}/{startDate}/{endDate}")
-    @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a la cedula del contribuyente", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
+    @ApiOperation(value = "Obtiene una lista de cobros cancelados de acuerdo a la cedula del contribuyente y dos fechas dadas", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
     public ResponseEntity<?> findByCobroBetweenFecha(@PathVariable(value = "cedula") String cedula, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
                                                           @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
         try {
