@@ -56,12 +56,21 @@ public class CobroGeneradoController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
      */
-     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/ByFechaCobroBetween/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a un rango de fechas", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
     public ResponseEntity<?> findByFechaCobroBetween(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date startDate, @PathVariable(value = "endDate")
      @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
         Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByFechaCobroBetween(startDate,endDate);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/ByCobroCedula/{cedula}/{tipo}")
+    @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a la cedula del contribuyente", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
+    public ResponseEntity<?> findByCobroCedula(@PathVariable(value = "cedula") String cedula, @PathVariable(value = "tipo") String tipo) {
+        Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByCobroCedula(cedula,tipo);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

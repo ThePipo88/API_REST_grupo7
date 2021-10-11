@@ -19,4 +19,5 @@ public class CobroGeneradoDTO {
     private ContribuyenteServicioDTO contribuyenteServicio;
     private Date fechaCobro;
     private Double monto;
+    private boolean estado;
 }
