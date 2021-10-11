@@ -7,9 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.una.municipalidad.dto.ListaSalidaDTO;
 import org.una.municipalidad.dto.TipoDerechoDTO;
-import org.una.municipalidad.services.IListaSalidaService;
 import org.una.municipalidad.services.ITipoDerechoService;
 
 import java.util.List;
@@ -28,32 +26,48 @@ import java.util.Optional;
       @GetMapping()
       public @ResponseBody
       ResponseEntity<?> findAll() {
-          Optional<List<TipoDerechoDTO>> result = tipoDerechoService.findAll();
-          return new ResponseEntity<>(result, HttpStatus.OK);
+          try{
+              Optional<List<TipoDerechoDTO>> result = tipoDerechoService.findAll();
+              return new ResponseEntity<>(result, HttpStatus.OK);
+          }catch (Exception e){
+              return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+          }
       }
 
       @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
       @ApiOperation(value = "Obtiene un tipo de derecho  a partir de su id", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @GetMapping("/{id}")
       public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
-          Optional<TipoDerechoDTO> tipoDerechoFound = tipoDerechoService.findById(id);
-          return new ResponseEntity<>(tipoDerechoFound, HttpStatus.OK);
+          try{
+              Optional<TipoDerechoDTO> result = tipoDerechoService.findById(id);
+              return new ResponseEntity<>(result, HttpStatus.OK);
+          }catch (Exception e){
+              return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+          }
       }
 
       @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
       @ApiOperation(value = "Obtiene una lista de derechos de cementerio a partir de su tipo de derecho", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @GetMapping("/tipo/{term}")
       public ResponseEntity<?> findByTipo(@PathVariable(value = "term") String term) {
-          Optional<List<TipoDerechoDTO>> result = tipoDerechoService.findByTipo(term);
-          return new ResponseEntity<>(result, HttpStatus.OK);
+          try{
+              Optional<List<TipoDerechoDTO>> result = tipoDerechoService.findByTipo(term);
+              return new ResponseEntity<>(result, HttpStatus.OK);
+          }catch (Exception e){
+              return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+          }
       }
 
       @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
       @ApiOperation(value = "Obtiene una lista de derechos de cementerio a partir de su monto fijo", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @GetMapping("/monto/{term}")
       public ResponseEntity<?> findByMonto(@PathVariable(value = "term") int term) {
-          Optional<List<TipoDerechoDTO>> result = tipoDerechoService.findByMonto(term);
-          return new ResponseEntity<>(result, HttpStatus.OK);
+          try{
+              Optional<List<TipoDerechoDTO>> result = tipoDerechoService.findByMonto(term);
+              return new ResponseEntity<>(result, HttpStatus.OK);
+          }catch (Exception e){
+              return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+          }
       }
 
       @PreAuthorize("hasRole('GESTOR')")
@@ -62,8 +76,12 @@ import java.util.Optional;
       @PostMapping("/")
       @ResponseBody
       public ResponseEntity<?> create(@RequestBody TipoDerechoDTO tipoDerechoDTO) {
-          Optional<TipoDerechoDTO> TipoDerechoCreated = tipoDerechoService.create(tipoDerechoDTO);
-          return new ResponseEntity<>(TipoDerechoCreated, HttpStatus.CREATED);
+          try{
+              Optional<TipoDerechoDTO> TipoDerechoCreated = tipoDerechoService.create(tipoDerechoDTO);
+              return new ResponseEntity<>(TipoDerechoCreated, HttpStatus.CREATED);
+          }catch (Exception e){
+              return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+          }
       }
 
       @PreAuthorize("hasRole('GESTOR')")
@@ -71,26 +89,35 @@ import java.util.Optional;
       @PutMapping("/{id}")
       @ResponseBody
       public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @RequestBody TipoDerechoDTO tipoDerechoModified) {
-          Optional<TipoDerechoDTO> listaSalidaUpdated = tipoDerechoService.update(tipoDerechoModified, id);
-          return new ResponseEntity<>(tipoDerechoModified, HttpStatus.OK);
+          try{
+              Optional<TipoDerechoDTO> listaSalidaUpdated = tipoDerechoService.update(tipoDerechoModified, id);
+              return new ResponseEntity<>(tipoDerechoModified, HttpStatus.OK);
+          }catch (Exception e){
+              return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+          }
       }
 
       @PreAuthorize("hasRole('GESTOR')")
       @ApiOperation(value = "Se elimina una lista tipos de derechos a partir de su id", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @DeleteMapping("/{id}")
       public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
-          tipoDerechoService.delete(id);
-          return new ResponseEntity<>("Ok", HttpStatus.OK);
+          try{
+              tipoDerechoService.delete(id);
+              return new ResponseEntity<>("Ok", HttpStatus.OK);
+          }catch (Exception e){
+              return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+          }
       }
 
       @PreAuthorize("hasRole('GESTOR')")
       @ApiOperation(value = "Se eliminan todos las listas de tipos de derechos a partir de su id", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @DeleteMapping("/")
       public ResponseEntity<?> deleteAll() throws Exception {
-          tipoDerechoService.deleteAll();
-          return new ResponseEntity<>("Ok", HttpStatus.OK);
+          try{
+              tipoDerechoService.deleteAll();
+              return new ResponseEntity<>("Ok", HttpStatus.OK);
+          }catch (Exception e){
+              return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+          }
       }
-
-
-
 }
