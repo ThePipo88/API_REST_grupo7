@@ -12,6 +12,6 @@ public interface ICobroCanceladoRepository extends JpaRepository<CobroCancelado,
 
     public List<CobroCancelado> findByFechaCreacionBetween(Date startDate, Date endDate);
 
-    public List<CobroCancelado> findByDescripcion(String descripcion);
+    public List<CobroCancelado> findByFechaCreacion(Date startDate);
 
 }

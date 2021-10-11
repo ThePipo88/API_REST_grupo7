@@ -30,10 +30,8 @@ public class Cementerio implements Serializable{
     @Column(name = "ocupado", length = 100)
     private String ocupado;
 
-    /*
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "  ")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cementerio")
     private List<TipoDerecho> tipoDerecho = new ArrayList<>();
-    private static final long serialVersionUID = 1L;
-    */
+
     private static final long serialVersionUID = 1L;
 }

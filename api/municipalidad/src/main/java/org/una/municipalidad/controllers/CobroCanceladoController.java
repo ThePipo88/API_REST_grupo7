@@ -3,6 +3,7 @@ package org.una.municipalidad.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,27 +39,21 @@ public class CobroCanceladoController {
         Optional<CobroCanceladoDTO> cobroCanceladoFound = cobroCanceladoService.findById(id);
         return new ResponseEntity<>(cobroCanceladoFound, HttpStatus.OK);
     }
-/*
-    @GetMapping("/byObjetoAndFecha/{objetoId}/{startDate}")
-    @ApiOperation(value = "Obtiene una lista de cobros cancelados de acuerdo al objeto y fecha de creacion", response = CobroCanceladoDTO.class, responseContainer = "CobroCanceladoDto", tags = "CobroCancelado")
-    public ResponseEntity<?> findByObjetoAndFechaCreacionBetween(@PathVariable(value = "objetoId") String objetoId, @PathVariable(value = "startDate") Date startDate) {
-        Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findByObjetoAndFechaCreacionBetween(objetoId,startDate);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-*/
+
     @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/byFechaCreacion/{startDate}/{endDate}")
-    @ApiOperation(value = "Obtiene una lista de cobros cancelados de acuerdo a su fecha de creacion", response = CobroCanceladoDTO.class, responseContainer = "CobroCanceladoDto", tags = "CobroCancelado")
-    public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
+    @ApiOperation(value = "Obtiene una lista de cobros cancelados con base en dos fechas dadas", response = CobroCanceladoDTO.class, responseContainer = "CobroCanceladoDto", tags = "CobroCancelado")
+    public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
         Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findByFechaCreacionBetween(startDate,endDate);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene un cobro cancelado a partir de su descripcion", response = CobroCanceladoDTO.class, responseContainer = "List", tags = "CobroCancelado")
-    @GetMapping("/descripcion/{term}")
-    public ResponseEntity<?> findByDescripcion(@PathVariable(value = "term") String term) {
-        Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findByDescripcion(term);
+    @GetMapping("/byFechaCreacion/{startDate}")
+    @ApiOperation(value = "Obtiene una lista de cobros cancelados a partir de una fecha de creacion", response = CobroCanceladoDTO.class, responseContainer = "CobroCanceladoDto", tags = "CobroCancelado")
+    public ResponseEntity<?> findByFechaCreacion(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate) {
+        Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findByFechaCreacion(startDate);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

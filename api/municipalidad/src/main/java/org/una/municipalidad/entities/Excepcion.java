@@ -26,8 +26,8 @@ public class Excepcion implements Serializable {
     @Column(name = "descripcion", length = 250)
     private String descripcion;
 
-    @Column(name = "estado", length = 10)
-    private Boolean estado;
+    @Column
+    private boolean estado;
 
     @Column(name = "fecha_creacion", updatable = false)
     @Temporal(TemporalType.DATE)

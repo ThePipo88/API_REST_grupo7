@@ -17,7 +17,7 @@ public interface IExcepcionService {
 
     public Optional<List<ExcepcionDTO>> findByUsuario(Long id);
 
-    public Optional<List<ExcepcionDTO>> findByEstado(Boolean estado);
+    public Optional<List<ExcepcionDTO>> findByEstado(boolean estado);
 
     public Optional<List<ExcepcionDTO>> findByFechaCreacion(Date startDate);
 

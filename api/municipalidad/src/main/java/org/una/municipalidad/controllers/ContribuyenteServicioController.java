@@ -40,7 +40,7 @@ public class ContribuyenteServicioController {
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/ByPorcentaje/{porcentaje}")
-    @ApiOperation(value = "Obtiene un contribuyente de acuerdo a su porcentaje de servicio", response = ContribuyenteServicioDTO.class, responseContainer = "ContribuyenteServicioDTO", tags = "ContribuyenteServicio")
+    @ApiOperation(value = "Obtiene una lista de servicios contribuyentes de acuerdo al porcentaje de posecion del servicio", response = ContribuyenteServicioDTO.class, responseContainer = "ContribuyenteServicioDTO", tags = "ContribuyenteServicio")
     public ResponseEntity<?> findByPorcentaje(@PathVariable(value = "porcentaje") String porcentaje) {
         Optional<List<ContribuyenteServicioDTO>> contribuyenteServicioFound = contribuyenteServicioService.findByPorcentaje(porcentaje);
         return new ResponseEntity<>(contribuyenteServicioFound, HttpStatus.OK);

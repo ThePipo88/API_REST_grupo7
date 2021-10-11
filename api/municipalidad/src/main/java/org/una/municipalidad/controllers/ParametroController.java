@@ -3,6 +3,7 @@ package org.una.municipalidad.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -60,28 +61,29 @@ public class ParametroController {
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/findByestadoAproximate/{estado}")
     @ApiOperation(value = "Obtiene un parametro de acuerdo a su estado", response = ParametroDTO.class, responseContainer = "ParametroDTO", tags = "Parametro")
-    public ResponseEntity<?> findByestadoAproximate(@PathVariable(value = "estado") boolean estado) {
-        Optional<List<ParametroDTO>> result = parametroService.findByestadoAproximate(estado);
+    public ResponseEntity<?> findByEstadoAproximate(@PathVariable(value = "estado") boolean estado) {
+        Optional<List<ParametroDTO>> result = parametroService.findByEstadoAproximate(estado);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/findByFechaCreacionBetween/{startDate}/{endDate}")
-    @ApiOperation(value = "Obtiene una lista de parametros de acuerdo a su fecha de creacion", response = ParametroDTO.class, responseContainer = "ParametroDTO", tags = "Parametro")
-    public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
+    @ApiOperation(value = "Obtiene una lista de parametros entre dos fechas dadas", response = ParametroDTO.class, responseContainer = "ParametroDTO", tags = "Parametro")
+    public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
         Optional<List<ParametroDTO>> result = parametroService.findByFechaCreacionBetween(startDate,endDate);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/findByFechaModificacionBetween/{startDate}/{endDate}")
-    @ApiOperation(value = "Obtiene una lista de cobros cancelados de acuerdo a su fecha de modificacion", response = ParametroDTO.class, responseContainer = "List", tags = "Parametros")
+    @ApiOperation(value = "Obtiene una lista de parametros de acuerdo a su fecha de modificacion", response = ParametroDTO.class, responseContainer = "List", tags = "Parametros")
     public ResponseEntity<?> findByFechaModificacionBetween(@PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
         Optional<List<ParametroDTO>> result = parametroService.findByFechaModificacionBetween(startDate,endDate);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea un parametro", response = ParametroDTO.class, tags = "Parametro")
     @PostMapping("/")

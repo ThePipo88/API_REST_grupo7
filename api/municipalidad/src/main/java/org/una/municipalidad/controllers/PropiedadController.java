@@ -69,7 +69,7 @@ public class PropiedadController {
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una lista de zonas a partir de su distrito", response = PropiedadDTO.class, responseContainer = "List", tags = "Propiedades")
+    @ApiOperation(value = "Obtiene una lista de propiedades a partir de su zona", response = PropiedadDTO.class, responseContainer = "List", tags = "Propiedades")
     @GetMapping("/zona/{term}")
     public ResponseEntity<?> findByZona(@PathVariable(value = "term") String term) {
         Optional<List<PropiedadDTO>> result = propiedadService.findByZona(term);

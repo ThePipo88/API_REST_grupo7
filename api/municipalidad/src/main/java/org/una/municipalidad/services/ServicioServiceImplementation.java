@@ -53,7 +53,7 @@ public class ServicioServiceImplementation implements IServicioService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ServicioDTO>> findByEstado(String estado) {
+    public Optional<List<ServicioDTO>> findByEstado(boolean estado) {
         List<Servicio> servicioList = servicioRepository.findByEstado(estado);
         List<ServicioDTO> servicioDTOList = MapperUtils.DtoListFromEntityList(servicioList, ServicioDTO.class);
         return Optional.ofNullable(servicioDTOList);

@@ -55,8 +55,8 @@ public class CobroCanceladoServiceImplementation implements ICobroCanceladoServi
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<CobroCanceladoDTO>> findByDescripcion(String descripcion) {
-        List<CobroCancelado> cobroCanceladoList = cobroCanceladoRepository.findByDescripcion(descripcion);
+    public Optional<List<CobroCanceladoDTO>> findByFechaCreacion(Date startDate) {
+        List<CobroCancelado> cobroCanceladoList = cobroCanceladoRepository.findByFechaCreacion(startDate);
         List<CobroCanceladoDTO> cobroCanceladoDTOList = MapperUtils.DtoListFromEntityList(cobroCanceladoList, CobroCanceladoDTO.class);
         return Optional.ofNullable(cobroCanceladoDTOList);
     }

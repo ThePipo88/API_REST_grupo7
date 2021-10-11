@@ -79,7 +79,4 @@ public class TipoDerechoServiceImplementation implements ITipoDerechoService{
         TipoDerecho tipoDerechoCreated = tipoDerechoRepository.save(tipoDerecho);
         return MapperUtils.DtoFromEntity(tipoDerechoCreated, TipoDerechoDTO.class);
     }
-
-
-
 }

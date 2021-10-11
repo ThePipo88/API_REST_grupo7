@@ -12,7 +12,7 @@ public interface IServicioRepository extends JpaRepository<Servicio, Long> {
 
     public List<Servicio> findByTipoServicio(String tipoServicio);
 
-    public List<Servicio> findByEstado(String estado);
+    public List<Servicio> findByEstado(boolean estado);
 
     public List<Servicio> findByPropiedad(Long id);
 

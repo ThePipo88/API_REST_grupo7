@@ -3,6 +3,7 @@ package org.una.municipalidad.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,7 +25,7 @@ public class RolController {
     private IRolService rolService;
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene un departamento a partir de su id", response = RolDTO.class, tags = "Roles")
+    @ApiOperation(value = "Obtiene un rol a partir de su id", response = RolDTO.class, tags = "Roles")
     @GetMapping("/byId/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
         Optional<RolDTO> rolFound = rolService.findById(id);
@@ -34,14 +35,15 @@ public class RolController {
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un rol a partir de su estado", response = RolDTO.class, tags = "Roles")
     @GetMapping("/byEstado/{estado}")
-    public ResponseEntity<?> findByEstado(@PathVariable(value = "estado") Boolean estado) {
+    public ResponseEntity<?> findByEstado(@PathVariable(value = "estado") boolean estado) {
         Optional<List<RolDTO>> result = rolService.findByEstado(estado);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/byFechaCreacion/{startDate}/{endDate}")
-    @ApiOperation(value = "Obtiene una lista de roles de acuerdo a su fecha de creacion", response = RolDTO.class, responseContainer = "RolesDTO", tags = "Roles")
-    public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
+    @ApiOperation(value = "Obtiene una lista de roles entre dos fechas dadas", response = RolDTO.class, responseContainer = "RolesDTO", tags = "Roles")
+    public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
         Optional<List<RolDTO>> result = rolService.findByFechaCreacionBetween(startDate,endDate);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

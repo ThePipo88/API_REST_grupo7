@@ -17,7 +17,7 @@ public class ServicioDTO {
     private Long id;
     private String tipoServicio;
     private String descripcion;
-    private String estado;
+    private boolean estado;
     private PropiedadDTO propiedad;
     private Date fechaRegistro;
     private Date ultimaActualizacion;

@@ -73,7 +73,7 @@ public class ListaSalidaController {
     }
 
     @PreAuthorize("hasRole('GESTOR')")
-    @ApiOperation(value = "Se elimina unalista de salidas de bus a partir de su id", response = ListaSalidaDTO.class, tags = "ListaSalida")
+    @ApiOperation(value = "Se elimina una lista de salidas de bus a partir de su id", response = ListaSalidaDTO.class, tags = "ListaSalida")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
         listaSalidaService.delete(id);
@@ -81,7 +81,7 @@ public class ListaSalidaController {
     }
 
     @PreAuthorize("hasRole('GESTOR')")
-    @ApiOperation(value = "Se eliminan todos las listas de salidas de bus", response = ListaSalidaDTO.class, tags = "RutaBus")
+    @ApiOperation(value = "Se eliminan todas las listas de salidas de bus", response = ListaSalidaDTO.class, tags = "RutaBus")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
         listaSalidaService.deleteAll();

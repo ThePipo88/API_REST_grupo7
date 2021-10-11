@@ -3,6 +3,7 @@ package org.una.municipalidad.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.CobroCanceladoDTO;
 import org.una.municipalidad.dto.ReciboDTO;
-import org.una.municipalidad.dto.RutaBusDTO;
 import org.una.municipalidad.dto.ServicioDTO;
 import org.una.municipalidad.entities.Servicio;
 import org.una.municipalidad.exceptions.NotFoundInformationException;
@@ -57,9 +57,9 @@ public class ServicioController {
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de servicios a partir de un estado", response = ServicioDTO.class, tags = "Servicios")
-    @GetMapping("/estado/{term}")
-    public ResponseEntity<?> findByEstado(@PathVariable(value = "term") String term) {
-        Optional<List<ServicioDTO>> result = servicioService.findByEstado(term);
+    @GetMapping("/estado/{estado}")
+    public ResponseEntity<?> findByEstado(@PathVariable(value = "estado") boolean estado) {
+        Optional<List<ServicioDTO>> result = servicioService.findByEstado(estado);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -72,17 +72,17 @@ public class ServicioController {
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una lista de servicios a partir de una fecha", response = ServicioDTO.class, tags = "Servicios")
+    @ApiOperation(value = "Obtiene una lista de servicios a partir de una fecha de registro", response = ServicioDTO.class, tags = "Servicios")
     @GetMapping("/fechaRegistro/{fechaRegistro}")
-    public ResponseEntity<?> findByFechaRegitro(@PathVariable(value = "fechaRegistro") Date fechaRegistro) {
+    public ResponseEntity<?> findByFechaRegitro(@PathVariable(value = "fechaRegistro") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaRegistro) {
         Optional<List<ServicioDTO>> result = servicioService.findByFechaRegistro(fechaRegistro);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una lista de servicios a partir de una ultima actualizacion", response = ServicioDTO.class, tags = "Servicios")
+    @ApiOperation(value = "Obtiene una lista de servicios a partir de la ultima actualizacion", response = ServicioDTO.class, tags = "Servicios")
     @GetMapping("/fechaActualizacion/{fecha}")
-    public ResponseEntity<?> findByUltimaActualizacion(@PathVariable(value = "fecha") Date fecha) {
+    public ResponseEntity<?> findByUltimaActualizacion(@PathVariable(value = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha) {
         Optional<List<ServicioDTO>> result = servicioService.findByUltimaActualizacion(fecha);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

@@ -20,7 +20,7 @@ import org.una.municipalidad.services.ICementerioService;
         private ICementerioService cementerioService;
 
         @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
-        @ApiOperation(value = "Obtiene una lista de todos las los tipos de derecho", response = CementerioDTO.class, responseContainer = "List", tags = "Cementerio")
+        @ApiOperation(value = "Obtiene una lista de todos los derechos de cementerios", response = CementerioDTO.class, responseContainer = "List", tags = "Cementerio")
         @GetMapping()
         public @ResponseBody
         ResponseEntity<?> findAll() {
@@ -37,15 +37,15 @@ import org.una.municipalidad.services.ICementerioService;
         }
 
         @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
-        @ApiOperation(value = "Obtiene un derecho de cementerio a partir de su sector", response = CementerioDTO.class, tags = "Cementerio")
+        @ApiOperation(value = "Obtiene una lista de derechos de cementerio a partir de su sector", response = CementerioDTO.class, responseContainer = "List", tags = "Cementerio")
         @GetMapping("/sector/{term}")
-        public ResponseEntity<?> findByNombre(@PathVariable(value = "term") String term) {
+        public ResponseEntity<?> findBySector(@PathVariable(value = "term") String term) {
             Optional<List<CementerioDTO>> result = cementerioService.findBySector(term);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
         @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE')")
-        @ApiOperation(value = "Obtiene una ruta de bus a partir de si esta ocupado ", response = CementerioDTO.class, responseContainer = "List", tags = "Cementerio")
+        @ApiOperation(value = "Obtiene una lista de derechos de cementerio con base en si esta ocupado o no", response = CementerioDTO.class, responseContainer = "List", tags = "Cementerio")
         @GetMapping("/ByOcupado/{ocupado}")
         public ResponseEntity<?> findByOcupado(@PathVariable(value = "ocupado") String ocupado) {
             Optional<List<CementerioDTO>> result = cementerioService.findByOcupado(ocupado);
@@ -72,7 +72,7 @@ import org.una.municipalidad.services.ICementerioService;
         }
 
         @PreAuthorize("hasRole('GESTOR')")
-        @ApiOperation(value = "Se elimina un derecho de cementerio con du id", response = CementerioDTO.class, tags = "Cementerio")
+        @ApiOperation(value = "Se elimina un derecho de cementerio con su id", response = CementerioDTO.class, tags = "Cementerio")
         @DeleteMapping("/{id}")
         public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
             cementerioService.delete(id);

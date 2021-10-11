@@ -1,7 +1,6 @@
 package org.una.municipalidad.services;
 
 import org.una.municipalidad.dto.ListaSalidaDTO;
-import org.una.municipalidad.dto.RutaBusDTO;
 
 import java.util.List;
 import java.util.Optional;

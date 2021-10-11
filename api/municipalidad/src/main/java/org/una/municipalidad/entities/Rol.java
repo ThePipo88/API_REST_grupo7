@@ -33,7 +33,7 @@ public class Rol implements Serializable {
     private List<Usuario> usuarios = new ArrayList<>();
 
     @Column
-    private Boolean estado;
+    private boolean estado;
 
     private static final long serialVersionUID = 1L;
 

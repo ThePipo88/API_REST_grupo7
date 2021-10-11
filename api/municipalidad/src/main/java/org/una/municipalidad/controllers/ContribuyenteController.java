@@ -3,6 +3,7 @@ package org.una.municipalidad.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -57,8 +58,8 @@ public class ContribuyenteController {
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/findByFecha/{fechaNacimiento}")
-    @ApiOperation(value = "Obtiene una lista de cotribuyetes de acuerdo a una fecha", response = ContribuyenteDTO.class, responseContainer = "List", tags = "Contribuyentes")
-    public ResponseEntity<?> findByFechaNacimiento(@PathVariable(value = "fechaNacimiento") Date fechaNacimiento) {
+    @ApiOperation(value = "Obtiene una lista de cotribuyetes de acuerdo a su fecha de nacimiento", response = ContribuyenteDTO.class, responseContainer = "List", tags = "Contribuyentes")
+    public ResponseEntity<?> findByFechaNacimiento(@PathVariable(value = "fechaNacimiento") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaNacimiento) {
         Optional<List<ContribuyenteDTO>> result = contribuyenteService.findByFechaNacimiento(fechaNacimiento);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

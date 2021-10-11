@@ -18,7 +18,7 @@ public interface IParametroService {
 
     public Optional<List<ParametroDTO>> findByNombreAproximate(String nombre);
 
-    public Optional<List<ParametroDTO>> findByestadoAproximate(boolean estado);
+    public Optional<List<ParametroDTO>> findByEstadoAproximate(boolean estado);
 
     public Optional<List<ParametroDTO>> findByFechaCreacionBetween(Date startDate, Date endDate);
 

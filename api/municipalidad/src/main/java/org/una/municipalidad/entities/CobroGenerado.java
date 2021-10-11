@@ -30,7 +30,7 @@ public class CobroGenerado implements Serializable {
     @Setter(AccessLevel.NONE)
     private Date fechaCobro;
 
-    @OneToOne (mappedBy = "cobroGenerado")
+    @OneToOne (cascade = CascadeType.ALL, mappedBy = "cobroGenerado")
     private CobroCancelado cobroCancelado;
 
     @Column(length = 100, name = "monto")

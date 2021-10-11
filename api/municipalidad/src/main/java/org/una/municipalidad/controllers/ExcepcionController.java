@@ -3,6 +3,7 @@ package org.una.municipalidad.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,7 +31,7 @@ public class ExcepcionController {
     private IExcepcionService excepcionService;
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una lista de todas las excepcioness", response = ExcepcionDTO.class, responseContainer = "List", tags = "Excepciones")
+    @ApiOperation(value = "Obtiene una lista de todas las excepciones", response = ExcepcionDTO.class, responseContainer = "List", tags = "Excepciones")
     @GetMapping()
     public @ResponseBody
     ResponseEntity<?> findAll() {
@@ -55,9 +56,9 @@ public class ExcepcionController {
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una lista de excepciones a partir del id de un usuario", response = ExcepcionDTO.class, tags = "Excepciones")
+    @ApiOperation(value = "Obtiene una lista de excepciones a partir de un estado", response = ExcepcionDTO.class, tags = "Excepciones")
     @GetMapping("/estado/{estado}")
-    public ResponseEntity<?> findByEstado(@PathVariable(value = "term") Boolean estado) {
+    public ResponseEntity<?> findByEstado(@PathVariable(value = "term") boolean estado) {
         Optional<List<ExcepcionDTO>> result = excepcionService.findByEstado(estado);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -65,7 +66,7 @@ public class ExcepcionController {
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de excepciones a partir de la fecha de creacion", response = ExcepcionDTO.class, tags = "Excepciones")
     @GetMapping("/fechaCreacion/{fecha}")
-    public ResponseEntity<?> findByFechaCreacion(@PathVariable(value = "fecha") Date fecha) {
+    public ResponseEntity<?> findByFechaCreacion(@PathVariable(value = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha) {
         Optional<List<ExcepcionDTO>> result = excepcionService.findByFechaCreacion(fecha);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

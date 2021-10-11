@@ -3,6 +3,7 @@ package org.una.municipalidad.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,12 +41,13 @@ public class CobroGeneradoController {
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene un cobro generado a partir de su monto", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
+    @ApiOperation(value = "Obtiene una lista de cobros generadoss a partir de un monto", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
     @GetMapping("/monto/{term}")
     public ResponseEntity<?> findByMonto(@PathVariable(value = "term") Double term) {
         Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByMonto(term);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
      /*
     @GetMapping("/ByObjetoAndFechaCobroBetween/{id}/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo al objeto y fecha de Cobro", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
@@ -56,8 +58,9 @@ public class CobroGeneradoController {
      */
      @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/ByFechaCobroBetween/{startDate}/{endDate}")
-    @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a su fecha de cobro", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
-    public ResponseEntity<?> findByFechaCobroBetween(@PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
+    @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a un rango de fechas", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
+    public ResponseEntity<?> findByFechaCobroBetween(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date startDate, @PathVariable(value = "endDate")
+     @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
         Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByFechaCobroBetween(startDate,endDate);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

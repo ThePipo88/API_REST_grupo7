@@ -28,7 +28,7 @@ public class UsuarioController {
     private IUsuarioService usuarioService;
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una lista de todos los Usuarios", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuarios")
+    @ApiOperation(value = "Obtiene una lista de todos los usuarios", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuarios")
     @GetMapping()
     public @ResponseBody
     ResponseEntity<?> findAll() {
@@ -37,7 +37,7 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una usuario a partir de su id", response = UsuarioDTO.class, tags = "Usuarios")
+    @ApiOperation(value = "Obtiene un usuario a partir de su id", response = UsuarioDTO.class, tags = "Usuarios")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
         Optional<UsuarioDTO> usuarioFound = usuarioService.findById(id);
@@ -45,7 +45,7 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una usuario a partir de su cedula", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuarios")
+    @ApiOperation(value = "Obtiene un usuario a partir de su cedula", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuarios")
     @GetMapping("/cedula/{term}")
     public ResponseEntity<?> findByCedulaAproximate(@PathVariable(value = "term") String term) {
         Optional<List<UsuarioDTO>> result = usuarioService.findByCedulaAproximate(term);
@@ -53,7 +53,7 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una usuario a partir de su nombre", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuario")
+    @ApiOperation(value = "Obtiene un usuario a partir de su nombre", response = UsuarioDTO.class, responseContainer = "List", tags = "Usuario")
     @GetMapping("/nombre/{term}")
     public ResponseEntity<?> findByNombreCompletoAproximateIgnoreCase(@PathVariable(value = "term") String term) {
         Optional<List<UsuarioDTO>> result = usuarioService.findByNombreCompletoAproximateIgnoreCase(term);

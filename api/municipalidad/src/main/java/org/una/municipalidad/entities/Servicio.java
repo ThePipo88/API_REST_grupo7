@@ -27,8 +27,8 @@ public class Servicio implements Serializable {
     @Column(name = "descripcion", length = 50)
     private String descripcion;
 
-    @Column(name = "estado", length = 2)
-    private String estado;
+    @Column
+    private boolean estado;
 
     @ManyToOne
     @JoinColumn(name="propiedad_id")

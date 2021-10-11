@@ -54,7 +54,7 @@ public class ParametroServiceImplementation implements IParametroService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ParametroDTO>> findByestadoAproximate(boolean estado) {
+    public Optional<List<ParametroDTO>> findByEstadoAproximate(boolean estado) {
         List<Parametro> parametroList = parametroRepository.findByEstado(estado);
         List<ParametroDTO> parametroDTOList = MapperUtils.DtoListFromEntityList(parametroList, ParametroDTO.class);
         return Optional.ofNullable(parametroDTOList);

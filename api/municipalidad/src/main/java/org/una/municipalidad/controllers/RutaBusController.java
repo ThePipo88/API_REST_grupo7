@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.una.municipalidad.dto.CobroCanceladoDTO;
 import org.una.municipalidad.dto.RutaBusDTO;
 import org.una.municipalidad.services.IRutaBusService;
 
@@ -23,7 +22,7 @@ public class RutaBusController {
     private IRutaBusService rutaBusService;
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una lista de todos las rutas de bus", response = RutaBusDTO.class, responseContainer = "List", tags = "RutaBus")
+    @ApiOperation(value = "Se obtiene una lista de todas las rutas de bus", response = RutaBusDTO.class, responseContainer = "List", tags = "RutaBus")
     @GetMapping()
     public @ResponseBody
     ResponseEntity<?> findAll() {
@@ -32,7 +31,7 @@ public class RutaBusController {
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una ruta de bus a partir de su id", response = RutaBusDTO.class, tags = "RutaBus")
+    @ApiOperation(value = "Se obtiene una ruta de bus a partir de su id", response = RutaBusDTO.class, tags = "RutaBus")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
         Optional<RutaBusDTO> rutaBusFound = rutaBusService.findById(id);
@@ -40,7 +39,7 @@ public class RutaBusController {
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una ruta de bus a partir de su nombre", response = RutaBusDTO.class, tags = "RutaBus")
+    @ApiOperation(value = "Se obtiene una ruta de bus a partir de su nombre", response = RutaBusDTO.class, tags = "RutaBus")
     @GetMapping("/nombre/{term}")
     public ResponseEntity<?> findByNombre(@PathVariable(value = "term") String term) {
         Optional<List<RutaBusDTO>> result = rutaBusService.findByNombre(term);
@@ -48,7 +47,7 @@ public class RutaBusController {
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una ruta de bus a partir de su inicio", response = RutaBusDTO.class, tags = "RutaBus")
+    @ApiOperation(value = "Se obtiene una lista de rutas de buses a partir del lugar de inicio", response = RutaBusDTO.class, tags = "RutaBus")
     @GetMapping("/inicio/{term}")
     public ResponseEntity<?> findByInicio(@PathVariable(value = "term") String term) {
         Optional<List<RutaBusDTO>> result = rutaBusService.findByInicio(term);
@@ -56,7 +55,7 @@ public class RutaBusController {
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE')or hasRole('GERENTE') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una ruta de bus a partir de su final", response = RutaBusDTO.class, tags = "RutaBus")
+    @ApiOperation(value = "Se obtiene una lista de rutas de buses a partir del lugar final", response = RutaBusDTO.class, tags = "RutaBus")
     @GetMapping("/fin/{term}")
     public ResponseEntity<?> findByFin(@PathVariable(value = "term") String term) {
         Optional<List<RutaBusDTO>> result = rutaBusService.findByFin(term);
@@ -91,7 +90,7 @@ public class RutaBusController {
     }
 
     @PreAuthorize("hasRole('GESTOR')")
-    @ApiOperation(value = "Se eliminan todos las rutas de bus", response = RutaBusDTO.class, tags = "RutaBus")
+    @ApiOperation(value = "Se eliminan todas las rutas de bus", response = RutaBusDTO.class, tags = "RutaBus")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
         rutaBusService.deleteAll();

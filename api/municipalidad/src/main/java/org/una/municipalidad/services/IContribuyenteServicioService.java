@@ -16,10 +16,6 @@ public interface IContribuyenteServicioService {
 
     public Optional<List<ContribuyenteServicioDTO>> findByPorcentaje(String porcentaje);
 
-    public Optional<ContribuyenteServicioDTO> findByContribuyente(Contribuyente contribuyente);
-
-    public Optional<ContribuyenteServicioDTO> findByServicio(Servicio servicio);
-
     public ContribuyenteServicioDTO create(ContribuyenteServicioDTO contribuyenteServicioDTO);
 
     public Optional<ContribuyenteServicioDTO> update(ContribuyenteServicioDTO contribuyenteServicioDTO, Long id);

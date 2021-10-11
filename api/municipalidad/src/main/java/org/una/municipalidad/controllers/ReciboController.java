@@ -3,6 +3,7 @@ package org.una.municipalidad.controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -46,7 +47,7 @@ public class ReciboController {
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
-    @ApiOperation(value = "Obtiene una lista de recibos a partir de un contribuyente", response = ReciboDTO.class, responseContainer = "List", tags = "Recibos")
+    @ApiOperation(value = "Obtiene una lista de recibos a partir del id de un contribuyente", response = ReciboDTO.class, responseContainer = "List", tags = "Recibos")
     @GetMapping("/contribuyente/{term}")
     public ResponseEntity<?> findByContribuyente(@PathVariable(value = "term") String term) {
         Optional<List<ReciboDTO>> result = reciboService.findByContribuyente(term);
@@ -56,7 +57,7 @@ public class ReciboController {
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de recibos a partir de una fecha de emision", response = ReciboDTO.class, responseContainer = "List", tags = "Recibos")
     @GetMapping("/fechaEmision/{fecha}")
-    public ResponseEntity<?> findByFechaEmision(@PathVariable(value = "fecha") Date fecha) {
+    public ResponseEntity<?> findByFechaEmision(@PathVariable(value = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha) {
         Optional<List<ReciboDTO>> result = reciboService.findByFechaEmision(fecha);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

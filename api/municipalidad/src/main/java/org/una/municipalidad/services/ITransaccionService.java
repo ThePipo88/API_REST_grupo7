@@ -1,5 +1,6 @@
 package org.una.municipalidad.services;
 
+import org.una.municipalidad.dto.TipoDerechoDTO;
 import org.una.municipalidad.dto.TransaccionDTO;
 import org.una.municipalidad.dto.UsuarioDTO;
 
@@ -20,4 +21,10 @@ public interface ITransaccionService {
     public Optional<List<TransaccionDTO>> findByFechaCreacionBetween(Date startDate, Date endDate);
 
     public TransaccionDTO create(TransaccionDTO transaccion);
+
+    public Optional<TransaccionDTO> update(TransaccionDTO transaccionDTO, Long id);
+
+    public void delete(Long id);
+
+    public void deleteAll();
 }

@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.municipalidad.dto.ContribuyenteServicioDTO;
-import org.una.municipalidad.entities.Contribuyente;
 import org.una.municipalidad.entities.ContribuyenteServicio;
-import org.una.municipalidad.entities.Servicio;
 import org.una.municipalidad.exceptions.NotFoundInformationException;
 import org.una.municipalidad.repositories.IContribuyenteServicioRepository;
 import org.una.municipalidad.utils.MapperUtils;
@@ -40,19 +38,9 @@ public class ContribuyenteServicioServiceImplementation implements IContribuyent
     @Override
     @Transactional(readOnly = true)
     public Optional<List<ContribuyenteServicioDTO>> findByPorcentaje(String porcentaje) {
-        return Optional.empty();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<ContribuyenteServicioDTO> findByContribuyente(Contribuyente contribuyente) {
-        return Optional.empty();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<ContribuyenteServicioDTO> findByServicio(Servicio servicio) {
-        return Optional.empty();
+        List<ContribuyenteServicio> contribuyenteList = contribuyenteServicioRepository.findByPorcentaje(porcentaje);
+        List<ContribuyenteServicioDTO> contribuyenteDTOList = MapperUtils.DtoListFromEntityList(contribuyenteList , ContribuyenteServicioDTO.class);
+        return Optional.ofNullable(contribuyenteDTOList);
     }
 
     @Override

@@ -34,8 +34,8 @@ public class Usuario implements Serializable {
     @JoinColumn(name="roles_id")
     private Rol rol;
 
-    @Column(name = "estado", length = 10)
-    private String estado;
+    @Column
+    private boolean estado;
 
     @Column(name = "fecha_creacion", updatable = false)
     @Temporal(TemporalType.DATE)
