@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.CobroCanceladoDTO;
+import org.una.municipalidad.dto.CobroGeneradoDTO;
 import org.una.municipalidad.services.ICobroCanceladoService;
 
 import java.util.Date;
@@ -45,6 +46,18 @@ public class CobroCanceladoController {
             return new ResponseEntity<>(cobroCanceladoFound, HttpStatus.OK);
         }
         catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/ByCobroCedula/{cedula}/{startDate}/{endDate}")
+    @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a la cedula del contribuyente", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
+    public ResponseEntity<?> findByCobroBetweenFecha(@PathVariable(value = "cedula") String cedula, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                          @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        try {
+            Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findByCobroBetweenFecha(cedula,startDate,endDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }  catch(Exception e){
             return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
