@@ -28,16 +28,25 @@ public class CobroCanceladoController {
     @GetMapping()
     public @ResponseBody
     ResponseEntity<?> findAll() {
+        try{
         Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findAll();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un cobro cancelado a partir de su id", response = CobroCanceladoDTO.class, tags = "CobroCancelado")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
-        Optional<CobroCanceladoDTO> cobroCanceladoFound = cobroCanceladoService.findById(id);
-        return new ResponseEntity<>(cobroCanceladoFound, HttpStatus.OK);
+        try {
+            Optional<CobroCanceladoDTO> cobroCanceladoFound = cobroCanceladoService.findById(id);
+            return new ResponseEntity<>(cobroCanceladoFound, HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
@@ -45,16 +54,24 @@ public class CobroCanceladoController {
     @ApiOperation(value = "Obtiene una lista de cobros cancelados con base en dos fechas dadas", response = CobroCanceladoDTO.class, responseContainer = "CobroCanceladoDto", tags = "CobroCancelado")
     public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        try{
         Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findByFechaCreacionBetween(startDate,endDate);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/byFechaCreacion/{startDate}")
     @ApiOperation(value = "Obtiene una lista de cobros cancelados a partir de una fecha de creacion", response = CobroCanceladoDTO.class, responseContainer = "CobroCanceladoDto", tags = "CobroCancelado")
     public ResponseEntity<?> findByFechaCreacion(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate) {
-        Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findByFechaCreacion(startDate);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try {
+            Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findByFechaCreacion(startDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
@@ -63,8 +80,12 @@ public class CobroCanceladoController {
     @PostMapping("/")
     @ResponseBody
     public ResponseEntity<?> create(@RequestBody CobroCanceladoDTO cobroCanceladoDTO) {
+        try{
         Optional<CobroCanceladoDTO> cobroCanceladoCreated = cobroCanceladoService.create(cobroCanceladoDTO);
-        return new ResponseEntity<>(cobroCanceladoCreated, HttpStatus.CREATED);
+        return new ResponseEntity<>(cobroCanceladoCreated, HttpStatus.CREATED);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
@@ -72,23 +93,34 @@ public class CobroCanceladoController {
     @PutMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @RequestBody CobroCanceladoDTO cobroCanceladoModified) {
-        Optional<CobroCanceladoDTO> cobroCanceladoUpdated = cobroCanceladoService.update(cobroCanceladoModified, id);
-        return new ResponseEntity<>(cobroCanceladoModified, HttpStatus.OK);
+        try {
+            Optional<CobroCanceladoDTO> cobroCanceladoUpdated = cobroCanceladoService.update(cobroCanceladoModified, id);
+            return new ResponseEntity<>(cobroCanceladoModified, HttpStatus.OK);
+        } catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina un cobro cancelado a partir de su id", response = CobroCanceladoDTO.class, tags = "CobroCancelado")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
+    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception { try {
         cobroCanceladoService.delete(id);
         return new ResponseEntity<>("Ok", HttpStatus.OK);
+    }  catch(Exception e){
+        return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todos los cobros cancelados", response = CobroCanceladoDTO.class, tags = "CobroCancelado")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
-        cobroCanceladoService.deleteAll();
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try {
+            cobroCanceladoService.deleteAll();
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        } catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
