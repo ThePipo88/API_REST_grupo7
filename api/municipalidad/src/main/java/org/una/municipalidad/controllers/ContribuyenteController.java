@@ -36,56 +36,84 @@ public class ContribuyenteController {
     @GetMapping()
     public @ResponseBody
     ResponseEntity<?> findAll() {
-        Optional<List<ContribuyenteDTO>> result = contribuyenteService.findAll();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try {
+            Optional<List<ContribuyenteDTO>> result = contribuyenteService.findAll();
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch(Exception e){
+                return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+            }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un contribuyente a partir de su id", response = ContribuyenteDTO.class, tags = "Contribuyentes")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
-        Optional<ContribuyenteDTO> contribuyenteFound = contribuyenteService.findById(id);
-        return new ResponseEntity<>(contribuyenteFound, HttpStatus.OK);
+        try {
+            Optional<ContribuyenteDTO> contribuyenteFound = contribuyenteService.findById(id);
+            return new ResponseEntity<>(contribuyenteFound, HttpStatus.OK);
+        }  catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/findByNombre/{nombre}")
     @ApiOperation(value = "Obtiene un contribuyente de acuerdo a su nombre", response = ContribuyenteDTO.class, responseContainer = "List", tags = "Contribuyentes")
     public ResponseEntity<?> findByNombreCompletoAproximateIgnoreCase(@PathVariable(value = "nombre") String nombre) {
-        Optional<List<ContribuyenteDTO>> result = contribuyenteService.findByNombreCompletoAproximateIgnoreCase(nombre);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try {
+            Optional<List<ContribuyenteDTO>> result = contribuyenteService.findByNombreCompletoAproximateIgnoreCase(nombre);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/findByFecha/{fechaNacimiento}")
     @ApiOperation(value = "Obtiene una lista de cotribuyetes de acuerdo a su fecha de nacimiento", response = ContribuyenteDTO.class, responseContainer = "List", tags = "Contribuyentes")
     public ResponseEntity<?> findByFechaNacimiento(@PathVariable(value = "fechaNacimiento") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaNacimiento) {
+        try{
         Optional<List<ContribuyenteDTO>> result = contribuyenteService.findByFechaNacimiento(fechaNacimiento);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/findByCorreo/{correo}")
     @ApiOperation(value = "Obtiene un contribuyente a partir de un correo", response = ContribuyenteDTO.class, responseContainer = "ContribuyenteDTO", tags = "Contribuyentes")
     public ResponseEntity<?> findByCorreo(@PathVariable(value = "correo") String correo) {
+        try{
         Optional<List<ContribuyenteDTO>> result = contribuyenteService.findByCorreo(correo);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/findByDireccion/{direccion}")
     @ApiOperation(value = "Obtiene una lista de contribuyentes a partir de una direccion", response = ContribuyenteDTO.class, responseContainer = "ContribuyenteDTO", tags = "Contribuyentes")
     public ResponseEntity<?> findByDireccion(@PathVariable(value = "direccion") String direccion) {
+        try{
         Optional<List<ContribuyenteDTO>> result = contribuyenteService.findByDireccion(direccion);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/findByTelefono/{telefono}")
     @ApiOperation(value = "Obtiene un contribuyente a partir de un telefono", response = ContribuyenteDTO.class, responseContainer = "ContribuyenteDTO", tags = "Contribuyentes")
     public ResponseEntity<?> findByTelefono(@PathVariable(value = "telefono") String telefono) {
+        try{
         Optional<List<ContribuyenteDTO>> result = contribuyenteService.findByTelefono(telefono);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
@@ -94,8 +122,12 @@ public class ContribuyenteController {
     @PostMapping("/")
     @ResponseBody
     public ResponseEntity<?> create(@RequestBody ContribuyenteDTO contribuyenteDTO) {
+        try{
         Optional<ContribuyenteDTO> contribuyenteCreated = Optional.ofNullable(contribuyenteService.create(contribuyenteDTO));
-        return new ResponseEntity<>(contribuyenteCreated, HttpStatus.CREATED);
+        return new ResponseEntity<>(contribuyenteCreated, HttpStatus.CREATED);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
@@ -103,23 +135,36 @@ public class ContribuyenteController {
     @PutMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @RequestBody ContribuyenteDTO contribuyenteDTO) {
+       try{
         Optional<ContribuyenteDTO> contribuyenteUpdated = contribuyenteService.update(contribuyenteDTO, id);
-        return new ResponseEntity<>(contribuyenteUpdated, HttpStatus.OK);
+        return new ResponseEntity<>(contribuyenteUpdated, HttpStatus.OK);}
+       catch(Exception e){
+           return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+       }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina un contribuyente a partir de su id", response = ContribuyenteDTO.class, tags = "Contribuyentes")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
-        contribuyenteService.delete(id);
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try {
+            contribuyenteService.delete(id);
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todos los contribuyentes", response = ContribuyenteDTO.class, tags = "Contribuyentes")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
+        try{
         contribuyenteService.deleteAll();
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        return new ResponseEntity<>("Ok", HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
