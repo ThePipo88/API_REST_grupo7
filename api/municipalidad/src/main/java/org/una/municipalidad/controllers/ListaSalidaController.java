@@ -25,32 +25,52 @@ public class ListaSalidaController {
     @GetMapping()
     public @ResponseBody
     ResponseEntity<?> findAll() {
-        Optional<List<ListaSalidaDTO>> result = listaSalidaService.findAll();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<ListaSalidaDTO>> result = listaSalidaService.findAll();
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una salida de bus a partir de su id", response = ListaSalidaDTO.class, tags = "ListaSalida")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
-        Optional<ListaSalidaDTO> listaSalidaFound = listaSalidaService.findById(id);
-        return new ResponseEntity<>(listaSalidaFound, HttpStatus.OK);
+        try{
+            Optional<ListaSalidaDTO> listaSalidaFound = listaSalidaService.findById(id);
+            return new ResponseEntity<>(listaSalidaFound, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de salida de bus a partir de su dia", response = ListaSalidaDTO.class, tags = "ListaSalida")
     @GetMapping("/dia/{term}")
     public ResponseEntity<?> findByDia(@PathVariable(value = "term") String term) {
-        Optional<List<ListaSalidaDTO>> result = listaSalidaService.findByDia(term);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try {
+            Optional<List<ListaSalidaDTO>> result = listaSalidaService.findByDia(term);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de salida de bus a partir de la cantidad de salidas", response = ListaSalidaDTO.class, tags = "ListaSalida")
     @GetMapping("/cantidad/{term}")
     public ResponseEntity<?> findByCantidad(@PathVariable(value = "term") int term) {
-        Optional<List<ListaSalidaDTO>> result = listaSalidaService.findByCantidad(term);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<ListaSalidaDTO>> result = listaSalidaService.findByCantidad(term);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('GESTOR')")
@@ -59,8 +79,13 @@ public class ListaSalidaController {
     @PostMapping("/")
     @ResponseBody
     public ResponseEntity<?> create(@RequestBody ListaSalidaDTO listaSalidaDTO) {
-        Optional<ListaSalidaDTO> ListaSalidaCreated = listaSalidaService.create(listaSalidaDTO);
-        return new ResponseEntity<>(ListaSalidaCreated, HttpStatus.CREATED);
+        try{
+            Optional<ListaSalidaDTO> ListaSalidaCreated = listaSalidaService.create(listaSalidaDTO);
+            return new ResponseEntity<>(ListaSalidaCreated, HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('GESTOR')")
@@ -68,23 +93,38 @@ public class ListaSalidaController {
     @PutMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @RequestBody ListaSalidaDTO listaSalidaModified) {
-        Optional<ListaSalidaDTO> listaSalidaUpdated = listaSalidaService.update(listaSalidaModified, id);
-        return new ResponseEntity<>(listaSalidaModified, HttpStatus.OK);
+        try{
+            Optional<ListaSalidaDTO> listaSalidaUpdated = listaSalidaService.update(listaSalidaModified, id);
+            return new ResponseEntity<>(listaSalidaModified, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina una lista de salidas de bus a partir de su id", response = ListaSalidaDTO.class, tags = "ListaSalida")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
-        listaSalidaService.delete(id);
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try{
+            listaSalidaService.delete(id);
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todas las listas de salidas de bus", response = ListaSalidaDTO.class, tags = "RutaBus")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
-        listaSalidaService.deleteAll();
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try{
+            listaSalidaService.deleteAll();
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }
