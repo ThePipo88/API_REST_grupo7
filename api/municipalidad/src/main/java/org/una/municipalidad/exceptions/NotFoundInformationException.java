@@ -18,5 +18,4 @@ public class NotFoundInformationException extends RuntimeException {
 
     private final String errorMessage = "No se encontro información en su solicitud, revise su petición";
 
-
 }

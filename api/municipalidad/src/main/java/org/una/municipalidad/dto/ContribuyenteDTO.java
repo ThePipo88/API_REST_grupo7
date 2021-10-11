@@ -14,7 +14,6 @@ public class ContribuyenteDTO {
     private Long id;
     private String cedula;
     private String nombre;
-    private String cedula;
     private Date fechaNacimiento;
     private String direccion;
     private String correoElectronico;

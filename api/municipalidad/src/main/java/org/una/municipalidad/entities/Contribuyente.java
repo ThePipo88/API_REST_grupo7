@@ -26,9 +26,6 @@ public class Contribuyente implements Serializable {
     @Column(name = "nombre", length = 100)
     private String nombre;
 
-    @Column(length = 25, unique = true)
-    private String cedula;
-
     @Column(name = "fecha_nacimiento", updatable = false)
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)
