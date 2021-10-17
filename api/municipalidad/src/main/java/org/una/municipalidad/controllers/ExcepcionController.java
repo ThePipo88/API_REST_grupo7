@@ -73,7 +73,7 @@ public class ExcepcionController {
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de excepciones a partir de un estado", response = ExcepcionDTO.class, tags = "Excepciones")
     @GetMapping("/estado/{estado}")
-    public ResponseEntity<?> findByEstado(@PathVariable(value = "term") boolean estado) {
+    public ResponseEntity<?> findByEstado(@PathVariable(value = "estado") boolean estado) {
         try{
             Optional<List<ExcepcionDTO>> result = excepcionService.findByEstado(estado);
             return new ResponseEntity<>(result, HttpStatus.OK);

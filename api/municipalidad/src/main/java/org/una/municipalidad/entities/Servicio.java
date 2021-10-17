@@ -30,10 +30,6 @@ public class Servicio implements Serializable {
     @Column
     private boolean estado;
 
-    @ManyToOne
-    @JoinColumn(name="propiedad_id")
-    private Propiedad propiedad;
-
     @Column(name = "fechaRegistro", updatable = false)
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)
@@ -48,7 +44,7 @@ public class Servicio implements Serializable {
     private List<RutaBus> buses = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "servicio")
-    private List<ContribuyenteServicio> contribuyenteServicios = new ArrayList<>();
+    private List<ServicioPropiedad> propiedad = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
 

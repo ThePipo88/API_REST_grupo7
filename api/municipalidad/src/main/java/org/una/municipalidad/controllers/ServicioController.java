@@ -149,7 +149,7 @@ public class ServicioController {
     }
 
     @PreAuthorize("hasRole('GESTOR')")
-    @ApiOperation(value = "Se eliminan todos los servicios", response = ReciboDTO.class, tags = "Servicios")
+    @ApiOperation(value = "Se eliminan todos los servicios", response = ServicioDTO.class, tags = "Servicios")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
         try{

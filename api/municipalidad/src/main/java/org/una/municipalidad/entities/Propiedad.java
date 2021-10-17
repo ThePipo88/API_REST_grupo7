@@ -42,7 +42,7 @@ public class Propiedad implements Serializable {
     private Double metrosFrente;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "propiedad")
-    private List<Servicio> servicios = new ArrayList<>();
+    private List<ServicioPropiedad> servicio = new ArrayList<>();
 
     private static final long serialVersionUID = 1L;
 
