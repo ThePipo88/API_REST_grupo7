@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class ContribuyenteServicioDTO {
 
     private Long id;
-    private String porcentaje;
+    private float porcentaje;
     private ContribuyenteDTO contribuyente;
     private ServicioDTO servicio;
 
