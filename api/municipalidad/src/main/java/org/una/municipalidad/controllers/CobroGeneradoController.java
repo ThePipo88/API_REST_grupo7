@@ -84,11 +84,11 @@ public class CobroGeneradoController {
     }
 
 
-    @GetMapping("/ByCobroCedula/{cedula}/{tipo}")
+    @GetMapping("/ByCobroCedula/{cedula}")
     @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a la cedula del contribuyente", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
-    public ResponseEntity<?> findByCobroCedula(@PathVariable(value = "cedula") String cedula, @PathVariable(value = "tipo") String tipo) {
+    public ResponseEntity<?> findByCobroCedula(@PathVariable(value = "cedula") String cedula) {
         try {
-            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByCobroCedula(cedula, tipo);
+            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByCobroCedula(cedula);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }  catch(Exception e){
             return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
