@@ -16,6 +16,4 @@ public class CementerioDTO {
     private ServicioDTO servicio;
     private String sector;
     private String ocupado;
-
-
 }
