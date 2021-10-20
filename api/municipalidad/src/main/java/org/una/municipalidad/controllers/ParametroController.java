@@ -30,40 +30,63 @@ public class ParametroController {
     @GetMapping()
     public @ResponseBody
     ResponseEntity<?> findAll() {
-        Optional<List<ParametroDTO>> result = parametroService.findAll();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<ParametroDTO>> result = parametroService.findAll();
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un parametro a partir de su id", response = ParametroDTO.class, tags = "Parametro")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
-        Optional<ParametroDTO> parametroFound = parametroService.findById(id);
-        return new ResponseEntity<>(parametroFound, HttpStatus.OK);
+        try{
+            Optional<ParametroDTO> parametroFound = parametroService.findById(id);
+            return new ResponseEntity<>(parametroFound, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/findByFormulaAproximate/{formula}")
     @ApiOperation(value = "Obtiene un parametro de acuerdo a su formula", response = ParametroDTO.class, responseContainer = "ParametroDTO", tags = "Parametro")
     public ResponseEntity<?> findByFormulaAproximate(@PathVariable(value = "formula") String formula) {
-        Optional<List<ParametroDTO>> result = parametroService.findByFormulaAproximate(formula);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<ParametroDTO>> result = parametroService.findByFormulaAproximate(formula);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/findByNombreAproximate/{nombre}")
     @ApiOperation(value = "Obtiene un parametro de acuerdo a su nombre", response = ParametroDTO.class, responseContainer = "ParametroDTO", tags = "Parametro")
     public ResponseEntity<?> findByNombreAproximate(@PathVariable(value = "nombre") String nombre) {
-        Optional<List<ParametroDTO>> result = parametroService.findByNombreAproximate(nombre);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<ParametroDTO>> result = parametroService.findByNombreAproximate(nombre);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/findByestadoAproximate/{estado}")
     @ApiOperation(value = "Obtiene un parametro de acuerdo a su estado", response = ParametroDTO.class, responseContainer = "ParametroDTO", tags = "Parametro")
     public ResponseEntity<?> findByEstadoAproximate(@PathVariable(value = "estado") boolean estado) {
-        Optional<List<ParametroDTO>> result = parametroService.findByEstadoAproximate(estado);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<ParametroDTO>> result = parametroService.findByEstadoAproximate(estado);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
@@ -71,16 +94,26 @@ public class ParametroController {
     @ApiOperation(value = "Obtiene una lista de parametros entre dos fechas dadas", response = ParametroDTO.class, responseContainer = "ParametroDTO", tags = "Parametro")
     public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
-        Optional<List<ParametroDTO>> result = parametroService.findByFechaCreacionBetween(startDate,endDate);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<ParametroDTO>> result = parametroService.findByFechaCreacionBetween(startDate,endDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/findByFechaModificacionBetween/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de parametros de acuerdo a su fecha de modificacion", response = ParametroDTO.class, responseContainer = "List", tags = "Parametros")
     public ResponseEntity<?> findByFechaModificacionBetween(@PathVariable(value = "startDate") Date startDate, @PathVariable(value = "endDate") Date endDate) {
-        Optional<List<ParametroDTO>> result = parametroService.findByFechaModificacionBetween(startDate,endDate);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<ParametroDTO>> result = parametroService.findByFechaModificacionBetween(startDate,endDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR')")
@@ -89,8 +122,13 @@ public class ParametroController {
     @PostMapping("/")
     @ResponseBody
     public ResponseEntity<?> create(@RequestBody ParametroDTO parametroDTO) {
-        Optional<ParametroDTO> parametroCreated = Optional.ofNullable(parametroService.create(parametroDTO));
-        return new ResponseEntity<>(parametroCreated, HttpStatus.CREATED);
+        try{
+            Optional<ParametroDTO> parametroCreated = Optional.ofNullable(parametroService.create(parametroDTO));
+            return new ResponseEntity<>(parametroCreated, HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR')")
@@ -98,23 +136,38 @@ public class ParametroController {
     @PutMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @RequestBody ParametroDTO parametroDTO) {
-        Optional<ParametroDTO> parametroUpdated = parametroService.update(parametroDTO, id);
-        return new ResponseEntity<>(parametroUpdated, HttpStatus.OK);
+        try{
+            Optional<ParametroDTO> parametroUpdated = parametroService.update(parametroDTO, id);
+            return new ResponseEntity<>(parametroUpdated, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se elimina un parametro a partir de su id", response = ParametroDTO.class, tags = "Parametro")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
-        parametroService.delete(id);
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try{
+            parametroService.delete(id);
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se eliminan todos los parametros", response = ParametroDTO.class, tags = "Parametro")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
-        parametroService.deleteAll();
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try{
+            parametroService.deleteAll();
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }

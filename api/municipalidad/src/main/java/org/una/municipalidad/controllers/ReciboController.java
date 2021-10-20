@@ -34,32 +34,48 @@ public class ReciboController {
     @GetMapping()
     public @ResponseBody
     ResponseEntity<?> findAll() {
-        Optional<List<ReciboDTO>> result = reciboService.findAll();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<ReciboDTO>> result = reciboService.findAll();
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un recibo a partir de su id", response = ReciboDTO.class, tags = "Recibos")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
-        Optional<ReciboDTO> reciboFound = reciboService.findById(id);
-        return new ResponseEntity<>(reciboFound, HttpStatus.OK);
+        try{
+            Optional<ReciboDTO> reciboFound = reciboService.findById(id);
+            return new ResponseEntity<>(reciboFound, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de recibos a partir del id de un contribuyente", response = ReciboDTO.class, responseContainer = "List", tags = "Recibos")
     @GetMapping("/contribuyente/{term}")
     public ResponseEntity<?> findByContribuyente(@PathVariable(value = "term") String term) {
-        Optional<List<ReciboDTO>> result = reciboService.findByContribuyente(term);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<ReciboDTO>> result = reciboService.findByContribuyente(term);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de recibos a partir de una fecha de emision", response = ReciboDTO.class, responseContainer = "List", tags = "Recibos")
     @GetMapping("/fechaEmision/{fecha}")
     public ResponseEntity<?> findByFechaEmision(@PathVariable(value = "fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha) {
-        Optional<List<ReciboDTO>> result = reciboService.findByFechaEmision(fecha);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        try{
+            Optional<List<ReciboDTO>> result = reciboService.findByFechaEmision(fecha);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR') ")
@@ -68,8 +84,12 @@ public class ReciboController {
     @PostMapping("/")
     @ResponseBody
     public ResponseEntity<?> create(@RequestBody ReciboDTO reciboDTO) {
-        Optional<ReciboDTO> reciboCreated = Optional.ofNullable(reciboService.create(reciboDTO));
-        return new ResponseEntity<>(reciboCreated, HttpStatus.CREATED);
+        try{
+            Optional<ReciboDTO> reciboCreated = Optional.ofNullable(reciboService.create(reciboDTO));
+            return new ResponseEntity<>(reciboCreated, HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
@@ -77,23 +97,35 @@ public class ReciboController {
     @PutMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> update(@PathVariable(value = "id") Long id, @RequestBody ReciboDTO reciboDTO) {
-        Optional<ReciboDTO> propiedadUpdated = reciboService.update(reciboDTO, id);
-        return new ResponseEntity<>(propiedadUpdated, HttpStatus.OK);
+        try{
+            Optional<ReciboDTO> propiedadUpdated = reciboService.update(reciboDTO, id);
+            return new ResponseEntity<>(propiedadUpdated, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina un recibo a partir de su id", response = ReciboDTO.class, tags = "Recibos")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
-        reciboService.delete(id);
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try{
+            reciboService.delete(id);
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todos los recibos", response = ReciboDTO.class, tags = "Recibos")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {
-        reciboService.deleteAll();
-        return new ResponseEntity<>("Ok", HttpStatus.OK);
+        try {
+            reciboService.deleteAll();
+            return new ResponseEntity<>("Ok", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

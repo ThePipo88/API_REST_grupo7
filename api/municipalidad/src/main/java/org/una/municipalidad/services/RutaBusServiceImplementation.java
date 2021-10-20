@@ -22,7 +22,11 @@ public class RutaBusServiceImplementation implements IRutaBusService{
     @Transactional(readOnly = true)
     public Optional<List<RutaBusDTO>> findAll() {
         List<RutaBusDTO> rutaBusDTOList = MapperUtils.DtoListFromEntityList(rutaBusRepository.findAll(), RutaBusDTO.class);
-        return Optional.ofNullable(rutaBusDTOList);
+        if(rutaBusDTOList .isEmpty()){
+            throw new NotFoundInformationException();
+        }else{
+            return Optional.ofNullable(rutaBusDTOList);
+        }
     }
 
     @Override
