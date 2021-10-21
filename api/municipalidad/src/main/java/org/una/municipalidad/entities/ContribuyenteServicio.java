@@ -21,7 +21,7 @@ public class ContribuyenteServicio implements Serializable {
     private Long id;
 
     @Column(name = "porcentaje", length = 10)
-    private String porcentaje;
+    private float porcentaje;
     
     @ManyToOne
     @JoinColumn(name="contribuyente_id")

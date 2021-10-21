@@ -12,6 +12,6 @@ import java.util.Optional;
 @Repository
 public interface IContribuyenteServicioRepository extends JpaRepository<ContribuyenteServicio, Long> {
 
-    public List<ContribuyenteServicio> findByPorcentaje(String porcentaje);
+    public List<ContribuyenteServicio> findByPorcentaje(float porcentaje);
 
 }

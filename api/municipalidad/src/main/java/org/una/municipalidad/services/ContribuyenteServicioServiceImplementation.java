@@ -37,7 +37,7 @@ public class ContribuyenteServicioServiceImplementation implements IContribuyent
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<ContribuyenteServicioDTO>> findByPorcentaje(String porcentaje) {
+    public Optional<List<ContribuyenteServicioDTO>> findByPorcentaje(float porcentaje) {
         List<ContribuyenteServicio> contribuyenteList = contribuyenteServicioRepository.findByPorcentaje(porcentaje);
         List<ContribuyenteServicioDTO> contribuyenteDTOList = MapperUtils.DtoListFromEntityList(contribuyenteList , ContribuyenteServicioDTO.class);
         return Optional.ofNullable(contribuyenteDTOList);
