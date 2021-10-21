@@ -47,8 +47,8 @@ public class CobroGeneradoServiceImplementation implements ICobroGeneradoService
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<CobroGeneradoDTO>> findByCobroCedula(@Param("cedula")String cedula, @Param("tipo")String tipo) {
-        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByCobroCedula(cedula,tipo);
+    public Optional<List<CobroGeneradoDTO>> findByCobroCedula(@Param("cedula")String cedula) {
+        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByCobroCedula(cedula);
         List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
         return Optional.ofNullable(cobroGeneradoDTOList);
     }

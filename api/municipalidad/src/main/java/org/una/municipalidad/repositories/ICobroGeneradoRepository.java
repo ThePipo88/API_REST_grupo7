@@ -21,7 +21,7 @@ public interface ICobroGeneradoRepository extends JpaRepository<CobroGenerado, L
 
     public List<CobroGenerado> findByFechaCobroBetween(Date startDate, Date endDate);
 
-    @Query(value = "SELECT u FROM CobroGenerado u LEFT JOIN u.contribuyenteServicio e WHERE e.contribuyente.cedula = :cedula AND e.servicio.tipoServicio = :tipo")
-    public List<CobroGenerado> findByCobroCedula(@Param("cedula")String cedula, @Param("tipo")String tipo);
+    @Query(value = "SELECT u FROM CobroGenerado u LEFT JOIN u.contribuyenteServicio e WHERE e.contribuyente.cedula = :cedula")
+    public List<CobroGenerado> findByCobroCedula(@Param("cedula")String cedula);
 
 }
