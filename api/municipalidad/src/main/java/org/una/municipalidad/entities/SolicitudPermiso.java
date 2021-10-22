@@ -18,9 +18,6 @@ public class SolicitudPermiso implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="usuarios_id")
-    private Usuario usuario;
     @Column
     private boolean estado;
 
@@ -29,6 +26,9 @@ public class SolicitudPermiso implements Serializable {
 
     @Column(name = "Persona_autorizante", length = 45)
     private String Persona_autorizante;
+
+    @Column(name = "accion", length = 45)
+    private String accion;
 
     @Column(name = "fecha_creacion", updatable = false)
     @Temporal(TemporalType.DATE)
