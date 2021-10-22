@@ -1,12 +1,10 @@
 package org.una.municipalidad.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.una.municipalidad.dto.RolDTO;
 import org.una.municipalidad.dto.SolicitudPermisoDTO;
 import org.una.municipalidad.entities.Rol;
 import org.una.municipalidad.entities.SolicitudPermiso;
 import org.una.municipalidad.exceptions.NotFoundInformationException;
-import org.una.municipalidad.repositories.IRolRepository;
 import org.una.municipalidad.repositories.ISolicitudPermisoRepository;
 import org.una.municipalidad.utils.MapperUtils;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,9 +21,9 @@ public class SolicitudPermisoServiceImplementation implements  ISolicitudPermiso
     @Override
     @Transactional(readOnly = true)
     public Optional<SolicitudPermisoDTO> findById(Long id) {
-        Optional<SolicitudPermiso> rol = solicitudPermisoRepository.findById(id);
-        if (SolicitudPermiso.isEmpty()) throw new NotFoundInformationException();
-        SolicitudPermisoDTO solicitudPermisoDTO = MapperUtils.DtoFromEntity(SolicitudPermiso.get(), SolicitudPermisoDTO.class);
+        Optional<SolicitudPermiso> solicitudPermiso = solicitudPermisoRepository.findById(id);
+        if (solicitudPermiso.isEmpty()) throw new NotFoundInformationException();
+        SolicitudPermisoDTO solicitudPermisoDTO = MapperUtils.DtoFromEntity(solicitudPermiso.get(), SolicitudPermisoDTO.class);
         return Optional.ofNullable(solicitudPermisoDTO);
     }
 
@@ -76,6 +74,11 @@ public class SolicitudPermisoServiceImplementation implements  ISolicitudPermiso
     @Transactional
     public void deleteAll() {
         solicitudPermisoRepository.deleteAll();
+    }
+
+    @Override
+    public Optional<List<SolicitudPermisoDTO>> findAll() {
+        return Optional.empty();
     }
 
 }

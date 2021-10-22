@@ -6,7 +6,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+@Entity
+@Table(name = "SolicitudPermisos")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Builder
 public class SolicitudPermiso implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +21,8 @@ public class SolicitudPermiso implements Serializable {
     @ManyToOne
     @JoinColumn(name="usuarios_id")
     private Usuario usuario;
+    @Column
+    private boolean estado;
 
     @Column(name = "Persona_solicitante", length = 45)
     private String Persona_solicitante;

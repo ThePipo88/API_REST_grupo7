@@ -18,4 +18,6 @@ public interface ISolicitudPermisoService {
     public void delete(Long id);
 
     public void deleteAll();
+
+    Optional<List<SolicitudPermisoDTO>> findAll();
 }
