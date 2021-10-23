@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 public interface ISolicitudPermisoService {
+
     public Optional<SolicitudPermisoDTO> findById(Long id);
 
     public Optional<List<SolicitudPermisoDTO>> findByEstado(boolean estado);
@@ -19,5 +20,5 @@ public interface ISolicitudPermisoService {
 
     public void deleteAll();
 
-    Optional<List<SolicitudPermisoDTO>> findAll();
+    public Optional<List<SolicitudPermisoDTO>> findAll();
 }

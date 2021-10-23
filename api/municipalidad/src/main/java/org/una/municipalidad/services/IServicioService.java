@@ -19,8 +19,6 @@ public interface IServicioService {
 
     public Optional<List<ServicioDTO>> findByEstado(boolean estado);
 
-    public Optional<List<ServicioDTO>> findByPropiedad(Long id);
-
     public Optional<List<ServicioDTO>> findByFechaRegistro(Date fechaRegistro);
 
     public Optional<List<ServicioDTO>> findByUltimaActualizacion(Date ultimaActualizacion);

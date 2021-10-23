@@ -20,10 +20,12 @@ import java.util.Optional;
 @RequestMapping("/SolicitudPermiso")
 @Api(tags = {"SolicitudPermiso"})
 public class SolicitudPermisoController {
+
     @Autowired
     private ISolicitudPermisoService solicitudPermisoService;
+
     @PreAuthorize("hasRole('ADMINISTRADOR')")
-    @ApiOperation(value = "Obtiene una permiso a partir de su id", response = SolicitudPermisoDTO.class, tags = "SolicitudPermiso")
+    @ApiOperation(value = "Obtiene un permiso a partir de su id", response = SolicitudPermisoDTO.class, tags = "SolicitudPermiso")
     @GetMapping("/findById/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
         try{
@@ -37,8 +39,7 @@ public class SolicitudPermisoController {
     @PreAuthorize("hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Obtiene una lista de todos los permisos", response = SolicitudPermisoDTO.class, responseContainer = "List", tags = "SolicitudPermiso")
     @GetMapping()
-    public @ResponseBody
-    ResponseEntity<?> findAll() {
+    public @ResponseBody ResponseEntity<?> findAll() {
         try{
             Optional<List<SolicitudPermisoDTO>> result = solicitudPermisoService.findAll();
             return new ResponseEntity<>(result, HttpStatus.OK);

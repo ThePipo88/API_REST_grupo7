@@ -50,12 +50,12 @@ public class CobroCanceladoController {
         }
     }
 
-    @GetMapping("/ByCobroCedula/{cedula}/{startDate}/{endDate}")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
+    @GetMapping("/ByCobroBetweenCedulaAndFecha/{cedula}/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de cobros cancelados de acuerdo a la cedula del contribuyente y dos fechas dadas", response = CobroCanceladoDTO.class, responseContainer = "CobroCanceladoDTO", tags = "CobroCancelado")
-    public ResponseEntity<?> findByCobroBetweenFecha(@PathVariable(value = "cedula") String cedula, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                                                          @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+    public ResponseEntity<?> findByCobroBetweenCedulaAndFecha(@PathVariable(value = "cedula") String cedula, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
         try {
-            Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findByCobroBetweenFecha(cedula,startDate,endDate);
+            Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findByCobroBetweenCedulaAndFecha(cedula,startDate,endDate);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }  catch(Exception e){
             return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);

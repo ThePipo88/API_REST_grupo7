@@ -14,6 +14,7 @@ import java.util.List;
 @ToString
 @Builder
 public class SolicitudPermiso implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,10 +23,10 @@ public class SolicitudPermiso implements Serializable {
     private boolean estado;
 
     @Column(name = "Persona_solicitante", length = 45)
-    private String Persona_solicitante;
+    private String persona_solicitante;
 
     @Column(name = "Persona_autorizante", length = 45)
-    private String Persona_autorizante;
+    private String persona_autorizante;
 
     @Column(name = "accion", length = 45)
     private String accion;

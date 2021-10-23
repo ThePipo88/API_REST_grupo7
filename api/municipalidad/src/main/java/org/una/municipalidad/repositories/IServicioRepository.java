@@ -14,8 +14,6 @@ public interface IServicioRepository extends JpaRepository<Servicio, Long> {
 
     public List<Servicio> findByEstado(boolean estado);
 
-    public List<Servicio> findByPropiedad(Long id);
-
     public List<Servicio> findByFechaRegistro(Date fechaRegistro);
 
     public List<Servicio> findByUltimaActualizacion(Date ultimaActualizacion);

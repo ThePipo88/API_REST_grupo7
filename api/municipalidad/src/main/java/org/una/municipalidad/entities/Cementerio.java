@@ -16,6 +16,7 @@ import java.io.Serializable;
 @ToString
 @Builder
 public class Cementerio implements Serializable{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -73,6 +73,7 @@ public class ServicioController {
         }
     }
 
+    /*
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de servicios a partir de una propiedad", response = ServicioDTO.class, tags = "Servicios")
     @GetMapping("/propiedad/{id}")
@@ -84,7 +85,7 @@ public class ServicioController {
             return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    */
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de servicios a partir de una fecha de registro", response = ServicioDTO.class, tags = "Servicios")
     @GetMapping("/fechaRegistro/{fechaRegistro}")

@@ -49,7 +49,6 @@ public class ParametroController {
         }catch (Exception e){
             return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('GESTOR') or hasRole('AUDITOR')")

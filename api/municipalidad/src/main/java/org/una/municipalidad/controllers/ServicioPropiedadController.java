@@ -75,6 +75,20 @@ public class ServicioPropiedadController {
     }
 
     @PreAuthorize("hasRole('GESTOR')")
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Se crea un servicio propiedad", response = ServicioPropiedadDTO.class, tags = "ServiciosPropiedades")
+    @PostMapping("/")
+    @ResponseBody
+    public ResponseEntity<?> create(@RequestBody ServicioPropiedadDTO servicioPropiedadDTO) {
+        try{
+            Optional<ServicioPropiedadDTO> servicioCreated = servicioPropiedadService.create(servicioPropiedadDTO);
+            return new ResponseEntity<>(servicioCreated, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se modifica un servicio propiedad a partir de su id", response = ServicioPropiedadDTO.class, tags = "ServiciosPropiedades")
     @PutMapping("/{id}")
     @ResponseBody

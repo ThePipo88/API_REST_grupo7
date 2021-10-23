@@ -12,6 +12,5 @@ public interface ISolicitudPermisoRepository extends JpaRepository<SolicitudPerm
 
     public List<SolicitudPermiso> findByFechaCreacionBetween(Date startDate, Date endDate);
 
-
-    List<SolicitudPermiso> findByEstado(boolean estado);
+    public List<SolicitudPermiso> findByEstado(boolean estado);
 }

@@ -5,7 +5,7 @@ public enum RolesTypes {
     ROLE_GERENTE("GERENTE"),
     ROLE_AUDITOR("AUDITOR"),
     ROLE_ADMINISTRADOR("ADMINISTRADOR"),
-    ROLE_USUARIO("USUARIO");
+    ROLE_TELEGRAM("TELEGRAM");
 
     private final String codigo;
 

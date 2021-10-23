@@ -83,12 +83,12 @@ public class CobroGeneradoController {
         }
     }
 
-
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/ByCobroCedula/{cedula}")
     @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a la cedula del contribuyente", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
-    public ResponseEntity<?> findByCobroCedula(@PathVariable(value = "cedula") String cedula) {
+    public ResponseEntity<?> findCobroByCedula(@PathVariable(value = "cedula") String cedula) {
         try {
-            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByCobroCedula(cedula);
+            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findCobroByCedula(cedula);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }  catch(Exception e){
             return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);

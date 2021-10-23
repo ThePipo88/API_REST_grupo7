@@ -39,6 +39,7 @@ public class DataLoader implements ApplicationRunner {
             Optional<RolDTO> gerenteRol = Optional.ofNullable(rolService.create(RolDTO.builder().nombre(RolesTypes.ROLE_GERENTE.name()).build()));
             Optional<RolDTO> auditorRol = Optional.ofNullable(rolService.create(RolDTO.builder().nombre(RolesTypes.ROLE_AUDITOR.name()).build()));
             Optional<RolDTO> administradorRol = Optional.ofNullable(rolService.create(RolDTO.builder().nombre(RolesTypes.ROLE_ADMINISTRADOR.name()).build()));
+            Optional<RolDTO> usuarioTelegramRol= Optional.ofNullable(rolService.create(RolDTO.builder().nombre(RolesTypes.ROLE_TELEGRAM.name()).build()));
 
             UsuarioDTO gestorUsuario = UsuarioDTO.builder()
                     .cedula("0123456789")
@@ -60,6 +61,13 @@ public class DataLoader implements ApplicationRunner {
                     .passwordEncriptado("Una2021")
                     .rol(auditorRol.orElseThrow()).build();
             usuarioService.create(auditorUsuario);
+
+            UsuarioDTO telegramUsuario = UsuarioDTO.builder()
+                    .cedula("telegram")
+                    .nombreCompleto("Usuario Telegram")
+                    .passwordEncriptado("Una2021")
+                    .rol(usuarioTelegramRol.orElseThrow()).build();
+            usuarioService.create(telegramUsuario);
 
             UsuarioDTO administradorUsuario = UsuarioDTO.builder()
                     .cedula(cedula)

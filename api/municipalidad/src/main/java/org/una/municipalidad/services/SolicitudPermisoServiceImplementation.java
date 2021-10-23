@@ -1,8 +1,8 @@
 package org.una.municipalidad.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.una.municipalidad.dto.ServicioDTO;
 import org.una.municipalidad.dto.SolicitudPermisoDTO;
-import org.una.municipalidad.entities.Rol;
 import org.una.municipalidad.entities.SolicitudPermiso;
 import org.una.municipalidad.exceptions.NotFoundInformationException;
 import org.una.municipalidad.repositories.ISolicitudPermisoRepository;
@@ -15,8 +15,16 @@ import java.util.Optional;
 @Service
 
 public class SolicitudPermisoServiceImplementation implements  ISolicitudPermisoService {
+
     @Autowired
     private ISolicitudPermisoRepository solicitudPermisoRepository;
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<List<SolicitudPermisoDTO>> findAll() {
+        List<SolicitudPermisoDTO> solicitudPermisoDTOList= MapperUtils.DtoListFromEntityList(solicitudPermisoRepository.findAll(), SolicitudPermisoDTO.class);
+        return Optional.ofNullable(solicitudPermisoDTOList);
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -27,8 +35,6 @@ public class SolicitudPermisoServiceImplementation implements  ISolicitudPermiso
         return Optional.ofNullable(solicitudPermisoDTO);
     }
 
-
-
     @Override
     @Transactional(readOnly = true)
     public Optional<List<SolicitudPermisoDTO>> findByFechaCreacionBetween(Date startDate, Date endDate) {
@@ -38,8 +44,11 @@ public class SolicitudPermisoServiceImplementation implements  ISolicitudPermiso
     }
 
     @Override
+    @Transactional
     public SolicitudPermisoDTO create(SolicitudPermisoDTO solicitudPermisoDTO) {
-        return null;
+        SolicitudPermiso solicitudPermiso = MapperUtils.EntityFromDto(solicitudPermisoDTO, SolicitudPermiso.class);
+        solicitudPermiso = solicitudPermisoRepository.save(solicitudPermiso);
+        return MapperUtils.DtoFromEntity(solicitudPermiso, SolicitudPermisoDTO.class);
     }
 
 
@@ -74,11 +83,6 @@ public class SolicitudPermisoServiceImplementation implements  ISolicitudPermiso
     @Transactional
     public void deleteAll() {
         solicitudPermisoRepository.deleteAll();
-    }
-
-    @Override
-    public Optional<List<SolicitudPermisoDTO>> findAll() {
-        return Optional.empty();
     }
 
 }

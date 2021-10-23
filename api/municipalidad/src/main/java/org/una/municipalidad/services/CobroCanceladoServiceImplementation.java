@@ -57,8 +57,8 @@ public class CobroCanceladoServiceImplementation implements ICobroCanceladoServi
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<CobroCanceladoDTO>> findByCobroBetweenFecha(@Param("cedula")String cedula,@Param("startDate") Date startDate,@Param("endDate") Date endDate) {
-        List<CobroCancelado> cobroCanceladoList = cobroCanceladoRepository.findByCobroBetweenFecha(cedula,startDate,endDate);
+    public Optional<List<CobroCanceladoDTO>> findByCobroBetweenCedulaAndFecha(@Param("cedula")String cedula,@Param("startDate") Date startDate,@Param("endDate") Date endDate) {
+        List<CobroCancelado> cobroCanceladoList = cobroCanceladoRepository.findByCobroBetweenCedulaAndFecha(cedula,startDate,endDate);
         List<CobroCanceladoDTO> cobroCanceladoDTOList = MapperUtils.DtoListFromEntityList(cobroCanceladoList,CobroCanceladoDTO.class);
         return Optional.ofNullable(cobroCanceladoDTOList);
     }
