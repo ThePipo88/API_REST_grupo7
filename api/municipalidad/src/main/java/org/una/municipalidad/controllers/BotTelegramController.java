@@ -61,11 +61,11 @@ public class BotTelegramController {
     }
 
     @PreAuthorize("hasRole('TELEGRAM')")
-    @GetMapping("/ByCobroCedula/{cedula}")
+    @GetMapping("/ByCobroCedula/{cedula}/{tipo}")
     @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a la cedula del contribuyente", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
-    public ResponseEntity<?> findCobroByCedula(@PathVariable(value = "cedula") String cedula) {
+    public ResponseEntity<?> findCobroByCedula(@PathVariable(value = "cedula") String cedula, @PathVariable(value = "tipo") String tipo) {
         try {
-            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findCobroByCedula(cedula);
+            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findCobroByCedula(cedula,tipo);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }  catch(Exception e){
             return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);

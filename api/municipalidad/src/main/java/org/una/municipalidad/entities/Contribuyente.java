@@ -16,6 +16,7 @@ import java.util.List;
 @ToString
 @Builder
 public class Contribuyente implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
