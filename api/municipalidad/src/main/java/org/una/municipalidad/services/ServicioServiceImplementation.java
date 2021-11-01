@@ -19,6 +19,8 @@ import org.una.municipalidad.utils.MapperUtils;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
 
 @Service
 public class ServicioServiceImplementation implements IServicioService{
@@ -106,6 +108,18 @@ public class ServicioServiceImplementation implements IServicioService{
         Servicio servicio = MapperUtils.EntityFromDto(servicioDTO, Servicio.class);
         Servicio servicioCreated = servicioRepository.save(servicio);
         return MapperUtils.DtoFromEntity(servicioCreated, ServicioDTO.class);
+    }
+    //@Override
+    public CompletableFuture<Boolean> generateMunicipalidad()  {
+        CompletableFuture<Boolean> completableFuture = new CompletableFuture<>();
+
+        Executors.newCachedThreadPool().submit(() -> {
+            Thread.sleep(15500);
+            completableFuture.complete(true);
+            return null;
+        });
+
+        return completableFuture;
     }
 
 }
