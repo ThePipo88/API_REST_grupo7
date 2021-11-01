@@ -29,7 +29,6 @@ import org.una.municipalidad.utils.MapperUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 @Service
 public class UsuarioServiceImplementation implements UserDetailsService, IUsuarioService {
@@ -121,11 +120,6 @@ public class UsuarioServiceImplementation implements UserDetailsService, IUsuari
     @Transactional
     public void deleteAll() {
         usuarioRepository.deleteAll();
-    }
-
-    @Override
-    public CompletableFuture<Boolean> generate() {
-        return null;
     }
 
     private String encriptarPassword(String password) {
