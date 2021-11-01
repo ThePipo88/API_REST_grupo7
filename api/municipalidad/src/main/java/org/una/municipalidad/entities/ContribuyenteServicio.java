@@ -20,7 +20,7 @@ public class ContribuyenteServicio implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "porcentaje")
+    @Column(name = "porcentaje", length = 10)
     private float porcentaje;
     
     @ManyToOne
