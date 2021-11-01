@@ -7,7 +7,6 @@ import org.una.municipalidad.dto.UsuarioDTO;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 public interface IUsuarioService {
 
@@ -30,6 +29,5 @@ public interface IUsuarioService {
     public void delete(Long id);
 
     public void deleteAll();
-
-    CompletableFuture<Boolean> generate();
+   
 }

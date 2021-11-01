@@ -28,21 +28,13 @@ public class AutenticacionController {
     @PostMapping("")
     @ResponseBody
     public ResponseEntity<?> login(@Valid @RequestBody AuthenticationRequest authenticationRequest, BindingResult bindingResult) {
-
-        try {
-            if (bindingResult.hasErrors()) {
-                throw new MissingInputsException();
-            }
-            AuthenticationResponse authenticationResponse = new AuthenticationResponse();
-            AuthenticationResponse token = autenticacionService.login(authenticationRequest);
-            if (token.getJwt() != null) {
-                return new ResponseEntity(autenticacionService.login(authenticationRequest), HttpStatus.OK);
-            } else {
-                throw new InvalidCredentialsException();
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        if (bindingResult.hasErrors()) { throw new MissingInputsException();  }
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+        AuthenticationResponse token = autenticacionService.login(authenticationRequest);
+        if (token.getJwt() != null) {
+            return new ResponseEntity(autenticacionService.login(authenticationRequest), HttpStatus.OK);
+        } else {
+            throw new InvalidCredentialsException();
         }
-
     }
 }

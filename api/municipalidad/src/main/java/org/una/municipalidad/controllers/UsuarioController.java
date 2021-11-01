@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.UsuarioDTO;
@@ -13,7 +12,6 @@ import org.una.municipalidad.services.IUsuarioService;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -122,13 +120,4 @@ public class UsuarioController {
             return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @Async
-    @PostMapping("/")
-    public CompletableFuture<Boolean> generateInventario(){
-        CompletableFuture<Boolean> result=usuarioService.generate();
-        return result;
-    }
-
-
-
 }
