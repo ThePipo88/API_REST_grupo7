@@ -26,6 +26,7 @@ public interface ICobroGeneradoRepository extends JpaRepository<CobroGenerado, L
     @Query(value = "SELECT u FROM CobroGenerado u LEFT JOIN u.contribuyenteServicio e WHERE e.contribuyente.cedula = :cedula AND e.servicio.tipoServicio = :tipo AND u.estado = 1")
     public List<CobroGenerado> findCobroByCedula(@Param("cedula")String cedula, @Param("tipo")String tipo);
 
-    //@Query(value = "{call lista_cobros_masivos()}", nativeQuery = true)
-    //public List<CobroGenerado> findByCobrosMasivos(Long id);
+    @Query(value = "SELECT u FROM CobroGenerado u LEFT JOIN u.contribuyenteServicio e WHERE e.servicio.id = :id")
+    public List<CobroGenerado> findCobroByServicioId(@Param("id")Long id);
+
 }

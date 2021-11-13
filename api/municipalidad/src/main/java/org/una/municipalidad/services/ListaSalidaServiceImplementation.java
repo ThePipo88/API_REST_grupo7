@@ -2,9 +2,12 @@ package org.una.municipalidad.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.una.municipalidad.dto.CementerioDTO;
 import org.una.municipalidad.dto.ListaSalidaDTO;
+import org.una.municipalidad.entities.Cementerio;
 import org.una.municipalidad.entities.ListaSalida;
 import org.una.municipalidad.exceptions.NotFoundInformationException;
 import org.una.municipalidad.repositories.IListaSalidaRepository;
@@ -48,6 +51,14 @@ public class ListaSalidaServiceImplementation implements IListaSalidaService{
     @Transactional(readOnly = true)
     public Optional<List<ListaSalidaDTO>> findByCantidad(int cantidad) {
         List<ListaSalida> listaSalidaList = listaSalidaRepository.findByCantidad(cantidad);
+        List<ListaSalidaDTO> listaSalidaDTOList = MapperUtils.DtoListFromEntityList(listaSalidaList, ListaSalidaDTO.class);
+        return Optional.ofNullable(listaSalidaDTOList);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<List<ListaSalidaDTO>> findByRutaId(@Param("id")Long id) {
+        List<ListaSalida> listaSalidaList = listaSalidaRepository.findByRutaId(id);
         List<ListaSalidaDTO> listaSalidaDTOList = MapperUtils.DtoListFromEntityList(listaSalidaList, ListaSalidaDTO.class);
         return Optional.ofNullable(listaSalidaDTOList);
     }

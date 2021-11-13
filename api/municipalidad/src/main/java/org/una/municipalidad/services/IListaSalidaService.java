@@ -1,5 +1,7 @@
 package org.una.municipalidad.services;
 
+import org.springframework.data.repository.query.Param;
+import org.una.municipalidad.dto.CementerioDTO;
 import org.una.municipalidad.dto.ListaSalidaDTO;
 
 import java.util.List;
@@ -14,6 +16,8 @@ public interface IListaSalidaService {
     public Optional<List<ListaSalidaDTO>> findByDia(String dia);
 
     public Optional<List<ListaSalidaDTO>> findByCantidad(int cantidad);
+
+    public Optional<List<ListaSalidaDTO>> findByRutaId(@Param("id")Long id);
 
     public Optional<ListaSalidaDTO> create(ListaSalidaDTO listaSalidaDTO);
 

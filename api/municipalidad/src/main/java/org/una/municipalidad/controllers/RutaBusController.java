@@ -70,12 +70,24 @@ public class RutaBusController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE')or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Se obtiene una lista de rutas de buses a partir del lugar final", response = RutaBusDTO.class, tags = "RutaBus")
     @GetMapping("/fin/{term}")
     public ResponseEntity<?> findByFin(@PathVariable(value = "term") String term) {
         try {
             Optional<List<RutaBusDTO>> result = rutaBusService.findByFin(term);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @ApiOperation(value = "Se obtiene una lista de rutas de buses a partir del id del servicio", response = RutaBusDTO.class, tags = "RutaBus")
+    @GetMapping("/byServicioId/{id}")
+    public ResponseEntity<?> findByServicioId(@PathVariable(value = "id") Long id) {
+        try {
+            Optional<List<RutaBusDTO>> result = rutaBusService.findByServicioId(id);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);

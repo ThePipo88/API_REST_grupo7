@@ -1,10 +1,13 @@
 package org.una.municipalidad.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.municipalidad.dto.CementerioDTO;
+import org.una.municipalidad.dto.RutaBusDTO;
 import org.una.municipalidad.entities.Cementerio;
+import org.una.municipalidad.entities.RutaBus;
 import org.una.municipalidad.exceptions.NotFoundInformationException;
 import org.una.municipalidad.repositories.ICementerioRepository;
 import org.una.municipalidad.utils.MapperUtils;
@@ -49,6 +52,13 @@ public class CementerioServiceImplementation implements  ICementerioService{
         return Optional.ofNullable(cementerioDTOList);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<List<CementerioDTO>> findByServicioId(@Param("id")Long id) {
+        List<Cementerio> rutaBusList = cementerioRepository.findByServicioId(id);
+        List<CementerioDTO> rutaBusDTOList = MapperUtils.DtoListFromEntityList(rutaBusList, CementerioDTO.class);
+        return Optional.ofNullable(rutaBusDTOList);
+    }
 
     @Override
     @Transactional
