@@ -71,6 +71,7 @@ public class CobroCanceladoServiceImplementation implements ICobroCanceladoServi
         return Optional.ofNullable(cobroCanceladoDTOList);
     }
 
+
     @Override
     @Transactional
     public Optional<CobroCanceladoDTO> create(CobroCanceladoDTO cobroCanceladoDTO) {
@@ -97,5 +98,13 @@ public class CobroCanceladoServiceImplementation implements ICobroCanceladoServi
         CobroCancelado cobroCancelado = MapperUtils.EntityFromDto(cobroCanceladoDTO, CobroCancelado.class);
         CobroCancelado cobroCanceladoCreated = cobroCanceladoRepository.save(cobroCancelado);
         return MapperUtils.DtoFromEntity(cobroCanceladoCreated, CobroCanceladoDTO.class);
+    }
+
+   @Override
+    @Transactional(readOnly = true)
+    public Optional<List<CobroCanceladoDTO>> findByCobroBetweenFecha(Date startDate, Date endDate) {
+        List<CobroCancelado> cobroCanceladoList = cobroCanceladoRepository.findByCobroBetweenFecha(startDate,endDate);
+        List<CobroCanceladoDTO> cobroCanceladoDTOList = MapperUtils.DtoListFromEntityList(cobroCanceladoList, CobroCanceladoDTO.class);
+        return Optional.ofNullable(cobroCanceladoDTOList);
     }
 }

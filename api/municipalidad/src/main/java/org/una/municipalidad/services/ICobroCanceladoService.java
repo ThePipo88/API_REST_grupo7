@@ -20,6 +20,8 @@ public interface ICobroCanceladoService {
 
     public Optional<List<CobroCanceladoDTO>> findByCobroBetweenCedulaAndFecha(@Param("cedula")String cedula, @Param("startDate")Date startDate, @Param("endDate")Date endDate);
 
+    public Optional<List<CobroCanceladoDTO>>  findByCobroBetweenFecha(@Param("startDate") Date startDate, @Param("endDate")Date endDate);
+
     public Optional<CobroCanceladoDTO> create(CobroCanceladoDTO cobroCanceladoDTO);
 
     public Optional<CobroCanceladoDTO> update(CobroCanceladoDTO cobroCanceladoDTO, Long id);
