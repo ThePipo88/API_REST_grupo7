@@ -31,6 +31,12 @@ public class SolicitudPermiso implements Serializable {
     @Column(name = "accion", length = 45)
     private String accion;
 
+    @Column(name = "tabla", length = 45)
+    private String tabla;
+
+    @Column(name = "idEliminar", length = 45)
+    private Long idEliminar;
+
     @Column(name = "fecha_creacion", updatable = false)
     @Temporal(TemporalType.DATE)
     @Setter(AccessLevel.NONE)

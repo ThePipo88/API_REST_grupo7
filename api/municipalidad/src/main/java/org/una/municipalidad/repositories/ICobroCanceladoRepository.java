@@ -20,6 +20,6 @@ public interface ICobroCanceladoRepository extends JpaRepository<CobroCancelado,
     @Query(value = "SELECT u FROM CobroCancelado u WHERE u.cobroGenerado.contribuyenteServicio.contribuyente.cedula = :cedula AND u.fechaCreacion >= :startDate AND u.fechaCreacion <= :endDate")
     public List<CobroCancelado> findByCobroBetweenCedulaAndFecha(@Param("cedula")String cedula, @Param("startDate")Date startDate, @Param("endDate")Date endDate);
 
-    @Query("SELECT u FROM Activo u WHERE u.fechaCreacion >= :startDate AND u.fechaCreacion <= :endDate")
+    @Query("SELECT u FROM CobroCancelado u WHERE u.fechaCreacion >= :startDate AND u.fechaCreacion <= :endDate")
     public List<CobroCancelado> findByCobroBetweenFecha(@Param("startDate")Date startDate, @Param("endDate")Date endDate);
 }
