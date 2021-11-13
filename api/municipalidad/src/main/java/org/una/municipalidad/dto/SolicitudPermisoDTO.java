@@ -16,4 +16,6 @@ public class SolicitudPermisoDTO {
     private String persona_autorizante;
     private String accion;
     private Date fechaCreacion;
+    private String tabla;
+    private Long idEliminar;
 }
