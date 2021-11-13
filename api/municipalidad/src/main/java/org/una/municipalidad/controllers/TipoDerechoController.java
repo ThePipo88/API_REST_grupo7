@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.una.municipalidad.dto.RutaBusDTO;
 import org.una.municipalidad.dto.TipoDerechoDTO;
 import org.una.municipalidad.services.ITipoDerechoService;
 
@@ -64,6 +65,18 @@ import java.util.Optional;
       public ResponseEntity<?> findByMonto(@PathVariable(value = "term") int term) {
           try{
               Optional<List<TipoDerechoDTO>> result = tipoDerechoService.findByMonto(term);
+              return new ResponseEntity<>(result, HttpStatus.OK);
+          }catch (Exception e){
+              return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+          }
+      }
+
+      @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+      @ApiOperation(value = "Se obtiene una lista de derechos de cementerio a partir del id del servicio", response = TipoDerechoDTO.class, tags = "TipoDerecho")
+      @GetMapping("/byServicioId/{id}")
+      public ResponseEntity<?> findByServicioId(@PathVariable(value = "id") Long id) {
+          try {
+              Optional<List<TipoDerechoDTO>> result = tipoDerechoService.findByServicioId(id);
               return new ResponseEntity<>(result, HttpStatus.OK);
           }catch (Exception e){
               return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.CementerioDTO;
+import org.una.municipalidad.dto.RutaBusDTO;
 import org.una.municipalidad.services.ICementerioService;
 
     @RestController
@@ -66,6 +67,18 @@ import org.una.municipalidad.services.ICementerioService;
             return new ResponseEntity<>(result, HttpStatus.OK);}
             catch(Exception e){
                 return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+        @ApiOperation(value = "Se obtiene una lista de derechos de cementerio a partir del id del servicio", response = RutaBusDTO.class, responseContainer = "List", tags = "Cementerio")
+        @GetMapping("/byServicioId/{id}")
+        public ResponseEntity<?> findByServicioId(@PathVariable(value = "id") Long id) {
+            try {
+                Optional<List<CementerioDTO>> result = cementerioService.findByServicioId(id);
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            }catch (Exception e){
+                return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 

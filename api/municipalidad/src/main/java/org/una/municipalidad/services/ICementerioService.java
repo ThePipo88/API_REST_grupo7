@@ -1,7 +1,9 @@
 package org.una.municipalidad.services;
 
 
+import org.springframework.data.repository.query.Param;
 import org.una.municipalidad.dto.CementerioDTO;
+import org.una.municipalidad.dto.RutaBusDTO;
 
 
 import java.util.List;
@@ -16,6 +18,8 @@ public interface ICementerioService {
     public Optional<List<CementerioDTO>> findBySector(String sector);
 
     public Optional<List<CementerioDTO>> findByOcupado(String ocupado);
+
+    public Optional<List<CementerioDTO>> findByServicioId(@Param("id")Long id);
 
     public Optional<CementerioDTO> create(CementerioDTO cementerioDTO);
 
