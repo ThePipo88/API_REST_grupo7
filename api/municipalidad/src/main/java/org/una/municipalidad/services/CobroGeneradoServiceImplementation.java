@@ -83,6 +83,13 @@ public class CobroGeneradoServiceImplementation implements ICobroGeneradoService
         return Optional.ofNullable(cobroGeneradoDTOList);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<List<CobroGeneradoDTO>> findByEstado(boolean estado) {
+        List<CobroGenerado> cobroGenerados = cobroGeneradoRepository.findByEstado(estado);
+        List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGenerados, CobroGeneradoDTO.class);
+        return Optional.ofNullable(cobroGeneradoDTOList);
+    }
 
     private CobroGeneradoDTO getSavedCobroGeneradoDTO(CobroGeneradoDTO cobroGeneradoDTO) {
         CobroGenerado cobroGenerado = MapperUtils.EntityFromDto(cobroGeneradoDTO, CobroGenerado.class);
