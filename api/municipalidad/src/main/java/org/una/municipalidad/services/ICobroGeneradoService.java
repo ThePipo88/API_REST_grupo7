@@ -1,9 +1,7 @@
 package org.una.municipalidad.services;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.una.municipalidad.dto.CobroGeneradoDTO;
-import org.una.municipalidad.entities.CobroGenerado;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +20,8 @@ public interface ICobroGeneradoService {
     public Optional<List<CobroGeneradoDTO>> findCobroByCedula(@Param("cedula")String cedula);
 
     public Optional<List<CobroGeneradoDTO>> findByFechaCobroBetween(Date startDate, Date endDate);
+
+    public Optional<List<CobroGeneradoDTO>> findByEstado(boolean estado);
 
     public CobroGeneradoDTO create(CobroGeneradoDTO cobroGeneradoDTO);
 

@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Builder
-public class SolicitudPermiso implements Serializable {
+public class  SolicitudPermiso implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,12 @@ public class SolicitudPermiso implements Serializable {
 
     @Column(name = "accion", length = 45)
     private String accion;
+
+    @Column(name = "tabla", length = 45)
+    private String tabla;
+
+    @Column(name = "idEliminar", length = 45)
+    private Long idEliminar;
 
     @Column(name = "fecha_creacion", updatable = false)
     @Temporal(TemporalType.DATE)

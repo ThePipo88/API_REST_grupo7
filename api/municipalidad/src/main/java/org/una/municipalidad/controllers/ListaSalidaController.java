@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.ListaSalidaDTO;
+import org.una.municipalidad.dto.RutaBusDTO;
 import org.una.municipalidad.services.IListaSalidaService;
 import java.util.List;
 import java.util.Optional;
@@ -71,6 +72,18 @@ public class ListaSalidaController {
             return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @ApiOperation(value = "Se obtiene una lista de salidas de buses a partir del id del servicio", response = ListaSalidaDTO.class, tags = "ListaSalida")
+    @GetMapping("/byRutaId/{id}")
+    public ResponseEntity<?> findByRutaId(@PathVariable(value = "id") Long id) {
+        try {
+            Optional<List<ListaSalidaDTO>> result = listaSalidaService.findByRutaId(id);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PreAuthorize("hasRole('GESTOR')")

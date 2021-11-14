@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.CobroCanceladoDTO;
 import org.una.municipalidad.dto.CobroGeneradoDTO;
+import org.una.municipalidad.dto.RolDTO;
 import org.una.municipalidad.services.ICobroGeneradoService;
 
 import java.util.Date;
@@ -80,6 +81,18 @@ public class CobroGeneradoController {
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch(Exception e){
             return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
+    @ApiOperation(value = "Obtiene un cobro generado a partir de su estado", response = CobroGeneradoDTO.class, tags = "CobroGenerado")
+    @GetMapping("/byEstado/{estado}")
+    public ResponseEntity<?> findByEstado(@PathVariable(value = "estado") boolean estado) {
+        try {
+            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByEstado(estado);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

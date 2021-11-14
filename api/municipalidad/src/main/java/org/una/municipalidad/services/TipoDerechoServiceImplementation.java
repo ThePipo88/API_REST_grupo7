@@ -1,10 +1,13 @@
 package org.una.municipalidad.services;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.una.municipalidad.dto.ListaSalidaDTO;
+import org.una.municipalidad.dto.RutaBusDTO;
 import org.una.municipalidad.dto.TipoDerechoDTO;
 import org.una.municipalidad.entities.ListaSalida;
+import org.una.municipalidad.entities.RutaBus;
 import org.una.municipalidad.entities.TipoDerecho;
 import org.una.municipalidad.exceptions.NotFoundInformationException;
 import org.una.municipalidad.repositories.ITipoDerechoRepository;
@@ -50,6 +53,14 @@ public class TipoDerechoServiceImplementation implements ITipoDerechoService{
         List<TipoDerecho> tipoDerechoslist = tipoDerechoRepository.findByMonto(monto);
         List<TipoDerechoDTO> tipoDerechoDTOList = MapperUtils.DtoListFromEntityList(tipoDerechoslist, TipoDerechoDTO.class);
         return Optional.ofNullable(tipoDerechoDTOList);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<List<TipoDerechoDTO>> findByServicioId(@Param("id")Long id) {
+        List<TipoDerecho> rutaBusList = tipoDerechoRepository.findByServicioId(id);
+        List<TipoDerechoDTO> rutaBusDTOList = MapperUtils.DtoListFromEntityList(rutaBusList, TipoDerechoDTO.class);
+        return Optional.ofNullable(rutaBusDTOList);
     }
 
     @Override

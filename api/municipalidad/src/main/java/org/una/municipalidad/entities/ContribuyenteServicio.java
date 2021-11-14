@@ -34,5 +34,8 @@ public class ContribuyenteServicio implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "contribuyenteServicio")
     private List<CobroGenerado> cobros = new ArrayList<>();
 
+    @Column
+    private boolean estado;
+
     private static final long serialVersionUID = 1L;
 }

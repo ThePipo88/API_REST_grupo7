@@ -12,8 +12,11 @@ import java.util.Date;
 public class SolicitudPermisoDTO {
 
     private Long id;
+    private boolean estado;
     private String persona_solicitante;
     private String persona_autorizante;
     private String accion;
     private Date fechaCreacion;
+    private String tabla;
+    private Long idEliminar;
 }
