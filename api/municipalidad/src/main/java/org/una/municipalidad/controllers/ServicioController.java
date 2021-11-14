@@ -37,7 +37,7 @@ public class ServicioController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Obtiene un servicio partir de su id", response = ServicioDTO.class, tags = "Servicios")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -110,7 +110,7 @@ public class ServicioController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('ADMINISTRADOR')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea un servicio", response = ServicioDTO.class, tags = "Servicios")
     @PostMapping("/")
@@ -124,7 +124,7 @@ public class ServicioController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se modifica un servicio a partir de su id", response = ServicioDTO.class, tags = "Servicios")
     @PutMapping("/{id}")
     @ResponseBody

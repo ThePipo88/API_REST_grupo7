@@ -17,5 +17,5 @@ public class ContribuyenteServicioDTO {
     private float porcentaje;
     private ContribuyenteDTO contribuyente;
     private ServicioDTO servicio;
-
+    private boolean estado;
 }
