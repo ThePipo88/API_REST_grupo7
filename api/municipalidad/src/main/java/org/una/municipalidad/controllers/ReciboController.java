@@ -78,6 +78,18 @@ public class ReciboController {
         }
     }
 
+
+    @ApiOperation(value = "Obtiene una lista de recibos en fechas dadas", response = ReciboDTO.class, responseContainer = "List", tags = "Recibos")
+    @GetMapping("/findByReciboBetweenFecha/{startDate}/{endDate}")
+    public ResponseEntity<?> findByReciboBetweenFecha(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        try {
+            Optional<List<ReciboDTO>> result = reciboService.findByReciboBetweenFecha(startDate,endDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }  catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PreAuthorize("hasRole('GESTOR') ")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea un recibo", response = ReciboDTO.class, tags = "Recibos")
