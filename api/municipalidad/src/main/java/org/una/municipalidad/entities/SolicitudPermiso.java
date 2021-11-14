@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Builder
-public class SolicitudPermiso implements Serializable {
+public class  SolicitudPermiso implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -62,7 +62,7 @@ public class SolicitudPermisoController {
             return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea un nuevo permiso", response = SolicitudPermisoDTO.class, tags = "SolicitudPermiso")
     @PostMapping("/")
