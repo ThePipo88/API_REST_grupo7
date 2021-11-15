@@ -78,6 +78,14 @@ public class ContribuyenteServiceImplementation implements IContribuyenteService
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Optional<ContribuyenteDTO> findByCedula(String cedula) {
+        Optional<Contribuyente> contribuyente = Optional.ofNullable(contribuyenteRepository.findByCedula(cedula));
+        ContribuyenteDTO contribuyenteDTO = MapperUtils.DtoFromEntity(contribuyente.get(), ContribuyenteDTO.class);
+        return Optional.ofNullable(contribuyenteDTO);
+    }
+
+    @Override
     @Transactional
     public ContribuyenteDTO create(ContribuyenteDTO contribuyenteDTO) {
         Contribuyente contribuyente = MapperUtils.EntityFromDto(contribuyenteDTO, Contribuyente.class);

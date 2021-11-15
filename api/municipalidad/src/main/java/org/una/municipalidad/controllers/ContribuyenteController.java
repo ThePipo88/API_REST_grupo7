@@ -116,6 +116,18 @@ public class ContribuyenteController {
         }
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @GetMapping("/findByCedula/{cedula}")
+    @ApiOperation(value = "Obtiene un contribuyente a partir de su cedula", response = ContribuyenteDTO.class, responseContainer = "ContribuyenteDTO", tags = "Contribuyentes")
+    public ResponseEntity<?> findByCedula(@PathVariable(value = "cedula") String cedula) {
+        try{
+            Optional<ContribuyenteDTO> result = contribuyenteService.findByCedula(cedula);
+            return new ResponseEntity<>(result, HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PreAuthorize("hasRole('GESTOR')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea un contribuyente", response = ContribuyenteDTO.class, tags = "Contribuyentes")

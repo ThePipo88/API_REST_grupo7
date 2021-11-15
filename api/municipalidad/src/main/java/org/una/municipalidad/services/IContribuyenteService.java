@@ -23,6 +23,8 @@ public interface IContribuyenteService {
 
     public Optional<List<ContribuyenteDTO>> findByTelefono(String telefono);
 
+    public Optional<ContribuyenteDTO> findByCedula(String cedula);
+
     public ContribuyenteDTO create(ContribuyenteDTO contribuyenteDTO);
 
     public Optional<ContribuyenteDTO> update(ContribuyenteDTO contribuyenteDTO, Long id);

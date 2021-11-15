@@ -23,5 +23,7 @@ public interface IContribuyenteRepository extends JpaRepository<Contribuyente, L
 
     public List<Contribuyente> findByTelefonoContainingIgnoreCase(String telefono);
 
+    public Contribuyente findByCedula(String cedula);
+
 
 }
