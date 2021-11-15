@@ -39,6 +39,14 @@ public class CobroGeneradoServiceImplementation implements ICobroGeneradoService
 
     @Override
     @Transactional(readOnly = true)
+    public Optional<List<CobroGeneradoDTO>> findByBusquedaId(Long id) {
+        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByBusquedaId(id);
+        List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
+        return Optional.ofNullable(cobroGeneradoDTOList);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Optional<List<CobroGeneradoDTO>> findByMonto(Double monto) {
         List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByMonto(monto);
         List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
@@ -51,6 +59,13 @@ public class CobroGeneradoServiceImplementation implements ICobroGeneradoService
         List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findCobroByCedula(cedula);
         List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
         return Optional.ofNullable(cobroGeneradoDTOList);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<CobroGeneradoDTO> findByFechaCobro(Date fechaCobro) {
+        Optional<CobroGenerado> cobroGenerado = cobroGeneradoRepository.findByFechaCobro(fechaCobro);
+        return Optional.ofNullable(MapperUtils.DtoFromEntity(cobroGenerado, CobroGeneradoDTO.class));
     }
 
 /*
