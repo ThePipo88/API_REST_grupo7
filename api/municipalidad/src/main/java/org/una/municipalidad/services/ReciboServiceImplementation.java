@@ -56,6 +56,14 @@ public class ReciboServiceImplementation implements IReciboService{
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Optional<List<ReciboDTO>> findByReciboBetweenFecha(Date startDate, Date endDate) {
+        List<Recibo> reciboList = reciboRepository.findByReciboBetweenFecha(startDate,endDate);
+        List<ReciboDTO> reciboDTOList = MapperUtils.DtoListFromEntityList(reciboList, ReciboDTO.class);
+        return Optional.ofNullable(reciboDTOList);
+    }
+
+    @Override
     @Transactional
     public ReciboDTO create(ReciboDTO reciboDTO) {
         Recibo recibo = MapperUtils.EntityFromDto(reciboDTO, Recibo.class);
@@ -81,6 +89,8 @@ public class ReciboServiceImplementation implements IReciboService{
     public void deleteAll() {
         reciboRepository.deleteAll();
     }
+
+
 
     private ReciboDTO getSavedReciboDTO(ReciboDTO reciboDTO) {
         Recibo recibo = MapperUtils.EntityFromDto(reciboDTO, Recibo.class);

@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.una.municipalidad.dto.CobroCanceladoDTO;
 import org.una.municipalidad.dto.CobroGeneradoDTO;
+import org.una.municipalidad.dto.ContribuyenteDTO;
 import org.una.municipalidad.dto.RolDTO;
 import org.una.municipalidad.services.ICobroGeneradoService;
 
@@ -51,6 +52,18 @@ public class CobroGeneradoController {
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @ApiOperation(value = "Obtiene una lista de cobros generadoss a partir de un Id Busqueda", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
+    @GetMapping("/busqueda/{id}")
+    public ResponseEntity<?> findByBusquedaId(@PathVariable(value = "id") Long id) {
+        try {
+            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findByBusquedaId(id);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de cobros generadoss a partir de un monto", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
     @GetMapping("/monto/{term}")
     public ResponseEntity<?> findByMonto(@PathVariable(value = "term") Double term) {
@@ -84,6 +97,18 @@ public class CobroGeneradoController {
         }
     }
 
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @GetMapping("/findByFecha/{fechaCobro}")
+    @ApiOperation(value = "Obtiene una fecha cobro", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
+    public ResponseEntity<?> findByFechaCobro(@PathVariable(value = "fechaCobro") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaCobro) {
+        try{
+            Optional<CobroGeneradoDTO> result = cobroGeneradoService.findByFechaCobro(fechaCobro);
+            return new ResponseEntity<>(result, HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un cobro generado a partir de su estado", response = CobroGeneradoDTO.class, tags = "CobroGenerado")
     @GetMapping("/byEstado/{estado}")
@@ -97,11 +122,11 @@ public class CobroGeneradoController {
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
-    @GetMapping("/ByCobroCedula/{cedula}/{tipo}")
+    @GetMapping("/ByCobroCedula/{cedula}")
     @ApiOperation(value = "Obtiene una lista de cobros generados de acuerdo a la cedula del contribuyente", response = CobroGeneradoDTO.class, responseContainer = "CobroGeneradoDTO", tags = "CobroGenerado")
-    public ResponseEntity<?> findCobroByCedula(@PathVariable(value = "cedula") String cedula, @PathVariable(value = "tipo") String tipo) {
+    public ResponseEntity<?> findCobroByCedula(@PathVariable(value = "cedula") String cedula) {
         try {
-            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findCobroByCedula(cedula,tipo);
+            Optional<List<CobroGeneradoDTO>> result = cobroGeneradoService.findCobroByCedula(cedula);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }  catch(Exception e){
             return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
