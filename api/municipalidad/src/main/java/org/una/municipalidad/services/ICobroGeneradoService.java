@@ -21,6 +21,8 @@ public interface ICobroGeneradoService {
 
     public Optional<List<CobroGeneradoDTO>> findCobroByCedulaAndTipo(@Param("cedula")String cedula,@Param("tipo")String tipo);
 
+    public Optional<List<CobroGeneradoDTO>> findCobroByCedula(@Param("cedula")String cedula);
+
     public Optional<CobroGeneradoDTO> findByFechaCobro(Date fechaCobro);
 
     public Optional<List<CobroGeneradoDTO>> findByFechaCobroBetween(Date startDate, Date endDate);
