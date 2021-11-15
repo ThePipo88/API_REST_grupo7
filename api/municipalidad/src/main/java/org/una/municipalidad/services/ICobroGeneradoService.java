@@ -19,7 +19,7 @@ public interface ICobroGeneradoService {
 
     //public Optional<List<CobroGeneradoDTO>> findByObjetoAndFechaCobroBetween(String objetoId, Date startDate, Date endDate);
 
-    public Optional<List<CobroGeneradoDTO>> findCobroByCedula(@Param("cedula")String cedula);
+    public Optional<List<CobroGeneradoDTO>> findCobroByCedulaAndTipo(@Param("cedula")String cedula,@Param("tipo")String tipo);
 
     public Optional<CobroGeneradoDTO> findByFechaCobro(Date fechaCobro);
 
