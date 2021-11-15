@@ -68,7 +68,7 @@ public class CobroCanceladoController {
     public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
         try{
-        Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findByFechaCreacionBetween(startDate,endDate);
+        Optional<List<CobroCanceladoDTO>> result = cobroCanceladoService.findByCobroBetweenFecha(startDate,endDate);
         return new ResponseEntity<>(result, HttpStatus.OK);}
         catch(Exception e){
             return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
