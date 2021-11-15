@@ -124,7 +124,6 @@ public class ServicioController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se modifica un servicio a partir de su id", response = ServicioDTO.class, tags = "Servicios")
     @PutMapping("/{id}")
     @ResponseBody

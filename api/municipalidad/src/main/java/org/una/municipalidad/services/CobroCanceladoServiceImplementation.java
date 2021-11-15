@@ -49,8 +49,8 @@ public class CobroCanceladoServiceImplementation implements ICobroCanceladoServi
 */
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<CobroCanceladoDTO>> findByFechaCreacionBetween(Date startDate, Date endDate) {
-        List<CobroCancelado> cobroCanceladoList = cobroCanceladoRepository.findByFechaCreacionBetween(startDate,endDate);
+    public Optional<List<CobroCanceladoDTO>> findByFechaCreacionBetween(@Param("startDate")Date startDate, @Param("endDate")Date endDate) {
+        List<CobroCancelado> cobroCanceladoList = cobroCanceladoRepository.findByCobroBetweenFecha(startDate,endDate);
         List<CobroCanceladoDTO> cobroCanceladoDTOList = MapperUtils.DtoListFromEntityList(cobroCanceladoList, CobroCanceladoDTO.class);
         return Optional.ofNullable(cobroCanceladoDTOList);
     }
@@ -102,7 +102,7 @@ public class CobroCanceladoServiceImplementation implements ICobroCanceladoServi
 
    @Override
     @Transactional(readOnly = true)
-    public Optional<List<CobroCanceladoDTO>> findByCobroBetweenFecha(Date startDate, Date endDate) {
+    public Optional<List<CobroCanceladoDTO>> findByCobroBetweenFecha(@Param("startDate")Date startDate,@Param("endDate")Date endDate) {
         List<CobroCancelado> cobroCanceladoList = cobroCanceladoRepository.findByCobroBetweenFecha(startDate,endDate);
         List<CobroCanceladoDTO> cobroCanceladoDTOList = MapperUtils.DtoListFromEntityList(cobroCanceladoList, CobroCanceladoDTO.class);
         return Optional.ofNullable(cobroCanceladoDTOList);

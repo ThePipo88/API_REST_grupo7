@@ -74,7 +74,6 @@ public class ContribuyenteServicioController {
 
     }
 
-    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se modifica un servicio de contribuyente a partir de su id", response = ContribuyenteServicioDTO.class, tags = "ContribuyenteServicio")
     @PutMapping("/{id}")
     @ResponseBody
