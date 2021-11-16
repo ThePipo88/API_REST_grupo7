@@ -21,7 +21,7 @@ public class ContribuyenteServicioController {
     @Autowired
     private IContribuyenteServicioService contribuyenteServicioService;
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Obtiene una lista de todos los servicios de los contribuyentes", response = ContribuyenteServicioDTO.class, responseContainer = "List", tags = "ContribuyenteServicio")
     @GetMapping()
     public @ResponseBody
@@ -34,7 +34,7 @@ public class ContribuyenteServicioController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Obtiene un servicio contribuyente a partir de su id", response = ContribuyenteServicioDTO.class, tags = "ContribuyenteServicio")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -87,7 +87,7 @@ public class ContribuyenteServicioController {
 
     }
 
-    @PreAuthorize("hasRole('GESTOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se elimina un servicio de contribuyente a partir de su id", response = ContribuyenteServicioDTO.class, tags = "ContribuyenteServicio")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {

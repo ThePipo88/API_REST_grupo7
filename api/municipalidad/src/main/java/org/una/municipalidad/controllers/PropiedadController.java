@@ -36,7 +36,7 @@ public class PropiedadController {
             return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Obtiene una propiedad a partir de su id", response = PropiedadDTO.class, tags = "Propiedades")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -123,7 +123,7 @@ public class PropiedadController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se elimina una propiedad a partir de su id", response = PropiedadDTO.class, tags = "Propiedad")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {

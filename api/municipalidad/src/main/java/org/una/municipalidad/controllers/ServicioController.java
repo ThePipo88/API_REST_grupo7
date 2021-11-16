@@ -136,7 +136,7 @@ public class ServicioController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se elimina un ervicio a partir de su id", response = ServicioDTO.class, tags = "Servicios")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {

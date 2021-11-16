@@ -34,7 +34,7 @@ public class RutaBusController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se obtiene una ruta de bus a partir de su id", response = RutaBusDTO.class, tags = "RutaBus")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -82,7 +82,7 @@ public class RutaBusController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se obtiene una lista de rutas de buses a partir del id del servicio", response = RutaBusDTO.class, tags = "RutaBus")
     @GetMapping("/byServicioId/{id}")
     public ResponseEntity<?> findByServicioId(@PathVariable(value = "id") Long id) {
@@ -108,7 +108,7 @@ public class RutaBusController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se modifica una ruta de bus a partir de su id", response = RutaBusDTO.class, tags = "RutaBus")
     @PutMapping("/{id}")
     @ResponseBody
@@ -121,7 +121,7 @@ public class RutaBusController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se elimina una ruta de bus a partir de su id", response = RutaBusDTO.class, tags = "RutaBus")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {

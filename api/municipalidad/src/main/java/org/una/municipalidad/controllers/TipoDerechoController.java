@@ -35,7 +35,7 @@ import java.util.Optional;
           }
       }
 
-      @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+      @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
       @ApiOperation(value = "Obtiene un tipo de derecho  a partir de su id", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @GetMapping("/{id}")
       public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -71,7 +71,7 @@ import java.util.Optional;
           }
       }
 
-      @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+      @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
       @ApiOperation(value = "Se obtiene una lista de derechos de cementerio a partir del id del servicio", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @GetMapping("/byServicioId/{id}")
       public ResponseEntity<?> findByServicioId(@PathVariable(value = "id") Long id) {
@@ -110,7 +110,7 @@ import java.util.Optional;
           }
       }
 
-      @PreAuthorize("hasRole('GESTOR')")
+      @PreAuthorize("hasRole('GESTOR') or hasRole('ADMINISTRADOR')")
       @ApiOperation(value = "Se elimina una lista tipos de derechos a partir de su id", response = TipoDerechoDTO.class, tags = "TipoDerecho")
       @DeleteMapping("/{id}")
       public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {

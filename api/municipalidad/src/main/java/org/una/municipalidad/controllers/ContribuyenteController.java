@@ -44,7 +44,7 @@ public class ContribuyenteController {
             }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Obtiene un contribuyente a partir de su id", response = ContribuyenteDTO.class, tags = "Contribuyentes")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -116,7 +116,7 @@ public class ContribuyenteController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
     @GetMapping("/findByCedula/{cedula}")
     @ApiOperation(value = "Obtiene un contribuyente a partir de su cedula", response = ContribuyenteDTO.class, responseContainer = "ContribuyenteDTO", tags = "Contribuyentes")
     public ResponseEntity<?> findByCedula(@PathVariable(value = "cedula") String cedula) {
@@ -154,7 +154,7 @@ public class ContribuyenteController {
        }
     }
 
-    @PreAuthorize("hasRole('GESTOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se elimina un contribuyente a partir de su id", response = ContribuyenteDTO.class, tags = "Contribuyentes")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {

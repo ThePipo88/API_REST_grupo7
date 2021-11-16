@@ -38,7 +38,7 @@ public class ServicioPropiedadController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Obtiene un servicio propiedad a partir de su id", response = ServicioPropiedadDTO.class, tags = "ServiciosPropiedades")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -50,7 +50,7 @@ public class ServicioPropiedadController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Obtiene un servicio a partir de su id", response = ServicioPropiedadDTO.class, tags = "ServiciosPropiedades")
     @GetMapping("/ByServicioId/{id}")
     public ResponseEntity<?> findByServicioId(@PathVariable(value = "id") Long id) {
@@ -62,7 +62,7 @@ public class ServicioPropiedadController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Obtiene una propiedad a partir de su id", response = ServicioPropiedadDTO.class, tags = "ServiciosPropiedades")
     @GetMapping("/ByPropiedadId/{id}")
     public ResponseEntity<?> findByPropiedadId(@PathVariable(value = "id") Long id) {
@@ -101,7 +101,7 @@ public class ServicioPropiedadController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Se elimina un ervicio a partir de su id", response = ServicioPropiedadDTO.class, tags = "ServiciosPropiedades")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {

@@ -33,7 +33,7 @@ import org.una.municipalidad.services.ICementerioService;
                 }
         }
 
-        @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+        @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
         @ApiOperation(value = "Obtiene un derecho de cementerio a partir de su id", response = CementerioDTO.class, tags = "Cementerio")
         @GetMapping("/{id}")
         public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -70,7 +70,7 @@ import org.una.municipalidad.services.ICementerioService;
             }
         }
 
-        @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+        @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
         @ApiOperation(value = "Se obtiene una lista de derechos de cementerio a partir del id del servicio", response = RutaBusDTO.class, responseContainer = "List", tags = "Cementerio")
         @GetMapping("/byServicioId/{id}")
         public ResponseEntity<?> findByServicioId(@PathVariable(value = "id") Long id) {
@@ -109,7 +109,7 @@ import org.una.municipalidad.services.ICementerioService;
             }
         }
 
-        @PreAuthorize("hasRole('GESTOR')")
+        @PreAuthorize("hasRole('GESTOR') or hasRole('ADMINISTRADOR')")
         @ApiOperation(value = "Se elimina un derecho de cementerio con su id", response = CementerioDTO.class, tags = "Cementerio")
         @DeleteMapping("/{id}")
         public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
