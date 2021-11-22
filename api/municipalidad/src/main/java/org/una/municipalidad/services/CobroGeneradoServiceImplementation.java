@@ -40,9 +40,9 @@ public class CobroGeneradoServiceImplementation implements ICobroGeneradoService
     @Override
     @Transactional(readOnly = true)
     public Optional<List<CobroGeneradoDTO>> findByBusquedaId(Long id) {
-        List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findByBusquedaId(id);
-        List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
-        return Optional.ofNullable(cobroGeneradoDTOList);
+        List<CobroGenerado> cobroGeneradoHolaList = cobroGeneradoRepository.findByBusquedaId(id);
+        List<CobroGeneradoDTO> cobroGeneradoHolaDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoHolaList, CobroGeneradoDTO.class);
+        return Optional.ofNullable(cobroGeneradoHolaDTOList);
     }
 
     @Override
@@ -63,6 +63,7 @@ public class CobroGeneradoServiceImplementation implements ICobroGeneradoService
     }
 
     @Override
+
     public Optional<List<CobroGeneradoDTO>> findCobroByCedula(String cedula) {
         List<CobroGenerado> cobroGeneradoList = cobroGeneradoRepository.findCobroByCedula(cedula);
         List<CobroGeneradoDTO> cobroGeneradoDTOList = MapperUtils.DtoListFromEntityList(cobroGeneradoList, CobroGeneradoDTO.class);
@@ -71,10 +72,37 @@ public class CobroGeneradoServiceImplementation implements ICobroGeneradoService
 
     @Override
     @Transactional(readOnly = true)
+    public Optional<CobroGeneradoDTO> findByCobroRutaBus(Date startDate, Date endDate) {
+        Optional<CobroGenerado> cobroRutaBus = cobroGeneradoRepository.findByCobroRutaBus(startDate,endDate);
+        return Optional.ofNullable(MapperUtils.DtoFromEntity(cobroRutaBus, CobroGeneradoDTO.class));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<CobroGeneradoDTO> findByCobroLimpiezaParque(Date startDate, Date endDate) {
+        Optional<CobroGenerado> cobroLimpiezaParque = cobroGeneradoRepository.findByCobroLimpiezaParque(startDate,endDate);
+        return Optional.ofNullable(MapperUtils.DtoFromEntity(cobroLimpiezaParque, CobroGeneradoDTO.class));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<CobroGeneradoDTO> findByCobroCementerio(Date startDate, Date endDate) {
+        Optional<CobroGenerado> cobroCementerio = cobroGeneradoRepository.findByCobroCementerio(startDate,endDate);
+        return Optional.ofNullable(MapperUtils.DtoFromEntity(cobroCementerio, CobroGeneradoDTO.class));
+    }
+
+
+
+
+    /*
+    @Override
+    @Transactional(readOnly = true)
     public Optional<CobroGeneradoDTO> findByFechaCobro(Date fechaCobro) {
         Optional<CobroGenerado> cobroGenerado = cobroGeneradoRepository.findByFechaCobro(fechaCobro);
         return Optional.ofNullable(MapperUtils.DtoFromEntity(cobroGenerado, CobroGeneradoDTO.class));
     }
+    */
+
 
 /*
     @Override
