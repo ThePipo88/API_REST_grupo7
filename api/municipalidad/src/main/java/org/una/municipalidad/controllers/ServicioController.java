@@ -24,7 +24,7 @@ public class ServicioController {
     @Autowired
     private IServicioService servicioService;
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Obtiene una lista de todos los servicios", response = ServicioDTO.class, responseContainer = "List", tags = "Servicios")
     @GetMapping()
     public @ResponseBody
@@ -39,7 +39,7 @@ public class ServicioController {
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR') or hasRole('ADMINISTRADOR')")
     @ApiOperation(value = "Obtiene un servicio partir de su id", response = ServicioDTO.class, tags = "Servicios")
-    @GetMapping("/{id}")
+    @GetMapping("/byId/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
         try{
             Optional<ServicioDTO> result = servicioService.findById(id);

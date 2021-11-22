@@ -28,7 +28,7 @@ public class  SolicitudPermiso implements Serializable {
     @Column(name = "Persona_autorizante", length = 45)
     private String persona_autorizante;
 
-    @Column(name = "accion", length = 45)
+    @Column(name = "accion", length = 100)
     private String accion;
 
     @Column(name = "tabla", length = 45)

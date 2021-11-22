@@ -24,7 +24,6 @@ public class TransaccionController {
     @Autowired
     private ITransaccionService transaccionService;
 
-    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una transaccion a partir de su id", response = TransaccionDTO.class, tags = "Transacciones")
     @GetMapping("/findById/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -36,7 +35,6 @@ public class TransaccionController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todos las trasacciones", response = TransaccionDTO.class, responseContainer = "List", tags = "Transacciones")
     @GetMapping()
     public @ResponseBody
@@ -49,7 +47,6 @@ public class TransaccionController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @GetMapping("/byIdAndFecha/{id}/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de transacciones de acuerdo al usuario y dos fechas dadas", response = TransaccionDTO.class, responseContainer = "TransaccionDto", tags = "Transacciones")
     public ResponseEntity<?> findByUsuarioIdAndFechaCreacionBetween(@PathVariable(value = "id") Long id, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate")
@@ -62,7 +59,6 @@ public class TransaccionController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @GetMapping("/byObjetoAndFecha/{id}/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de transacciones de acuerdo al objeto y fecha de creacion", response = TransaccionDTO.class, responseContainer = "TransaccionDto", tags = "Transacciones")
     public ResponseEntity<?> findByObjetoAndFechaCreacionBetween(@PathVariable(value = "id") String id, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate")
@@ -75,7 +71,6 @@ public class TransaccionController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @GetMapping("/byFechaCreacion/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de transacciones entre dos fechas dadas", response = TransaccionDTO.class, responseContainer = "TransaccionDto", tags = "Transacciones")
     public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate")
@@ -88,7 +83,6 @@ public class TransaccionController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE')")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Se crea una transaccion", response = TransaccionDTO.class, tags = "Transacciones")
     @PostMapping("/")
@@ -103,7 +97,6 @@ public class TransaccionController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se modifica una lista de transacciones a partir de su id", response = TransaccionDTO.class, tags = "Transacciones")
     @PutMapping("/{id}")
     @ResponseBody
@@ -116,7 +109,6 @@ public class TransaccionController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se elimina una transaccion a partir de su id", response = TransaccionDTO.class, tags = "Transacciones")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
@@ -128,7 +120,6 @@ public class TransaccionController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR')")
     @ApiOperation(value = "Se eliminan todas las transacciones", response = TransaccionDTO.class, tags = "Transacciones")
     @DeleteMapping("/")
     public ResponseEntity<?> deleteAll() throws Exception {

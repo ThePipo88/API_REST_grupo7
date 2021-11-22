@@ -21,4 +21,5 @@ public class ServicioDTO {
     private PropiedadDTO propiedad;
     private Date fechaRegistro;
     private Date ultimaActualizacion;
+    private float porcentaje;
 }

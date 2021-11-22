@@ -27,6 +27,9 @@ public class Servicio implements Serializable {
     @Column(name = "descripcion", length = 50)
     private String descripcion;
 
+    @Column(name = "porcentaje", length = 10)
+    private float porcentaje;
+
     @Column
     private boolean estado;
 
