@@ -23,7 +23,13 @@ public interface ICobroGeneradoService {
 
     public Optional<List<CobroGeneradoDTO>> findCobroByCedula(@Param("cedula")String cedula);
 
-    public Optional<CobroGeneradoDTO> findByFechaCobro(Date fechaCobro);
+    //public Optional<CobroGeneradoDTO> findByFechaCobro(Date fechaCobro);
+
+    public Optional<CobroGeneradoDTO> findByCobroRutaBus(Date startDate,Date endDate);
+
+    public Optional<CobroGeneradoDTO> findByCobroLimpiezaParque(Date startDate,Date endDate);
+
+    public Optional<CobroGeneradoDTO> findByCobroCementerio(Date startDate,Date endDate);
 
     public Optional<List<CobroGeneradoDTO>> findByFechaCobroBetween(Date startDate, Date endDate);
 

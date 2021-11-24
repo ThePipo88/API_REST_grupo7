@@ -24,7 +24,7 @@ public class CobroCanceladoController {
     @Autowired
     private ICobroCanceladoService cobroCanceladoService;
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
+    //@PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR') or hasRole('GERENTE')")
     @ApiOperation(value = "Obtiene una lista de todos los cobros cancelados", response = CobroCanceladoDTO.class, responseContainer = "List", tags = "CobroCancelado")
     @GetMapping()
     public @ResponseBody
@@ -37,7 +37,7 @@ public class CobroCanceladoController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
+    //@PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un cobro cancelado a partir de su id", response = CobroCanceladoDTO.class, tags = "CobroCancelado")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -50,7 +50,7 @@ public class CobroCanceladoController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
+    //@PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/ByCobroBetweenCedulaAndFecha/{cedula}/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de cobros cancelados de acuerdo a la cedula del contribuyente y dos fechas dadas", response = CobroCanceladoDTO.class, responseContainer = "CobroCanceladoDTO", tags = "CobroCancelado")
     public ResponseEntity<?> findByCobroBetweenCedulaAndFecha(@PathVariable(value = "cedula") String cedula, @PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
@@ -62,7 +62,7 @@ public class CobroCanceladoController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
+    //@PreAuthorize("hasRole('GESTOR') or hasRole('AUDITOR')")
     @GetMapping("/byFechaCreacion/{startDate}/{endDate}")
     @ApiOperation(value = "Obtiene una lista de cobros cancelados con base en dos fechas dadas", response = CobroCanceladoDTO.class, responseContainer = "CobroCanceladoDto", tags = "CobroCancelado")
     public ResponseEntity<?> findByFechaCreacionBetween(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @PathVariable(value = "endDate")

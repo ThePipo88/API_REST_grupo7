@@ -24,8 +24,17 @@ public interface ICobroGeneradoRepository extends JpaRepository<CobroGenerado, L
 
     public List<CobroGenerado> findByMonto(Double monto);
 
-    @Query(value="{call COBROS_MENSUAL(:fecha_in)}",nativeQuery = true)
-    public Optional<CobroGenerado> findByFechaCobro(@Param("fecha_in")Date fechaCobro);
+    //@Query(value="{call COBROS_MENSUAL(:fecha_in)}",nativeQuery = true)
+    //public Optional<CobroGenerado> findByFechaCobro(@Param("fecha_in")Date fechaCobro);
+
+    @Query(value="{call COBROS_RUTABUS(:fecha_in,:fecha_out)}",nativeQuery = true)
+    public Optional<CobroGenerado> findByCobroRutaBus(@Param("fecha_in")Date startDate,@Param("fecha_out")Date endDate);
+
+    @Query(value="{call COBROS_LIMPIEZAPARQUES(:fecha_in,:fecha_out)}",nativeQuery = true)
+    public Optional<CobroGenerado> findByCobroLimpiezaParque(@Param("fecha_in")Date startDate,@Param("fecha_out")Date endDate);
+
+    @Query(value="{call COBROS_CEMENTERIO(:fecha_in,:fecha_out)}",nativeQuery = true)
+    public Optional<CobroGenerado> findByCobroCementerio(@Param("fecha_in")Date startDate,@Param("fecha_out")Date endDate);
 
     public List<CobroGenerado> findByFechaCobroBetween(Date startDate, Date endDate);
 

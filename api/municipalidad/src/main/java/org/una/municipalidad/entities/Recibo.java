@@ -22,9 +22,6 @@ public class Recibo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recibo")
-    private List<CobroCancelado> cobros = new ArrayList<>();
-
     @Column(name = "descripcion", length = 250)
     private String descripcion;
 

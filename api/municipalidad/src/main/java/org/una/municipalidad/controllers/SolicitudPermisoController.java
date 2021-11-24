@@ -24,7 +24,7 @@ public class SolicitudPermisoController {
     @Autowired
     private ISolicitudPermisoService solicitudPermisoService;
 
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un permiso a partir de su id", response = SolicitudPermisoDTO.class, tags = "SolicitudPermiso")
     @GetMapping("/findById/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -36,7 +36,7 @@ public class SolicitudPermisoController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMINISTRADOR')")
+    @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todos los permisos", response = SolicitudPermisoDTO.class, responseContainer = "List", tags = "SolicitudPermiso")
     @GetMapping()
     public @ResponseBody ResponseEntity<?> findAll() {

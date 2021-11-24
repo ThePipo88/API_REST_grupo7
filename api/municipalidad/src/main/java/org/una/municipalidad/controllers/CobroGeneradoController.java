@@ -25,7 +25,7 @@ public class CobroGeneradoController {
     @Autowired
     private ICobroGeneradoService cobroGeneradoService;
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    //@PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de todos los cobros generados", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
     @GetMapping()
     public @ResponseBody
@@ -39,7 +39,7 @@ public class CobroGeneradoController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    //@PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un cobro generado a partir de su id", response = CobroGeneradoDTO.class, tags = "CobroGenerado")
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable(value = "id") Long id) {
@@ -51,7 +51,7 @@ public class CobroGeneradoController {
         }
     }
 
-    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    //@PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene una lista de cobros generadoss a partir de un Id Busqueda", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
     @GetMapping("/busqueda/{id}")
     public ResponseEntity<?> findByBusquedaId(@PathVariable(value = "id") Long id) {
@@ -98,6 +98,46 @@ public class CobroGeneradoController {
     }
 
     @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @GetMapping("/findByCobroRutaBus/{startDate}/{endDate}")
+    @ApiOperation(value = "Genera cobros mensuales", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
+    public ResponseEntity<?> findByCobroRutaBus(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date startDate, @PathVariable(value = "endDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
+        try{
+            Optional<CobroGeneradoDTO> result = cobroGeneradoService.findByCobroRutaBus(startDate,endDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @GetMapping("/findByCobroLimpiezaParque/{startDate}/{endDate}")
+    @ApiOperation(value = "Genera cobros bimestrales", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
+    public ResponseEntity<?> findByCobroLimpiezaParque(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date startDate, @PathVariable(value = "endDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
+        try{
+            Optional<CobroGeneradoDTO> result = cobroGeneradoService.findByCobroLimpiezaParque(startDate,endDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
+    @GetMapping("/findByCobroCementerio/{startDate}/{endDate}")
+    @ApiOperation(value = "Genera cobros anuales", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
+    public ResponseEntity<?> findByCobroCementerio(@PathVariable(value = "startDate") @DateTimeFormat(pattern = "yyyy-MM-dd")  Date startDate, @PathVariable(value = "endDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
+        try{
+            Optional<CobroGeneradoDTO> result = cobroGeneradoService.findByCobroCementerio(startDate,endDate);
+            return new ResponseEntity<>(result, HttpStatus.OK);}
+        catch(Exception e){
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /*
+    @PreAuthorize("hasRole('GESTOR') or hasRole('GERENTE') or hasRole('AUDITOR')")
     @GetMapping("/findByFecha/{fechaCobro}")
     @ApiOperation(value = "Obtiene una fecha cobro", response = CobroGeneradoDTO.class, responseContainer = "List", tags = "CobroGenerado")
     public ResponseEntity<?> findByFechaCobro(@PathVariable(value = "fechaCobro") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaCobro) {
@@ -108,6 +148,8 @@ public class CobroGeneradoController {
             return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+     */
+
 
     @PreAuthorize("hasRole('ADMINISTRADOR') or hasRole('AUDITOR')")
     @ApiOperation(value = "Obtiene un cobro generado a partir de su estado", response = CobroGeneradoDTO.class, tags = "CobroGenerado")
